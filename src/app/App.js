@@ -89,8 +89,8 @@ class ReaderText extends Component {
         this.getText = this.getText.bind(this);
     }
     getText() {
-        // return TextEngine.getLongText();
-        return TextEngine.getTextNumber(this.props.currentTextNumber);
+        // TODO: Get some text from TextEngine
+        // return TextEngine.getTextNumber(this.props.currentTextNumber);
     }
     render() {
         let viewText = this.getText();

@@ -139,16 +139,18 @@ function getDocMetadataByTitle(docTitle) {
     });
 }
 
-getDocMetadataByTitle('Brothers Test Part I')
-    .then(docMetadata => getPrevBlocksByWordCountRange(docMetadata, 9, [800, 1000]))
-    .then(blocks => {
-        let wordCount = 0;
-        let blockIndices = [];
-        for (let block of blocks) {
-            blockIndices.push(block.index);
-            wordCount += block.wordCount;
-        }
-        console.log('Blocks fetched:' + blockIndices);
-        console.log('Words fetched: ' + wordCount);
-    })
-    .catch(err => console.log(err));
+export default TextEndpoint;
+
+// getDocMetadataByTitle('Brothers Test Part I')
+//     .then(docMetadata => getPrevBlocksByWordCountRange(docMetadata, 9, [800, 1000]))
+//     .then(blocks => {
+//         let wordCount = 0;
+//         let blockIndices = [];
+//         for (let block of blocks) {
+//             blockIndices.push(block.index);
+//             wordCount += block.wordCount;
+//         }
+//         console.log('Blocks fetched:' + blockIndices);
+//         console.log('Words fetched: ' + wordCount);
+//     })
+//     .catch(err => console.log(err));
