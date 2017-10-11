@@ -49,6 +49,9 @@ function getManyBlocksByIndex(docID, blockIndexArray) {
 }
 
 function getNextBlocksByWordCountRange(docMetadata, firstBlockToGet, range) {
+    // firstBlockToGet should be the first block to be displayed in the new view
+    // In other words, firstBlockToGet should be one block after the last block of the current view
+
     return new Promise( (resolve, reject) => {
         const lowerBound = range[0];
         const upperBound = range[1];
@@ -57,7 +60,7 @@ function getNextBlocksByWordCountRange(docMetadata, firstBlockToGet, range) {
         let wordCountArray = docMetadata['wordCountPerBlock'];
         let blocksToGet = [];
 
-        while (wordCount < lowerBound) {
+        while (wordCount < lowerBound && blockIndex < (wordCountArray.length - 1)) {
             blocksToGet.push(blockIndex);
             wordCount += wordCountArray[blockIndex];
             blockIndex += 1;
@@ -75,6 +78,41 @@ function getNextBlocksByWordCountRange(docMetadata, firstBlockToGet, range) {
                 .catch(err => console.log(err));
         } else {
             reject(Error('getNextBlocksByWordCountRange not asking for any documents'));
+        }
+
+    });
+}
+
+function getPrevBlocksByWordCountRange(docMetadata, lastBlockToGet, range) {
+    // lastBlockToGet should be the last block to be displayed in the new view
+    // In other words, lastBlockToGet should be one block before the first block of the current view
+
+    return new Promise( (resolve, reject) => {
+        const lowerBound = range[0];
+        const upperBound = range[1];
+        let wordCount = 0;
+        let blockIndex = lastBlockToGet;
+        let wordCountArray = docMetadata['wordCountPerBlock'];
+        let blocksToGet = [];
+
+        while (wordCount < lowerBound && blockIndex > 0) {
+            blocksToGet.push(blockIndex);
+            wordCount += wordCountArray[blockIndex];
+            blockIndex -= 1;
+        }
+
+        if (blocksToGet.length > 0) {
+            getManyBlocksByIndex(docMetadata['documentID'], blocksToGet)
+                .then(docs => {
+                    if (docs.length > 0) {
+                        resolve(docs);
+                    } else {
+                        reject(Error('No blocks fetched from DB in getPrevBlocksByWordCountRange'));
+                    }
+                })
+                .catch(err => console.log(err));
+        } else {
+            reject(Error('getPrevBlocksByWordCountRange not asking for any documents'));
         }
 
     });
@@ -102,12 +140,15 @@ function getDocMetadataByTitle(docTitle) {
 }
 
 getDocMetadataByTitle('Brothers Test Part I')
-    .then(docMetadata => getNextBlocksByWordCountRange(docMetadata, 10, [800, 1000]))
+    .then(docMetadata => getPrevBlocksByWordCountRange(docMetadata, 9, [800, 1000]))
     .then(blocks => {
         let wordCount = 0;
+        let blockIndices = [];
         for (let block of blocks) {
+            blockIndices.push(block.index);
             wordCount += block.wordCount;
         }
+        console.log('Blocks fetched:' + blockIndices);
         console.log('Words fetched: ' + wordCount);
     })
     .catch(err => console.log(err));
