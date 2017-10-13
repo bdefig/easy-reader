@@ -1,4 +1,5 @@
-import * as TextEndpoint from '../server/TextEndpoint.js';
+import 'whatwg-fetch';
+// import * as TextEndpoint from '../server/TextEndpoint.js';
 
 function getFirstBlocks() {
     // TODO: Get the first few blocks of the document from TextEndpoint
