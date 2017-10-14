@@ -1,7 +1,26 @@
-// const MongoClient = require('mongodb').MongoClient;
-const mongoURL = 'mongodb://localhost:27017/EasyReader';
-const mongoose = require('mongoose');
+const DocumentBlock = require('../models/DocumentBlock');
+const DocumentMetadata = require('../models/DocumentMetadata');
 
-mongoose.connect(mongoURL, {useMongoClient: true});
-const db = mongoose.connection;
-db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+exports.getAllDocumentMetadata = function (req, res, next) {
+
+}
+
+exports.getDocumentMetadataByID = function (req, res, next) {
+    
+}
+
+exports.insertDocumentMetadata = function (req, res, next) {
+    
+}
+
+exports.getOneDocumentBlock = function (req, res, next) {
+    
+}
+
+exports.getDocumentBlocks = function (req, res, next) {
+    
+}
+
+exports.insertDocumentBlocks = function (req, res, next) {
+    
+}

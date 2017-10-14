@@ -6,11 +6,20 @@ A light reader built in React that makes reading books as easy as reading articl
 
 The following endpoints are available via REST API implemented in Node.js and Express.
 
-### Get document metadata
-`v1/document_metadata/:documentID`
+### Get all document metadata
+`v1/documentMetadata`
 
-### Get single document Block
+### Get document metadata by ID
+`v1/documentMetadata/:documentID`
+
+### Insert document metadata
+`v1/documentMetadata/insert`
+
+### Get single document block
 `v1/document/:documentID/block/:blockIndex`
 
 ### Get multiple document blocks
 `v1/document/:documentID/first/:firstBlockIndex/last/:lastBlockIndex`
+
+### Insert document blocks
+`v1/document/:documentID/insert`
