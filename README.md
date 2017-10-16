@@ -23,3 +23,9 @@ The following endpoints are available via REST API implemented in Node.js and Ex
 
 ### Insert document blocks
 `v1/document/:documentID/insert`
+
+### Delete document by ID
+`v1/document/:documentID/delete`
+
+### Clear all documents metadata and document blocks
+`v1/clearAllDocuments`

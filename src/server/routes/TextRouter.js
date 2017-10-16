@@ -20,3 +20,11 @@ router.get('v1/document/:documentID/first/:firstBlockIndex/last/:lastBlockIndex'
 
 // POST document blocks
 router.post('v1/document/:documentID/insert', textController.insertDocumentBlocks);
+
+// DELETE document
+router.delete('v1/document/:documentID/delete', textController.deleteDocumentByID);
+
+// DELETE all documents and document blocks
+router.delete('v1/clearAllDocuments', textController.clearAllDocuments);
+
+module.exports = router;

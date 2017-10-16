@@ -3,10 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "body-parser": "^1.18.2",
     "express": "^4.15.4",
     "fs": "^0.0.1-security",
     "mongodb": "^2.2.31",
     "mongoose": "^4.12.1",
+    "node-fetch": "^1.7.3",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "react-render-html": "^0.5.0",
