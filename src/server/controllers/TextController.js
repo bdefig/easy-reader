@@ -46,3 +46,9 @@ exports.clearAllDocuments = function (req, res, next) {
     DocumentMetadata.deleteMany({})
         .catch(err => console.log(err));
 }
+
+exports.marcoPolo = function (req, res, next) {
+    console.log('Logging here');
+    console.log(req.params.marco);
+    res.json({Polo: req.params.marco});
+}
