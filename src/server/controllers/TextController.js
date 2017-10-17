@@ -27,6 +27,7 @@ exports.insertDocumentMetadata = function (req, res, next) {
     // Add validation
 
     newDocMetadata.save()
+        .then(docMetadata => res.json(newDocMetadata))
         .catch(err => console.log(err));
 }
 
@@ -55,6 +56,8 @@ exports.getDocumentBlocks = function (req, res, next) {
 exports.insertDocumentBlocks = function (req, res, next) {
     let blockArray = [];
     for (let block of req.body.blocks) {
+        // Add validation
+
         const newDocBlock = new DocumentBlock ({
             documentID: block.documentID,
             index: block.index,
