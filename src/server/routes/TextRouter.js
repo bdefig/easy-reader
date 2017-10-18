@@ -21,6 +21,9 @@ router.get('/v1/document/:documentID/first/:firstBlockIndex/last/:lastBlockIndex
 // POST document blocks
 router.post('/v1/document/:documentID/insert', textController.insertDocumentBlocks);
 
+// POST document (metadata and blocks)
+router.post('/v1/document/insert', textController.insertDocument);
+
 // DELETE document
 router.delete('/v1/document/:documentID/delete', textController.deleteDocumentByID);
 

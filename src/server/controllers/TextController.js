@@ -64,7 +64,7 @@ exports.insertDocumentBlocks = function (req, res, next) {
             text: block.text,
             textType: block.textType,
             wordCount: block.wordCount
-        })
+        });
         blockArray.push(newDocBlock);
     }
     let bulk = DocumentBlock.collection.initializeUnorderedBulkOp();
@@ -73,6 +73,30 @@ exports.insertDocumentBlocks = function (req, res, next) {
     }
     bulk.execute()
         .then(onInsertedBlocks => res.json({Success: 'Document blocks inserted'}))
+        .catch(err => console.log(err));
+}
+
+exports.insertDocument = function (req, res, next) {
+    const docMetadata = req.body.metadata;
+    const blocks = req.body.blocks;
+
+    const newDocumentMetadata = new DocumentMetadata ({
+        title: docMetadata.title,
+        author: docMetadata.author,
+        wordCountPerBlock: docMetadata.wordCountPerBlock
+    });
+
+    const documentID = newDocumentMetadata._id;
+
+    let bulk = DocumentBlock.collection.initializeUnorderedBulkOp();
+    for (let block of blocks) {
+        block['documentID'] = documentID;
+        bulk.insert(block);
+    }
+
+    newDocumentMetadata.save()
+        .then(metadataSaveResult => bulk.execute())
+        .then(onBulkInsert => res.send({Success: 'Document inserted'}))
         .catch(err => console.log(err));
 }
 
