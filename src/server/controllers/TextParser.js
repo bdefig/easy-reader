@@ -1,15 +1,3 @@
-// const fs = require('fs');
-// // const MongoClient = require('mongodb').MongoClient;
-// const uuidv4 = require('uuid/v4');
-// const mongoURL = 'mongodb://localhost:27017/EasyReader';
-// const mongoose = require('mongoose');
-
-// mongoose.connect(mongoURL, {useMongoClient: true});
-// const db = mongoose.connection;
-// db.on('error', console.error.bind(console, 'MongoDB connection error:'));
-
-// --------------------------------------------------
-
 const fs = require('fs');
 const fetch = require('node-fetch');
 let urlPath = 'http://localhost:3000';
@@ -20,15 +8,6 @@ const docTitle = 'Brothers Test Part I';
 const docAuthor = 'Fyodor Dostoyevsky';
 
 function parseAndInsertDocument (fileName, title, author) {
-    // insertDocumentMetadata(title, author)
-    //     .then(docMetadata => {
-    //         parseTextFile(fileName, docMetadata);
-    //     })
-    //     .then(blocksAndWordCounts => {
-    //         insertBlocksAndUpdateWordCounts(blocksAndWordCounts);
-    //     })
-    //     .catch(err => console.log(err));
-
     const documentMetadata = {};
     documentMetadata['title'] = title;
     documentMetadata['author'] = author;
@@ -42,6 +21,51 @@ function parseAndInsertDocument (fileName, title, author) {
             console.log('Document inserted');
         })
         .catch(err => console.log(err));
+}
+
+function parseTextFile(fileName) {
+    return new Promise ( (resolve, reject) => {
+        // console.log('Parsing text file...')
+
+        let remaining = '';
+        let blocks = [];
+        let blockCounter = 0;
+
+        // Read input file
+        let input = fs.createReadStream(fileName);
+
+        input.on('data', function(data) {
+            remaining += data;
+            let index = remaining.indexOf('\n');
+            let last = 0;
+            while (index > -1) {
+                let line = remaining.substring(last, index);
+                last = index + 1;
+                if (line.length > 0) {
+                    blocks.push(parseBlock(line, blockCounter));
+                    blockCounter += 1;
+                }
+                index = remaining.indexOf('\n', last);
+            }
+            remaining = remaining.substring(last);
+        });
+
+        input.on('end', function() {
+            if (remaining.length > 0) {
+                blocks.push(parseBlock(remaining, blockCounter));
+                blockCounter += 1;
+            }
+
+            let docBlockWordCounts = buildDocBlockWordCounts(blocks);
+
+            const toReturn = {};
+            toReturn['wordCountPerBlock'] = docBlockWordCounts;
+            toReturn['blocks'] = blocks;
+
+            resolve(toReturn);
+            // TODO: Reject if there's something wrong
+        })
+    });
 }
 
 function insertDocument(docMetadata, docBlocks) {
@@ -97,71 +121,6 @@ function insertDocumentMetadata (documentTitle, documentAuthor) {
             })
             .catch(err => console.log(err));
     });
-}
-
-function parseTextFile(fileName) {
-    return new Promise ( (resolve, reject) => {
-        // TODO: If docMetadata doesn't have _id, then reject
-
-        // console.log('Parsing text file...')
-
-        let remaining = '';
-        let blocks = [];
-        let blockCounter = 0;
-
-        // Read input file
-        let input = fs.createReadStream(fileName);
-
-        input.on('data', function(data) {
-            remaining += data;
-            let index = remaining.indexOf('\n');
-            let last = 0;
-            while (index > -1) {
-                let line = remaining.substring(last, index);
-                last = index + 1;
-                if (line.length > 0) {
-                    blocks.push(parseBlock(line, blockCounter));
-                    blockCounter += 1;
-                }
-                index = remaining.indexOf('\n', last);
-            }
-            remaining = remaining.substring(last);
-        });
-
-        input.on('end', function() {
-            if (remaining.length > 0) {
-                blocks.push(parseBlock(remaining, blockCounter));
-                blockCounter += 1;
-            }
-
-            let docBlockWordCounts = buildDocBlockWordCounts(blocks);
-
-            const toReturn = {};
-            toReturn['wordCountPerBlock'] = docBlockWordCounts;
-            toReturn['blocks'] = blocks;
-
-            resolve(toReturn);
-            // TODO: Reject if there's something wrong
-        })
-    });
-}
-
-function insertBlocksAndUpdateWordCounts (blocksAndWordCounts) {
-    const blocks = blocksAndWordCounts.blocks;
-    const wordCountPerBlock = blocksAndWordCounts.wordCountPerBlock;
-
-    // TODO: Insert blocks into DB at urlPath + '/v1/document/:documentID/insert'
-
-    // TODO: Update document metadata with wordCountPerBlock
-    // TODO: Make a new route to update document metadata
-    // TODO: Make a new controller to update document metadata
-
-    // TODO: EVEN BETTER:
-        // Refactor so that metadata and blocks are inserted at the same time
-        // I can get the _id of the document before the insertion
-        // I'd need to do all this in the controller because it has access to the model
-        // I need a new endpoint to insert the whole document (metadata and blocks)
-        // See https://stackoverflow.com/questions/7479333/mongoose-with-mongodb-how-to-return-just-saved-object
 }
 
 function parseBlock (text, index) {

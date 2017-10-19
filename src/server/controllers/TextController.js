@@ -113,7 +113,8 @@ exports.deleteDocumentByID = function (req, res, next) {
 
 exports.clearAllDocuments = function (req, res, next) {
     DocumentMetadata.deleteMany({})
-        .then(res.json({Success: 'Document metadata cleared'}))
+        .then(onFulfilled => DocumentBlock.deleteMany({}))
+        .then(res.json({Success: 'Documents cleared'}))
         .catch(err => console.log(err));
 }
 
