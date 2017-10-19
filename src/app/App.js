@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 // import logo from './logo.svg';
 import './App.css';
 import * as TextEngine from './TextEngine.js';
-import renderHTML from 'react-render-html';
+// import renderHTML from 'react-render-html';
 // Or could use html-to-react
 
 class App extends Component {
