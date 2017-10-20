@@ -1,9 +1,9 @@
 import 'whatwg-fetch';
 // import * as Environment from 'Environment.js';
 
-class TextEngine {
+// class TextEngine {
 
-    getNextTextBlocks(documentMetadata, firstIndexToGet, minWordCount) {
+export function getNextTextBlocks(documentMetadata, firstIndexToGet, minWordCount) {
         
         const baseURL = 'http://localhost:3000/v1/';
 
@@ -27,7 +27,11 @@ class TextEngine {
                 method: 'get',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Accept': 'application/json'
+                    'Accept': 'application/json',
+                    // The following are for development ONLY
+                    'Access-Control-Allow-Origin': '*',
+                    'Access-Control-Allow-Methods': 'GET, POST, PATCH, PUT, DELETE, OPTIONS',
+                    'Access-Control-Allow-Headers': 'Origin, Content-Type, X-Auth-Token'
                 }
             })
             .then(blocks => blocks.json())
@@ -38,9 +42,9 @@ class TextEngine {
         });
     }
 
-}
+// }
 
-export default TextEngine;
+// export default TextEngine;
 
 // --------------------------------------------------
 

@@ -46,7 +46,8 @@ exports.getDocumentBlocks = function (req, res, next) {
     DocumentBlock.find({
             documentID: req.params.documentID,
             index: { $gte : req.params.firstBlockIndex, $lte : req.params.lastBlockIndex }
-        })
+        }, null, {sort: {index: asc}}).exec()
+        .then(blocks => blocks.json())
         .then(blocks => {
             res.send(blocks)
         })
