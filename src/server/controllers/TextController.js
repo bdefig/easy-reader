@@ -43,11 +43,22 @@ exports.getOneDocumentBlock = function (req, res, next) {
 }
 
 exports.getDocumentBlocks = function (req, res, next) {
+    console.log('Request: GET multiple document blocks');
+    console.log('\tdocumentID: ' + req.params.documentID);
+    console.log('\tFist block: ' + req.params.firstBlockIndex);
+    console.log('\tLast block: ' + req.params.lastBlockIndex);
     DocumentBlock.find({
-            documentID: req.params.documentID,
-            index: { $gte : req.params.firstBlockIndex, $lte : req.params.lastBlockIndex }
-        }, null, {sort: {index: asc}}).exec()
-        .then(blocks => blocks.json())
+        documentID: req.params.documentID,
+        index: { $gte : req.params.firstBlockIndex, $lte : req.params.lastBlockIndex }
+    }, null, {sort: {index: 1}}).exec()
+        .then(blocks => {
+            if (blocks) {
+                console.log('Sending: ' + blocks.length + ' blocks');
+                return blocks;
+            } else {
+                throw new Error('No blocks found');
+            }
+        })
         .then(blocks => {
             res.send(blocks)
         })

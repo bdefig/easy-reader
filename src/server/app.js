@@ -9,7 +9,6 @@ const cors = require('cors');
 const textRouter = require('./routes/TextRouter');
 
 const app = express();
-// app.listen(3000);
 
 app.use(helmet());
 

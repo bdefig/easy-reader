@@ -5,7 +5,7 @@ import 'whatwg-fetch';
 
 export function getNextTextBlocks(documentMetadata, firstIndexToGet, minWordCount) {
         
-        const baseURL = 'http://localhost:3000/v1/';
+        const baseURL = 'http://localhost:3001/v1/';
 
         return new Promise ( (resolve, reject) => {
             if (!documentMetadata.wordCountPerBlock || documentMetadata.wordCountPerBlock.length - 1 < firstIndexToGet) {
@@ -28,13 +28,12 @@ export function getNextTextBlocks(documentMetadata, firstIndexToGet, minWordCoun
                 headers: {
                     'Content-Type': 'application/json',
                     'Accept': 'application/json',
-                    // The following are for development ONLY
-                    'Access-Control-Allow-Origin': '*',
-                    'Access-Control-Allow-Methods': 'GET, POST, PATCH, PUT, DELETE, OPTIONS',
-                    'Access-Control-Allow-Headers': 'Origin, Content-Type, X-Auth-Token'
                 }
             })
-            .then(blocks => blocks.json())
+            .then(blocks => {
+                console.log(JSON.stringify(blocks));
+                return blocks.json();
+            })
             .then(blocks => {
                 resolve(blocks);
             })
