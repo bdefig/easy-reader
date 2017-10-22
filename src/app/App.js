@@ -23,13 +23,31 @@ class App extends Component {
             currentLastIndex: 0,
             minWordCount: 500
         };
+        // TODO: Parse the array of word counts to get a consistent set
+        TextEngine.getNextTextBlocks(this.state.currentDocumentMetadata, 0, this.state.minWordCount)
+        .then(returnedBlocks => {
+            // alert('Returned ' + returnedBlocks.length + ' blocks');
+            this.setState({
+                blocks: returnedBlocks,
+                currentFirstIndex: returnedBlocks[0].index,
+                currentLastIndex: returnedBlocks[returnedBlocks.length - 1].index
+            });
+        })
+        .catch(err => console.log(err));
     }
     goPrev() {
         // console.log('Was: ' + this.state.currentPage);
         // console.log('Now: ' + (this.state.currentPage - 1));
-        this.setState({
-            // currentPage: this.state.currentPage - 1,
-        });
+        TextEngine.getPrevTextBlocks(this.state.currentDocumentMetadata, this.state.currentFirstIndex - 1, this.state.minWordCount)
+        .then(returnedBlocks => {
+            // alert('Returned ' + returnedBlocks.length + ' blocks');
+            this.setState({
+                blocks: returnedBlocks,
+                currentFirstIndex: returnedBlocks[0].index,
+                currentLastIndex: returnedBlocks[returnedBlocks.length - 1].index
+            });
+        })
+        .catch(err => console.log(err));
     }
     goNext() {
         // console.log('Was: ' + this.state.currentPage);
