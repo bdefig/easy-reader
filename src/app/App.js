@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
-// import logo from './logo.svg';
 import './App.css';
 import * as TextEngine from './TextEngine.js';
-// import renderHTML from 'react-render-html';
-// Or could use html-to-react
 
 class App extends Component {
     constructor(props) {
@@ -20,7 +17,6 @@ class App extends Component {
         const indexCheckpoints = TextEngine.getIndexCheckpoints(currentDocumentMetadata, 500);
         const blockIndicesToGet = TextEngine.getIndicesFromCheckpoints(indexCheckpoints, 0);
         this.state = {
-            // currentPage: 1,
             currentDocumentMetadata: currentDocumentMetadata,
             indexCheckpoints: indexCheckpoints,
             blocks: [],
@@ -30,7 +26,6 @@ class App extends Component {
         };
         TextEngine.getBlocksByIndices(currentDocumentMetadata, blockIndicesToGet[0], blockIndicesToGet[1])
             .then(returnedBlocks => {
-                // alert('Returned ' + returnedBlocks.length + ' blocks');
                 this.setState({
                     blocks: returnedBlocks,
                     currentFirstIndex: returnedBlocks[0].index,
@@ -38,25 +33,11 @@ class App extends Component {
                 });
             })
             .catch(err => console.log(err));
-        // TODO: Parse the array of word counts to get a consistent set
-        // TextEngine.getNextTextBlocks(this.state.currentDocumentMetadata, 0, this.state.minWordCount)
-        // .then(returnedBlocks => {
-        //     // alert('Returned ' + returnedBlocks.length + ' blocks');
-        //     this.setState({
-        //         blocks: returnedBlocks,
-        //         currentFirstIndex: returnedBlocks[0].index,
-        //         currentLastIndex: returnedBlocks[returnedBlocks.length - 1].index
-        //     });
-        // })
-        // .catch(err => console.log(err));
     }
     goPrev() {
-        // console.log('Was: ' + this.state.currentPage);
-        // console.log('Now: ' + (this.state.currentPage - 1));
         const blockIndicesToGet = TextEngine.getIndicesFromCheckpoints(this.state.indexCheckpoints, this.state.currentFirstIndex - 1);
         TextEngine.getBlocksByIndices(this.state.currentDocumentMetadata, blockIndicesToGet[0], blockIndicesToGet[1])
         .then(returnedBlocks => {
-            // alert('Returned ' + returnedBlocks.length + ' blocks');
             this.setState({
                 blocks: returnedBlocks,
                 currentFirstIndex: returnedBlocks[0].index,
@@ -64,24 +45,11 @@ class App extends Component {
             });
         })
         .catch(err => console.log(err));
-        // TextEngine.getPrevTextBlocks(this.state.currentDocumentMetadata, this.state.currentFirstIndex - 1, this.state.minWordCount)
-        // .then(returnedBlocks => {
-        //     // alert('Returned ' + returnedBlocks.length + ' blocks');
-        //     this.setState({
-        //         blocks: returnedBlocks,
-        //         currentFirstIndex: returnedBlocks[0].index,
-        //         currentLastIndex: returnedBlocks[returnedBlocks.length - 1].index
-        //     });
-        // })
-        // .catch(err => console.log(err));
     }
     goNext() {
-        // console.log('Was: ' + this.state.currentPage);
-        // console.log('Now: ' + (this.state.currentPage + 1));
         const blockIndicesToGet = TextEngine.getIndicesFromCheckpoints(this.state.indexCheckpoints, this.state.currentLastIndex + 1);
         TextEngine.getBlocksByIndices(this.state.currentDocumentMetadata, blockIndicesToGet[0], blockIndicesToGet[1])
         .then(returnedBlocks => {
-            // alert('Returned ' + returnedBlocks.length + ' blocks');
             this.setState({
                 blocks: returnedBlocks,
                 currentFirstIndex: returnedBlocks[0].index,
@@ -89,16 +57,6 @@ class App extends Component {
             });
         })
         .catch(err => console.log(err));
-        // TextEngine.getNextTextBlocks(this.state.currentDocumentMetadata, this.state.currentLastIndex + 1, this.state.minWordCount)
-        //     .then(returnedBlocks => {
-        //         // alert('Returned ' + returnedBlocks.length + ' blocks');
-        //         this.setState({
-        //             blocks: returnedBlocks,
-        //             currentFirstIndex: returnedBlocks[0].index,
-        //             currentLastIndex: returnedBlocks[returnedBlocks.length - 1].index
-        //         });
-        //     })
-        //     .catch(err => console.log(err));
     }
     render() {
         return (
@@ -139,9 +97,7 @@ class ReaderHeader extends Component {
                     &lt;
                     </button>
                 </div>
-                <div style={{width: 15+'px'}}></div>
                 <h1>Easy Reader</h1>
-                <div style={{width: 15+'px'}}></div>
                 <div className="Reader-buttonWrapper">
                     <button
                         className="Reader-pageButton"
