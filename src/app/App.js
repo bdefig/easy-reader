@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import './App.css';
 import * as TextEngine from './TextEngine.js';
 
@@ -114,7 +113,7 @@ class ReaderHeader extends Component {
 
 class ReaderText extends Component {
     componentDidUpdate() {
-        ReactDOM.findDOMNode(this).scrollTop = 0;
+        window.scroll(0, 0);
     }
     render() {
         let textBlocks = this.props.blocks.map(b => {
