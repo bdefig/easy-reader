@@ -110,19 +110,29 @@ export function getBlocksByIndices (documentMetadata, lowerIndex, higherIndex) {
 
 export function getIndexCheckpoints (documentMetadata, minWordCountPerBlock) {
     let indexCounter = 0;
-    let indexCheckpoints = [];
-    let wordCountCounter = documentMetadata.wordCountPerBlock[indexCounter];
+    let indexCheckpoints = [0];
+    let wordCountCounter = 0;
 
     while (indexCounter < documentMetadata.wordCountPerBlock.length) {
         if (wordCountCounter > minWordCountPerBlock) {
             indexCheckpoints.push(indexCounter);
             wordCountCounter = 0;
         }
+        wordCountCounter += documentMetadata.wordCountPerBlock[indexCounter];
         indexCounter += 1;
-        wordCountCounter += documentMetadata.minWordCountPerBlock[indexCounter];
     }
+    indexCheckpoints.push(documentMetadata.wordCountPerBlock.length - 1)
 
     return indexCheckpoints;
+}
+
+export function getIndicesFromCheckpoints (indexCheckpoints, oneIndex) {
+    for (let i = 0; i < (indexCheckpoints.length - 1); i++) {
+        if (oneIndex >= indexCheckpoints[i] && oneIndex < indexCheckpoints[i+1]) {
+            return [indexCheckpoints[i], indexCheckpoints[i+1] - 1];
+        }
+    }
+    return [-1, -1];    // Not found
 }
 
 // }

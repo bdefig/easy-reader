@@ -45,14 +45,14 @@
     /* height: 100%; */
     width: 90%;
     max-width: 600px;
-    text-align: justify;
+    text-align: left;
 
     position: absolute;
     top: 80px;
     z-index: -1;
     padding-top: 10px;
 
-    line-height: 1.5;
+    line-height: 1.75em;
     font-weight: 300;
     font-family: sans-serif;
 }
