@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import './App.css';
 import * as TextEngine from './TextEngine.js';
 
@@ -112,13 +113,33 @@ class ReaderHeader extends Component {
 }
 
 class ReaderText extends Component {
+    componentDidUpdate() {
+        ReactDOM.findDOMNode(this).scrollTop = 0;
+    }
     render() {
-        let blockText = this.props.blocks.map(b => b.text);
+        let textBlocks = this.props.blocks.map(b => {
+            return <TextBlock
+                key={b.index}
+                text={b.text}
+                textType={b.textType}
+            />;
+        });
         return (
             <div className="Reader-text">
-                {React.Children.map(blockText, b => <p>{b}</p>)}
+                {textBlocks}
             </div>
-        )
+        );
+    }
+}
+
+class TextBlock extends Component {
+    render() {
+        const blockType = this.props.textType;
+        if (blockType === 'heading') {
+            return ( <h3>{this.props.text}</h3> );
+        } else {
+            return ( <p>{this.props.text}</p> );
+        }
     }
 }
 
