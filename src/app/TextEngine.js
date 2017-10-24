@@ -1,7 +1,7 @@
 import 'whatwg-fetch';
-// import * as Environment from 'Environment.js';
+import AppConfig from './AppConfig.js';
 
-const baseURL = 'http://localhost:3001/v1/';
+// const baseURL = 'http://localhost:3001/v1/';
 
 export function getNextTextBlocks(documentMetadata, firstIndexToGet, minWordCount) {
     return new Promise ( (resolve, reject) => {
@@ -18,7 +18,7 @@ export function getNextTextBlocks(documentMetadata, firstIndexToGet, minWordCoun
             wordCount += documentMetadata.wordCountPerBlock[blockIndex];
         }
 
-        let url = baseURL + 'document/' + documentMetadata._id + '/first/' + firstIndexToGet + '/last/' + blockIndex;
+        let url = AppConfig.baseURL + 'document/' + documentMetadata._id + '/first/' + firstIndexToGet + '/last/' + blockIndex;
         
         fetch(url, {
             method: 'get',
@@ -53,7 +53,7 @@ export function getPrevTextBlocks(documentMetadata, firstIndexToGet, minWordCoun
             wordCount += documentMetadata.wordCountPerBlock[blockIndex];
         }
 
-        let url = baseURL + 'document/' + documentMetadata._id + '/first/' + blockIndex + '/last/' + firstIndexToGet;
+        let url = AppConfig.baseURL + 'document/' + documentMetadata._id + '/first/' + blockIndex + '/last/' + firstIndexToGet;
         
         fetch(url, {
             method: 'get',
@@ -80,7 +80,7 @@ export function getBlocksByIndices (documentMetadata, lowerIndex, higherIndex) {
             reject(Error('getBlocksByIndices error: index out of range'));
         }
 
-        let url = baseURL + 'document/' + documentMetadata._id + '/first/' + lowerIndex + '/last/' + higherIndex;
+        let url = AppConfig.baseURL + 'document/' + documentMetadata._id + '/first/' + lowerIndex + '/last/' + higherIndex;
         
         fetch(url, {
             method: 'get',
