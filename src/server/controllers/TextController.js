@@ -129,9 +129,3 @@ exports.clearAllDocuments = function (req, res, next) {
         .then(res.json({Success: 'Documents cleared'}))
         .catch(err => console.log(err));
 }
-
-exports.marcoPolo = function (req, res, next) {
-    console.log('Logging here');
-    console.log(req.params.marco);
-    res.json({Polo: req.params.marco});
-}
