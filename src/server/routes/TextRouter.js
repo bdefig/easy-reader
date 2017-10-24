@@ -30,7 +30,4 @@ router.delete('/v1/document/:documentID/delete', textController.deleteDocumentBy
 // DELETE all documents and document blocks
 router.delete('/v1/clearAllDocuments', textController.clearAllDocuments);
 
-// GET for texting
-router.get('/v1/marcoPolo/:marco', textController.marcoPolo);
-
 module.exports = router;
