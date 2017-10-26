@@ -3,6 +3,7 @@ import AppConfig from './AppConfig.js';
 
 // const baseURL = 'http://localhost:3001/v1/';
 
+// TODO: Remove this function
 export function getNextTextBlocks(documentMetadata, firstIndexToGet, minWordCount) {
     return new Promise ( (resolve, reject) => {
         if (!documentMetadata.wordCountPerBlock || documentMetadata.wordCountPerBlock.length - 1 < firstIndexToGet) {
@@ -28,7 +29,7 @@ export function getNextTextBlocks(documentMetadata, firstIndexToGet, minWordCoun
             }
         })
         .then(blocks => {
-            console.log(JSON.stringify(blocks));
+            // console.log(JSON.stringify(blocks));
             return blocks.json();
         })
         .then(blocks => {
@@ -38,6 +39,7 @@ export function getNextTextBlocks(documentMetadata, firstIndexToGet, minWordCoun
     });
 }
 
+// TODO: Remove this function
 export function getPrevTextBlocks(documentMetadata, firstIndexToGet, minWordCount) {
     return new Promise ( (resolve, reject) => {
         if (!documentMetadata.wordCountPerBlock || firstIndexToGet < 0) {
@@ -63,7 +65,7 @@ export function getPrevTextBlocks(documentMetadata, firstIndexToGet, minWordCoun
             }
         })
         .then(blocks => {
-            console.log(JSON.stringify(blocks));
+            // console.log(JSON.stringify(blocks));
             return blocks.json();
         })
         .then(blocks => {
@@ -90,7 +92,7 @@ export function getBlocksByIndices (documentMetadata, lowerIndex, higherIndex) {
             }
         })
         .then(blocks => {
-            console.log(JSON.stringify(blocks));
+            // console.log(JSON.stringify(blocks));
             return blocks.json();
         })
         .then(blocks => {

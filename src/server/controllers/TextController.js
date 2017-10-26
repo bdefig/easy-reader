@@ -60,7 +60,7 @@ exports.getDocumentBlocks = function (req, res, next) {
             }
         })
         .then(blocks => {
-            res.send(blocks)
+            res.send(blocks);
         })
         .catch(err => console.log(err));
 }

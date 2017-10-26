@@ -6,6 +6,7 @@ const cookieParser = require('cookie-parser');
 const cors = require('cors');
 
 // Routes
+const userRouter = require('./routes/UserRouter');
 const textRouter = require('./routes/TextRouter');
 
 const app = express();
@@ -28,6 +29,7 @@ app.use(cookieParser());
 
 app.use(cors());
 
+app.use('/', userRouter);
 app.use('/', textRouter);
 
 app.listen(3001, () => {
