@@ -51,3 +51,5 @@ function updateUserDocumentProgress(userID, documentID, blockIndex) {
         // TODO: Reject if there was a problem
     })
 }
+
+createUser('bryce1', 'Bryce', 'DeFigueiredo');

@@ -1,10 +1,10 @@
 const express = require('express');
-const router = expres.Router();
+const router = express.Router();
 
 const userController = require('../controllers/UserController');
 
 // POST create new user
-router.get('/v1/createUser', userController.createUser);
+router.post('/v1/createUser', userController.createUser);
 
 // GET all document progress by user ID
 router.get('/v1/user/:userID/getDocumentProgress', userController.getUserDocumentProgressByUserID);
