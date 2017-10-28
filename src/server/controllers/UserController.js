@@ -31,7 +31,7 @@ exports.updateUserDocumentProgress = function (req, res, next) {
         document: req.params.documentID
     }, {
         currentBlock: req.body.currentBlock,
-        lastAccessed: Date.now
+        lastAccessed: Date.now()
     }, {upsert: true})
     .then(onUpdatedProgress => {
         res.json({Success: 'Document progress updated'});

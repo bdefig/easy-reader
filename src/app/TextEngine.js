@@ -8,7 +8,7 @@ export function getNextTextBlocks(documentMetadata, firstIndexToGet, minWordCoun
     return new Promise ( (resolve, reject) => {
         if (!documentMetadata.wordCountPerBlock || documentMetadata.wordCountPerBlock.length - 1 < firstIndexToGet) {
             // Error: Out of range
-            reject(Error('getNextTextBlocks error: firstIndexToGet is out of range'));
+            reject(Error('getNextTextBlocks error: firstIndexToGet is out of range: ' + firstIndexToGet));
         }
 
         let wordCount = documentMetadata.wordCountPerBlock[firstIndexToGet];
@@ -44,7 +44,7 @@ export function getPrevTextBlocks(documentMetadata, firstIndexToGet, minWordCoun
     return new Promise ( (resolve, reject) => {
         if (!documentMetadata.wordCountPerBlock || firstIndexToGet < 0) {
             // Error: Out of range
-            reject(Error('getNextTextBlocks error: firstIndexToGet is out of range'));
+            reject(Error('getNextTextBlocks error: firstIndexToGet is out of range: ' + firstIndexToGet));
         }
 
         let wordCount = documentMetadata.wordCountPerBlock[firstIndexToGet];
@@ -79,7 +79,7 @@ export function getBlocksByIndices (documentMetadata, lowerIndex, higherIndex) {
     return new Promise ( (resolve, reject) => {
     
         if (!documentMetadata.wordCountPerBlock ||lowerIndex < 0 || higherIndex > documentMetadata.wordCountPerBlock.length - 1) {
-            reject(Error('getBlocksByIndices error: index out of range'));
+            reject(Error('getBlocksByIndices error: index out of range (indices: ' + lowerIndex + ', ' + higherIndex + ')'));
         }
 
         let url = AppConfig.baseURL + 'document/' + documentMetadata._id + '/first/' + lowerIndex + '/last/' + higherIndex;
