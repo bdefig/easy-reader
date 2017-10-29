@@ -39,6 +39,7 @@ class App extends Component {
                 });
                 return [mostRecentDocumentProgress.document, blockIndicesToGet];
             } else {
+                // TODO: Deal with case where user has no document progress
                 // throw new Error('No documents found in user progress');
                 console.log('No documents found in user progress');
                 const firstDocument = this.state.currentDocumentMetadata;
@@ -64,15 +65,6 @@ class App extends Component {
             });
         })
         .catch(err => console.log(err));
-        // TextEngine.getBlocksByIndices(currentDocumentMetadata, blockIndicesToGet[0], blockIndicesToGet[1])
-        //     .then(returnedBlocks => {
-        //         this.setState({
-        //             blocks: returnedBlocks,
-        //             currentFirstIndex: returnedBlocks[0].index,
-        //             currentLastIndex: returnedBlocks[returnedBlocks.length - 1].index
-        //         });
-        //     })
-        //     .catch(err => console.log(err));
     }
     goPrev() {
         if (this.state.currentFirstIndex > 0) {
