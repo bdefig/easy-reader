@@ -1,10 +1,16 @@
-import {createStore} from 'redux';
+import {createStore, bindActionCreators} from 'redux';
 import * as CurrentText from './CurrentText';
 
 export const configureStore = () => {
     const store = createStore(CurrentText.reducer);
 
-    return store;
+    const actions = {
+        CurrentText: bindActionCreators(
+            CurrentText.actions,
+            store.dispatch)
+    }
+
+    return {store, actions};
 }
 
 export default configureStore;
