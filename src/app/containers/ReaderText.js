@@ -1,14 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { getPrevBlocks, getNextBlocks } from '../actions'
+import ReaderTextArea from '../components/ReaderTextArea';
 
-export const Reader = (props) => {
-    return (
-        // Header here
-        // Text blocks here
-    );
-}
-
-const mapStateToReader = (state) => {
+const mapStateToProps = state => {
     return {
         user: state.user,
         settings: state.settings,
@@ -19,6 +14,15 @@ const mapStateToReader = (state) => {
     }
 }
 
+const mapDispatchToProps = dispatch => {
+    return {
+        onPrevClick: () => {
+            dispatch()
+        }
+    }
+}
+
 export default connect(
-    mapStateToReader
+    mapStateToProps,
+    mapDispatchToProps
 )(Reader);

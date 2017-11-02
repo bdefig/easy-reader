@@ -23,3 +23,5 @@ const ReaderHeader = ({ onPrevClick, onNextClick }) => (
         </div>
     </div>
 )
+
+export default ReaderHeader;
