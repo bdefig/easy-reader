@@ -1,9 +1,3 @@
-.Reader-app {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-}
-
 .Reader-header {
     position: fixed;
     left: 0;
@@ -23,12 +17,12 @@
     align-items: center;
 }
 
-.reader-buttonWrapper {
+.Reader-headerButtonWrapper {
     width: fit-content;
     height: fit-content;
 }
 
-.Reader-pageButton {
+.Reader-headerPageButton {
     background-color: rgba(255, 255, 255, 0);
     color: rgb(64, 64, 64);
     border-style: none;
@@ -39,24 +33,4 @@
     font-weight: 800;
     vertical-align: middle;
     text-align: center;
-}
-
-.Reader-text {
-    /* height: 100%; */
-    width: 90%;
-    max-width: 600px;
-    text-align: left;
-
-    position: absolute;
-    top: 80px;
-    z-index: -1;
-    padding-top: 10px;
-
-    line-height: 1.75em;
-    font-weight: 300;
-    font-family: sans-serif;
-}
-
-.Reader-text h3 {
-    font-weight: 700;
 }
