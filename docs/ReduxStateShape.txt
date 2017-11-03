@@ -1,0 +1,29 @@
+user: {
+	userID: string,
+	username: string,
+	sessionToken: string
+},
+settings: {
+	minWordCount: int
+},
+currentDocument: {
+	documentID: string,
+	title: string,
+	author: string,
+	wordCountPerBlock: [int]
+},
+textBlocks: {
+	<index>: {
+		documentID: string,
+		index: int,
+		text: string,
+		textType: string,
+		wordCount: int
+	}, ...
+},
+indexCheckpoints: [int],
+currentTextBlocks: {
+	isFetching: bool,
+	didInvalidate: bool,
+	items: [int]
+}
