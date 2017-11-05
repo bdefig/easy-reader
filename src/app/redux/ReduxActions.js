@@ -31,7 +31,23 @@ function receiveNextBlocks(state, receivedBlocks) {
 }
 
 export const REQUEST_USER_PROGRESS
+function requestUserProgress(state) { 
+    return {
+        type: REQUEST_USER_PROGRESS
+    }
+}
 
 export const RECEIVE_USER_PROGRESS
+function receiveUserProgress(state, userProgress) {
+    return {
+        type: RECEIVE_USER_PROGRESS,
+        userProgress: userProgress
+    }
+}
 
 export const UPDATE_USER_PROGRESS
+function updateUserProgress(state) {
+    return {
+        type: UPDATE_USER_PROGRESS
+    }
+}
