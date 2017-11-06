@@ -1,4 +1,5 @@
 user: {
+	isFetching: bool,
 	userID: string,
 	username: string,
 	sessionToken: string
@@ -24,6 +25,5 @@ textBlocks: {
 indexCheckpoints: [int],
 currentTextBlocks: {
 	isFetching: bool,
-	didInvalidate: bool,
 	items: [int]
 }
