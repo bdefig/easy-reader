@@ -6,7 +6,8 @@ import {
     RECEIVE_NEXT_BLOCKS,
     REQUEST_USER_PROGRESS,
     RECEIVE_USER_PROGRESS,
-    UPDATE_USER_PROGRESS   
+    UPDATE_USER_PROGRESS ,
+    UPDATE_INDEX_CHECKPOINTS
 } from './ReduxActions';
 
 function textBlocks(
@@ -55,6 +56,15 @@ function userProgress(state = {}, action) {
         case UPDATE_USER_PROGRESS:
         default:
             return state;
+    }
+}
+
+function indexCheckpoints(state = {}, action) {
+    switch (action.type) {
+        case UPDATE_INDEX_CHECKPOINTS:
+            return Object.assign({}, state, {
+                indexCheckpoints: action.indexCheckpoints
+            })
     }
 }
 

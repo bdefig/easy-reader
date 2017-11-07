@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom';
 import registerServiceWorker from './registerServiceWorker';
 
 import './index.css';
-import Root from './app/Root';
-import App from './app/App';
+import Root from './app/containers/Root';
+import App from './app/containers/App';
 
 // Create Redux store
 import configureStore from './app/redux/ConfigureStore';

@@ -1,3 +1,5 @@
+// TODO: Delete this file when no longer needed
+
 export const types = {
     'FETCH_DOCUMENT_METADATA': 'FETCH_DOCUMENT_METADATA',
     'FETCH_TEXT_BLOCKS': 'FETCH_TEXT_BLOCKS'

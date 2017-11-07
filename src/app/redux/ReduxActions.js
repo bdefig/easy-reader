@@ -16,43 +16,6 @@ function receivePrevBlocks(state, receivedBlocks) {
     }
 }
 
-export const REQUEST_NEXT_BLOCKS = 'REQUEST_NEXT_BLOCKS';
-function requestNextBlocks(state) {
-    return {
-        type: REQUEST_NEXT_BLOCKS
-    }
-}
-
-export const RECEIVE_NEXT_BLOCKS = 'RECEIVE_NEXT_BLOCKS';
-function receiveNextBlocks(state, receivedBlocks) {
-    return {
-        type: RECEIVE_NEXT_BLOCKS,
-        blocks: receivedBlocks
-    }
-}
-
-export const REQUEST_USER_PROGRESS
-function requestUserProgress(state) { 
-    return {
-        type: REQUEST_USER_PROGRESS
-    }
-}
-
-export const RECEIVE_USER_PROGRESS
-function receiveUserProgress(state, userProgress) {
-    return {
-        type: RECEIVE_USER_PROGRESS,
-        userProgress: userProgress
-    }
-}
-
-export const UPDATE_USER_PROGRESS
-function updateUserProgress(state) {
-    return {
-        type: UPDATE_USER_PROGRESS
-    }
-}
-
 export function fetchPrevBlocks() {
     return (dispatch, getState) => {
         const currentState = getState();
@@ -70,6 +33,21 @@ export function fetchPrevBlocks() {
         })
         .then(blocks => blocks.json())
         .then(jsonBlocks => dispatch(receivePrevBlocks(getState(), jsonBlocks)));
+    }
+}
+
+export const REQUEST_NEXT_BLOCKS = 'REQUEST_NEXT_BLOCKS';
+function requestNextBlocks(state) {
+    return {
+        type: REQUEST_NEXT_BLOCKS
+    }
+}
+
+export const RECEIVE_NEXT_BLOCKS = 'RECEIVE_NEXT_BLOCKS';
+function receiveNextBlocks(state, receivedBlocks) {
+    return {
+        type: RECEIVE_NEXT_BLOCKS,
+        blocks: receivedBlocks
     }
 }
 
@@ -91,6 +69,56 @@ export function fetchNextBlocks() {
         .then(blocks => blocks.json())
         .then(jsonBlocks => dispatch(receiveNextBlocks(getState(), jsonBlocks)));
     }
+}
+
+export const REQUEST_USER_PROGRESS = 'REQUEST_USER_PROGRESS';
+function requestUserProgress(state) { 
+    return {
+        type: REQUEST_USER_PROGRESS
+    }
+}
+
+export const RECEIVE_USER_PROGRESS = 'RECEIVE_USER_PROGRESS';
+function receiveUserProgress(state, userProgress) {
+    return {
+        type: RECEIVE_USER_PROGRESS,
+        userProgress: userProgress
+    }
+}
+
+export const UPDATE_USER_PROGRESS = 'UPDATE_USER_PROGRESS';
+function updateUserProgress(state) {
+    return {
+        type: UPDATE_USER_PROGRESS
+    }
+}
+
+export const UPDATE_INDEX_CHECKPOINTS = 'CALCULATE_INDEX_CHECKPOINTS';
+export function updateIndexCheckpoints(state, indexCheckpoints) {
+    return {
+        type: CALCULATE_INDEX_CHECKPOINTS,
+        indexCheckpoints: indexCheckpoints
+    }
+}
+
+export function calculateIndexCheckpoints (state) {
+    const documentMetadata = state.currentDocument;
+    const minWordCountPerBlock = state.settings.minWordCount;
+    let indexCounter = 0;
+    let indexCheckpoints = [0];
+    let wordCountCounter = 0;
+
+    while (indexCounter < documentMetadata.wordCountPerBlock.length) {
+        if (wordCountCounter > minWordCountPerBlock) {
+            indexCheckpoints.push(indexCounter);
+            wordCountCounter = 0;
+        }
+        wordCountCounter += documentMetadata.wordCountPerBlock[indexCounter];
+        indexCounter += 1;
+    }
+    indexCheckpoints.push(documentMetadata.wordCountPerBlock.length - 1)
+
+    return dispatchEvent(updateIndexCheckpoints(getState(), indexCheckpoints));
 }
 
 function getIndicesFromCheckpoints (indexCheckpoints, oneIndex) {
