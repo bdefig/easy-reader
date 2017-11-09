@@ -65,12 +65,15 @@ function indexCheckpoints(state = {}, action) {
             return Object.assign({}, state, {
                 indexCheckpoints: action.indexCheckpoints
             })
+        default:
+            return state;
     }
 }
 
 const rootReducer = combineReducers({
     textBlocks,
-    userProgress
+    userProgress,
+    indexCheckpoints
 })
 
 export default rootReducer;

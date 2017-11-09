@@ -3,6 +3,27 @@ import { connect } from 'react-redux';
 import { getPrevBlocks, getNextBlocks } from '../actions'
 import ReaderTextArea from '../components/ReaderTextArea';
 
+class Reader extends Component {
+    constructor(props) {
+        super(props);
+        this.handlePrevClick = this.handlePrevClick.bind(this);
+        this.handleNextClick = this.handleNextClick.bind(this);
+    }
+
+    componentDidMount() {
+        // Do things like calculate the index checkpoints
+    }
+
+    render() {
+        return (
+            <div className="Reader-app">
+                <ReaderHeader />
+                <ReaderTextArea />
+            </div>
+        )
+    }
+}
+
 const mapStateToProps = state => {
     return {
         user: state.user,
@@ -16,9 +37,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onPrevClick: () => {
-            dispatch()
-        }
+        onPrevClick: () => dispatch(fetchPrevBlocks()),
+        onNextClick: () => dispatch(fetchNextBlocks())
     }
 }
 

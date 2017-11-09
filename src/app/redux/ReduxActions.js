@@ -118,10 +118,10 @@ export function calculateIndexCheckpoints (state) {
     }
     indexCheckpoints.push(documentMetadata.wordCountPerBlock.length - 1)
 
-    return dispatchEvent(updateIndexCheckpoints(getState(), indexCheckpoints));
+    return dispatch(updateIndexCheckpoints(getState(), indexCheckpoints));
 }
 
-function getIndicesFromCheckpoints (indexCheckpoints, oneIndex) {
+export function getIndicesFromCheckpoints (indexCheckpoints, oneIndex) {
     for (let i = 0; i < (indexCheckpoints.length - 1); i++) {
         if (oneIndex >= indexCheckpoints[i] && oneIndex < indexCheckpoints[i+1]) {
             return [indexCheckpoints[i], indexCheckpoints[i+1] - 1];
