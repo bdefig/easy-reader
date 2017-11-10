@@ -121,7 +121,7 @@ export function calculateIndexCheckpoints (state) {
     return dispatch(updateIndexCheckpoints(getState(), indexCheckpoints));
 }
 
-export function getIndicesFromCheckpoints (indexCheckpoints, oneIndex) {
+function getIndicesFromCheckpoints (indexCheckpoints, oneIndex) {
     for (let i = 0; i < (indexCheckpoints.length - 1); i++) {
         if (oneIndex >= indexCheckpoints[i] && oneIndex < indexCheckpoints[i+1]) {
             return [indexCheckpoints[i], indexCheckpoints[i+1] - 1];

@@ -1,19 +1,21 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import TextBlock from './TextBlock';
-import './ReaderTextArea.css';
+import './ReaderText.css';
 
-class ReaderTextArea extends Component {
+export default class ReaderText extends Component {
     componentDidUpdate() {
         window.scroll(0, 0);
     }
     render() {
         let textBlocks = this.props.blocks.map(b => {
-            return <TextBlock
-                key={b.index}
-                text={b.text}
-                textType={b.textType}
-            />;
+            return (
+                <TextBlock
+                    key={b.index}
+                    text={b.text}
+                    textType={b.textType}
+                />
+            );
         });
         return (
             <div className="Reader-text">
@@ -23,7 +25,7 @@ class ReaderTextArea extends Component {
     }
 }
 
-ReaderTextArea.propTypes = {
+ReaderText.propTypes = {
     textBlocks: PropTypes.arrayOf(
         PropTypes.shape({
             text: PropTypes.string.isRequired,
@@ -31,5 +33,3 @@ ReaderTextArea.propTypes = {
         })
     )
 }
-
-export default ReaderTextArea;

@@ -1,18 +1,17 @@
-import React from 'react';
+import React, { Component } from 'react';
 import './Reader.css';
-import ReaderHeader from './ReaderHeader';
-import ReaderText from '../containers/ReaderText';
-import ReaderState from '../containers/ReaderState';
+import ReaderHeader from '../components/ReaderHeader';
+import ReaderText from '../components/ReaderText';
+import {
+    fetchPrevBlocks,
+    fetchNextBlocks,
+    calculateIndexCheckpoints
+} from '../redux/ReduxActions';
 
 class Reader extends Component {
-    constructor(props) {
-        super(props);
-        this.handlePrevClick = this.handlePrevClick.bind(this);
-        this.handleNextClick = this.handleNextClick.bind(this);
-    }
-
     componentDidMount() {
-        // Do things like calculate the index checkpoints
+        // Get user progress, including document metadata
+        dispatch(calculateIndexCheckpoints(getState()));
     }
 
     render() {
@@ -64,12 +63,3 @@ export default connect(
     mapStateToProps,
     mapDispatchToProps
 )(Reader);
-
-// const Reader = () => (
-//     <div className="Reader-app">
-//         <ReaderHeader />
-//         <ReaderText />
-//     </div>
-// )
-
-// export default Reader;

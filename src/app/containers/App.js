@@ -1,9 +1,9 @@
 import React from 'react';
-import Reader from '../containers/ReaderText';
+import Reader from './Reader';
 
 const App = () => (
     <div>
-        <ReaderText />
+        <Reader />
     </div>
 )
 
