@@ -16,10 +16,7 @@ class Reader extends Component {
 
     render() {
         return (
-            <div className="Reader-app">
-                <ReaderHeader />
-                <ReaderTextArea />
-            </div>
+            <ReaderTextArea />
         )
     }
 }
