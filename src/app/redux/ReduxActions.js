@@ -71,37 +71,37 @@ export function fetchNextBlocks() {
     }
 }
 
-export const REQUEST_USER_PROGRESS = 'REQUEST_USER_PROGRESS';
-function requestUserProgress(state) { 
+export const REQUEST_CURRENT_DOCUMENT = 'REQUEST_CURRENT_DOCUMENT';
+function requestCurrentDocument(state) { 
     return {
-        type: REQUEST_USER_PROGRESS
+        type: REQUEST_CURRENT_DOCUMENT
     }
 }
 
-export const RECEIVE_USER_PROGRESS = 'RECEIVE_USER_PROGRESS';
-function receiveUserProgress(state, userProgress) {
+export const RECEIVE_CURRENT_DOCUMENT = 'RECEIVE_CURRENT_DOCUMENT';
+function receiveCurrentDocument(state, currentDocument) {
     return {
-        type: RECEIVE_USER_PROGRESS,
-        userProgress: userProgress
+        type: RECEIVE_CURRENT_DOCUMENT,
+        currentDocument: currentDocument
     }
 }
 
-export const UPDATE_USER_PROGRESS = 'UPDATE_USER_PROGRESS';
-function updateUserProgress(state) {
+export const UPDATE_CURRENT_DOCUMENT = 'UPDATE_CURRENT_DOCUMENT';
+function updateCurrentDocument(state) {
     return {
-        type: UPDATE_USER_PROGRESS
+        type: UPDATE_CURRENT_DOCUMENT
     }
 }
 
 export const UPDATE_INDEX_CHECKPOINTS = 'CALCULATE_INDEX_CHECKPOINTS';
 export function updateIndexCheckpoints(state, indexCheckpoints) {
     return {
-        type: CALCULATE_INDEX_CHECKPOINTS,
+        type: UPDATE_INDEX_CHECKPOINTS,
         indexCheckpoints: indexCheckpoints
     }
 }
 
-export function calculateIndexCheckpoints (state) {
+export function calculateIndexCheckpoints (dispatch, state) {
     const documentMetadata = state.currentDocument;
     const minWordCountPerBlock = state.settings.minWordCount;
     let indexCounter = 0;
@@ -118,7 +118,7 @@ export function calculateIndexCheckpoints (state) {
     }
     indexCheckpoints.push(documentMetadata.wordCountPerBlock.length - 1)
 
-    return dispatch(updateIndexCheckpoints(getState(), indexCheckpoints));
+    return dispatch(updateIndexCheckpoints(state, indexCheckpoints));
 }
 
 function getIndicesFromCheckpoints (indexCheckpoints, oneIndex) {

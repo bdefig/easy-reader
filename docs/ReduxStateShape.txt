@@ -2,28 +2,28 @@ user: {
 	isFetching: bool,
 	userID: string,
 	username: string,
-	sessionToken: string
-},
-settings: {
-	minWordCount: int
+	sessionToken: string,
+	settings: {
+		minWordCount: int
+	}
 },
 currentDocument: {
+	isFetching: bool,
 	documentID: string,
 	title: string,
 	author: string,
-	wordCountPerBlock: [int]
+	wordCountPerBlock: [int],
+	indexCheckpoints: [int]
 },
 textBlocks: {
-	<index>: {
-		documentID: string,
-		index: int,
-		text: string,
-		textType: string,
-		wordCount: int
-	}, ...
-},
-indexCheckpoints: [int],
-currentTextBlocks: {
 	isFetching: bool,
-	items: [int]
+	currentIndices: [int],
+	blocks:
+		[<index>: {
+			documentID: string,
+			index: int,
+			text: string,
+			textType: string,
+			wordCount: int
+		}]
 }

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import './Reader.css';
 import ReaderHeader from '../components/ReaderHeader';
 import ReaderText from '../components/ReaderText';
@@ -11,17 +12,17 @@ import {
 class Reader extends Component {
     componentDidMount() {
         // Get user progress, including document metadata
-        dispatch(calculateIndexCheckpoints(getState()));
+        dispatch(calculateIndexCheckpoints(dispatch, getState()));
     }
 
     render() {
         const {
             user,
             settings,
-            document,
-            blocks,
-            currentFirstIndex,
-            currentLastIndex
+            currentDocument,
+            textBlocks,
+            indexCheckpoints,
+            currentTextBlocks
         } = this.props;
         const {
             onPrevClick,
@@ -34,7 +35,7 @@ class Reader extends Component {
                     onNextClick={onNextClick}
                 />
                 <ReaderText
-                    blocks={blocks}
+                    textBlocks={textBlocks}
                 />
             </div>
         )
@@ -45,10 +46,10 @@ const mapStateToProps = state => {
     return {
         user: state.user,
         settings: state.settings,
-        document: state.document,
-        blocks: state.blocks,
-        currentFirstIndex: state.currentFirstIndex,
-        currentLastIndex: state.currentLastIndex
+        currentDocument: state.currentDocument,
+        textBlocks: state.textBlocks,
+        indexCheckpoints: state.indexCheckpoints,
+        currentTextBlocks: state.currentTextBlocks
     }
 }
 
