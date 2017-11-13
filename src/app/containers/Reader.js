@@ -12,7 +12,7 @@ import {
 class Reader extends Component {
     componentDidMount() {
         // Get user progress, including document metadata
-        dispatch(calculateIndexCheckpoints(dispatch, getState()));
+        calculateIndexCheckpoints();
     }
 
     render() {
@@ -49,6 +49,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
+        calculateIndexCheckpoints: () => dispatch(calculateIndexCheckpoints()),
         onPrevClick: () => dispatch(fetchPrevBlocks()),
         onNextClick: () => dispatch(fetchNextBlocks())
     }

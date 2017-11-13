@@ -1,4 +1,4 @@
-import {createStore, applyMiddleware, bindActionCreators} from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 import rootReducer from './ReduxReducers';
 
@@ -11,6 +11,8 @@ export default function configureStore(preloadedState) {
         )
     )
 }
+
+// export default configureStore;
 
 // import * as CurrentText from './CurrentText';
 

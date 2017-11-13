@@ -1,10 +1,18 @@
-import React from 'react';
+import React, { Component } from 'react';
 import Reader from './Reader';
 
-const App = () => (
-    <div>
-        <Reader />
-    </div>
-)
+export default class App extends Component {
+    render() {
+        return(
+            <Reader />
+        )
+    }
+}
 
-export default App;
+// const App = () => (
+//     <div>
+//         <Reader />
+//     </div>
+// )
+
+// export default App;

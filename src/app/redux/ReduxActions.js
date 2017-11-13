@@ -101,24 +101,27 @@ export function updateIndexCheckpoints(state, indexCheckpoints) {
     }
 }
 
-export function calculateIndexCheckpoints (dispatch, state) {
-    const documentMetadata = state.currentDocument;
-    const minWordCountPerBlock = state.settings.minWordCount;
-    let indexCounter = 0;
-    let indexCheckpoints = [0];
-    let wordCountCounter = 0;
+export function calculateIndexCheckpoints () {
+    return (dispatch, getState) => {
+        const state = getState();
+        const documentMetadata = state.currentDocument;
+        const minWordCountPerBlock = state.user.settings.minWordCount;
+        let indexCounter = 0;
+        let indexCheckpoints = [0];
+        let wordCountCounter = 0;
 
-    while (indexCounter < documentMetadata.wordCountPerBlock.length) {
-        if (wordCountCounter > minWordCountPerBlock) {
-            indexCheckpoints.push(indexCounter);
-            wordCountCounter = 0;
+        while (indexCounter < documentMetadata.wordCountPerBlock.length) {
+            if (wordCountCounter > minWordCountPerBlock) {
+                indexCheckpoints.push(indexCounter);
+                wordCountCounter = 0;
+            }
+            wordCountCounter += documentMetadata.wordCountPerBlock[indexCounter];
+            indexCounter += 1;
         }
-        wordCountCounter += documentMetadata.wordCountPerBlock[indexCounter];
-        indexCounter += 1;
-    }
-    indexCheckpoints.push(documentMetadata.wordCountPerBlock.length - 1)
+        indexCheckpoints.push(documentMetadata.wordCountPerBlock.length - 1)
 
-    return dispatch(updateIndexCheckpoints(state, indexCheckpoints));
+        return dispatch(updateIndexCheckpoints(state, indexCheckpoints));
+    }
 }
 
 function getIndicesFromCheckpoints (indexCheckpoints, oneIndex) {

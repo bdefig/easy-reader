@@ -1,4 +1,4 @@
-import React from'react';
+import React, { Component } from'react';
 import { Provider } from 'react-redux';
 import configureStore from '../redux/ConfigureStore';
 import App from './App';
@@ -25,16 +25,26 @@ const preloadedState = {
         isFetching: false,
         blocks: []
     }
-}
+};
 
 const store = configureStore(preloadedState);
 
-const Root = (store) => {
-    return (
-        <Provider store={store}>
-            <App />
-        </Provider>
-    );
+export default class Root extends Component {
+    render() {
+        return(
+            <Provider store={store}>
+                <App />
+            </Provider>
+        )
+    }
 }
 
-export default Root;
+// const Root = (store) => {
+//     return (
+//         <Provider store={store}>
+//             <App />
+//         </Provider>
+//     );
+// }
+// 
+// export default Root;

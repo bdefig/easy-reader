@@ -23,7 +23,6 @@ function currentDocument(state = {}, action) {
             return Object.assign({}, state, {
                 isFetching: true
             });
-        break;
         case RECEIVE_CURRENT_DOCUMENT:
             return Object.assign({}, state, {
                 isFetching: false,
@@ -32,14 +31,11 @@ function currentDocument(state = {}, action) {
                 author: action.author,
                 wordCountPerBlock: action.wordCountPerBlock
             });
-        break;
         case UPDATE_CURRENT_DOCUMENT:
-        break;
         case UPDATE_INDEX_CHECKPOINTS:
             return Object.assign({}, state, {
                 indexCheckpoints: action.indexCheckpoints
             })
-        break;
         default:
             return state;
     }
@@ -51,24 +47,20 @@ function textBlocks(state = {}, action) {
             return Object.assign({}, state, {
                 isFetching: true
             });
-        break;
         case RECEIVE_PREV_BLOCKS:
             return Object.assign({}, state, {
                 isFetching: false,
                 blocks: action.blocks
             });
-        break;
         case REQUEST_NEXT_BLOCKS:
             return Object.assign({}, state, {
                 isFetching: true
             });
-        break;
         case RECEIVE_NEXT_BLOCKS:
             return Object.assign({}, state, {
                 isFetching: false,
                 blocks: action.blocks
             });
-        break;
         default:
             return state;
     }

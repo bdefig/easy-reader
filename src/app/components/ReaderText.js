@@ -26,10 +26,13 @@ export default class ReaderText extends Component {
 }
 
 ReaderText.propTypes = {
-    textBlocks: PropTypes.arrayOf(
-        PropTypes.shape({
-            text: PropTypes.string.isRequired,
-            textType: PropTypes.string.isRequired
-        })
-    )
+    textBlocks: PropTypes.shape({
+        isFetching: PropTypes.bool.isRequired,
+        blocks: PropTypes.arrayOf(
+            PropTypes.shape({
+                text: PropTypes.string.isRequired,
+                textType: PropTypes.string.isRequired
+            })
+        )
+    })
 }

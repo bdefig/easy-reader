@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import './ReaderHeader.css';
 
 const ReaderHeader = ({ onPrevClick, onNextClick }) => (
