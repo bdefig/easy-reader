@@ -17,13 +17,11 @@ currentDocument: {
 },
 textBlocks: {
 	isFetching: bool,
-	currentIndices: [int],
-	blocks:
-		[<index>: {
-			documentID: string,
-			index: int,
-			text: string,
-			textType: string,
-			wordCount: int
-		}]
+	blocks: [{
+		documentID: string,
+		index: int,
+		text: string,
+		textType: string,
+		wordCount: int
+	}]
 }

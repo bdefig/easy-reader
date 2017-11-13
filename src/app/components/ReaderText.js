@@ -8,7 +8,7 @@ export default class ReaderText extends Component {
         window.scroll(0, 0);
     }
     render() {
-        let textBlocks = this.props.blocks.map(b => {
+        let textBlocks = this.props.textBlocks.blocks.map(b => {
             return (
                 <TextBlock
                     key={b.index}

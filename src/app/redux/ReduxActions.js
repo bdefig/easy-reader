@@ -19,7 +19,7 @@ function receivePrevBlocks(state, receivedBlocks) {
 export function fetchPrevBlocks() {
     return (dispatch, getState) => {
         const currentState = getState();
-        const indicesToGet = getIndicesFromCheckpoints(currentState.indexCheckpoints, currentState.currentTextBlocks.items(currentState.currentTextBlocks.items[0]))
+        const indicesToGet = getIndicesFromCheckpoints(currentState.currentDocument.indexCheckpoints, currentState.textBlocks.blocks[0])
 
         const url = AppConfig.baseURL + 'document/' + currentState.currentDocument.documentID + '/first/' + indicesToGet[0] + '/last/' + indicesToGet[1];
 
@@ -54,7 +54,7 @@ function receiveNextBlocks(state, receivedBlocks) {
 export function fetchNextBlocks() {
     return (dispatch, getState) => {
         const currentState = getState();
-        const indicesToGet = getIndicesFromCheckpoints(currentState.indexCheckpoints, currentState.currentTextBlocks.items[currentState.currentTextBlocks.items.length])
+        const indicesToGet = getIndicesFromCheckpoints(currentState.currentDocument.indexCheckpoints, currentState.textBlocks.blocks.length)
 
         const url = AppConfig.baseURL + 'document/' + currentState.currentDocument.documentID + '/first/' + indicesToGet[0] + '/last/' + indicesToGet[1];
 

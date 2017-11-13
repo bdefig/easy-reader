@@ -18,11 +18,8 @@ class Reader extends Component {
     render() {
         const {
             user,
-            settings,
             currentDocument,
-            textBlocks,
-            indexCheckpoints,
-            currentTextBlocks
+            textBlocks
         } = this.props;
         const {
             onPrevClick,
@@ -45,11 +42,8 @@ class Reader extends Component {
 const mapStateToProps = state => {
     return {
         user: state.user,
-        settings: state.settings,
         currentDocument: state.currentDocument,
-        textBlocks: state.textBlocks,
-        indexCheckpoints: state.indexCheckpoints,
-        currentTextBlocks: state.currentTextBlocks
+        textBlocks: state.textBlocks
     }
 }
 

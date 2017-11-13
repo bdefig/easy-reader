@@ -23,7 +23,6 @@ const preloadedState = {
     },
     textBlocks: {
         isFetching: false,
-        currentIndices: [],
         blocks: []
     }
 }

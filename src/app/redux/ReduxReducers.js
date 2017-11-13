@@ -46,7 +46,6 @@ function currentDocument(state = {}, action) {
 }
 
 function textBlocks(state = {}, action) {
-    const indices = [];
     switch (action.type) {
         case REQUEST_PREV_BLOCKS:
             return Object.assign({}, state, {
@@ -54,13 +53,9 @@ function textBlocks(state = {}, action) {
             });
         break;
         case RECEIVE_PREV_BLOCKS:
-            for (let i=0; i<action.blocks.length; i++) {
-                indices.push(action.blocks[i].index);
-            }
             return Object.assign({}, state, {
                 isFetching: false,
-                currentIndices: indices,
-                blocks: formatBlocksForState(action.blocks)
+                blocks: action.blocks
             });
         break;
         case REQUEST_NEXT_BLOCKS:
@@ -69,38 +64,14 @@ function textBlocks(state = {}, action) {
             });
         break;
         case RECEIVE_NEXT_BLOCKS:
-            for (let i=0; i<action.blocks.length; i++) {
-                indices.push(action.blocks[i].index);
-            }
             return Object.assign({}, state, {
                 isFetching: false,
-                currentIndices: indices,
-                blocks: formatBlocksForState(action.blocks)
+                blocks: action.blocks
             });
         break;
         default:
             return state;
     }
-}
-
-function formatBlocksForState(blocks) {
-    const blocksForState = [];
-
-    for (let i=0; i<blocks.length; i++) {
-        const block = blocks[i];
-        const blockToAdd = {
-            [block.index]: {
-                documentID: block.documentID,
-                index: block.index,
-                text: block.text,
-                textType: block.textType,
-                wordCount: block.wordCount
-            }
-        };
-        blocksForState.push(blockToAdd);
-    }
-
-    return blocksForState;
 }
 
 const rootReducer = combineReducers({
