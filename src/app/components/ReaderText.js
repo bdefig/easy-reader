@@ -7,6 +7,7 @@ export default class ReaderText extends Component {
     componentDidUpdate() {
         window.scroll(0, 0);
     }
+
     render() {
         let textBlocks = this.props.textBlocks.blocks.map(b => {
             return (
@@ -18,7 +19,7 @@ export default class ReaderText extends Component {
             );
         });
         return (
-            <div className="Reader-text">
+            <div className="Reader-textArea">
                 {textBlocks}
             </div>
         );

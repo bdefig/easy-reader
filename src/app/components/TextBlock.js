@@ -4,9 +4,9 @@ import './TextBlock.css';
 
 const TextBlock = ({ text, textType }) => {
     if (textType === 'heading') {
-        return ( <h3 className="Reader-textBlock">{this.props.text}</h3> );
+        return ( <h3 className="Reader-textBlock">{text}</h3> );
     } else {
-        return ( <p className="Reader-textBlock">{this.props.text}</p> );
+        return ( <p className="Reader-textBlock">{text}</p> );
     }
 }
 

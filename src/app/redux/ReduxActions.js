@@ -19,7 +19,19 @@ function receivePrevBlocks(state, receivedBlocks) {
 export function fetchPrevBlocks() {
     return (dispatch, getState) => {
         const currentState = getState();
-        const indicesToGet = getIndicesFromCheckpoints(currentState.currentDocument.indexCheckpoints, currentState.textBlocks.blocks[0])
+
+        // TODO: Deal with empty state
+        let indicesToGet = getIndicesFromCheckpoints(currentState.currentDocument.indexCheckpoints, 0);
+        if (currentState.textBlocks.blocks.length != 0) {
+            indicesToGet = getIndicesFromCheckpoints(currentState.currentDocument.indexCheckpoints, currentState.textBlocks.blocks[0].index - 1);
+            console.log('Get indices: ' + indicesToGet);
+        }
+
+        if (indicesToGet[0] === -1 && indicesToGet[1] === -1) {
+            // Error: Do something else
+        }
+
+        // const indicesToGet = getIndicesFromCheckpoints(currentState.currentDocument.indexCheckpoints, currentState.textBlocks.blocks[0].index)
 
         const url = AppConfig.baseURL + 'document/' + currentState.currentDocument.documentID + '/first/' + indicesToGet[0] + '/last/' + indicesToGet[1];
 
@@ -54,9 +66,20 @@ function receiveNextBlocks(state, receivedBlocks) {
 export function fetchNextBlocks() {
     return (dispatch, getState) => {
         const currentState = getState();
-        const indicesToGet = getIndicesFromCheckpoints(currentState.currentDocument.indexCheckpoints, currentState.textBlocks.blocks.length)
+        // console.log(currentState.textBlocks);
+        // TODO: Deal with empty state
+        let indicesToGet = getIndicesFromCheckpoints(currentState.currentDocument.indexCheckpoints, 0);
+        if (currentState.textBlocks.blocks.length != 0) {
+            indicesToGet = getIndicesFromCheckpoints(currentState.currentDocument.indexCheckpoints, currentState.textBlocks.blocks[currentState.textBlocks.blocks.length - 1].index + 1);
+            console.log('Get indices: ' + indicesToGet);
+        }
+
+        if (indicesToGet[0] === -1 && indicesToGet[1] === -1) {
+            // Error: Do something else
+        }
 
         const url = AppConfig.baseURL + 'document/' + currentState.currentDocument.documentID + '/first/' + indicesToGet[0] + '/last/' + indicesToGet[1];
+        console.log('Request url: ' + url);
 
         dispatch(requestNextBlocks(getState()));
         return fetch(url, {
@@ -66,7 +89,7 @@ export function fetchNextBlocks() {
                 'Accept': 'application/json',
             }
         })
-        .then(blocks => blocks.json())
+        .then(receivedBlocks => receivedBlocks.json())
         .then(jsonBlocks => dispatch(receiveNextBlocks(getState(), jsonBlocks)));
     }
 }

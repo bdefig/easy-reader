@@ -57,6 +57,8 @@ function textBlocks(state = {}, action) {
                 isFetching: true
             });
         case RECEIVE_NEXT_BLOCKS:
+            console.log('RECEIVE_NEXT_BLOCKS reducer');
+            console.log(action);
             return Object.assign({}, state, {
                 isFetching: false,
                 blocks: action.blocks
