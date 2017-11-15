@@ -19,32 +19,30 @@ function receivePrevBlocks(state, receivedBlocks) {
 export function fetchPrevBlocks() {
     return (dispatch, getState) => {
         const currentState = getState();
-
-        // TODO: Deal with empty state
-        let indicesToGet = getIndicesFromCheckpoints(currentState.currentDocument.indexCheckpoints, 0);
-        if (currentState.textBlocks.blocks.length != 0) {
-            indicesToGet = getIndicesFromCheckpoints(currentState.currentDocument.indexCheckpoints, currentState.textBlocks.blocks[0].index - 1);
-            console.log('Get indices: ' + indicesToGet);
-        }
-
-        if (indicesToGet[0] === -1 && indicesToGet[1] === -1) {
-            // Error: Do something else
-        }
-
-        // const indicesToGet = getIndicesFromCheckpoints(currentState.currentDocument.indexCheckpoints, currentState.textBlocks.blocks[0].index)
-
-        const url = AppConfig.baseURL + 'document/' + currentState.currentDocument.documentID + '/first/' + indicesToGet[0] + '/last/' + indicesToGet[1];
-
-        dispatch(requestPrevBlocks(getState()));
-        return fetch(url, {
-            method: 'get',
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json',
+        if (currentState.textBlocks.blocks.length > 0 && currentState.textBlocks.blocks[0].index > 0) {
+            let indicesToGet = getIndicesFromCheckpoints(currentState.currentDocument.indexCheckpoints, 0);
+            if (currentState.textBlocks.blocks.length != 0) {
+                indicesToGet = getIndicesFromCheckpoints(currentState.currentDocument.indexCheckpoints, currentState.textBlocks.blocks[0].index - 1);
+                console.log('Get indices: ' + indicesToGet);
             }
-        })
-        .then(blocks => blocks.json())
-        .then(jsonBlocks => dispatch(receivePrevBlocks(getState(), jsonBlocks)));
+
+            if (indicesToGet[0] === -1 && indicesToGet[1] === -1) {
+                // Error: Do something else
+            }
+
+            const url = AppConfig.baseURL + 'document/' + currentState.currentDocument.documentID + '/first/' + indicesToGet[0] + '/last/' + indicesToGet[1];
+
+            dispatch(requestPrevBlocks(getState()));
+            return fetch(url, {
+                method: 'get',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                }
+            })
+            .then(blocks => blocks.json())
+            .then(jsonBlocks => dispatch(receivePrevBlocks(getState(), jsonBlocks)));
+        }
     }
 }
 
@@ -66,8 +64,7 @@ function receiveNextBlocks(state, receivedBlocks) {
 export function fetchNextBlocks() {
     return (dispatch, getState) => {
         const currentState = getState();
-        // console.log(currentState.textBlocks);
-        // TODO: Deal with empty state
+        // TODO: Only execute if we're not on the last block
         let indicesToGet = getIndicesFromCheckpoints(currentState.currentDocument.indexCheckpoints, 0);
         if (currentState.textBlocks.blocks.length != 0) {
             indicesToGet = getIndicesFromCheckpoints(currentState.currentDocument.indexCheckpoints, currentState.textBlocks.blocks[currentState.textBlocks.blocks.length - 1].index + 1);

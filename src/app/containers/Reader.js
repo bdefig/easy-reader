@@ -10,10 +10,15 @@ import {
 } from '../redux/ReduxActions';
 
 class Reader extends Component {
-    componentDidMount() {
+    constructor(props) {
+        super(props);
         // Get user progress, including document metadata
         const { calculateIndexCheckpoints } = this.props;
         calculateIndexCheckpoints();
+    }
+
+    componentDidMount() {
+        this.props.onNextClick();
     }
 
     render() {
