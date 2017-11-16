@@ -24,12 +24,14 @@ function currentDocument(state = {}, action) {
                 isFetching: true
             });
         case RECEIVE_CURRENT_DOCUMENT:
+            // console.log(action.currentDocument);
             return Object.assign({}, state, {
                 isFetching: false,
-                documentID: action.documentID,
-                title: action.title,
-                author: action.author,
-                wordCountPerBlock: action.wordCountPerBlock
+                documentID: action.currentDocument.document._id,
+                title: action.currentDocument.document.title,
+                author: action.currentDocument.document.author,
+                wordCountPerBlock: action.currentDocument.document.wordCountPerBlock,
+                currentIndex: action.currentDocument.currentBlock
             });
         case UPDATE_CURRENT_DOCUMENT:
         case UPDATE_INDEX_CHECKPOINTS:
@@ -57,8 +59,8 @@ function textBlocks(state = {}, action) {
                 isFetching: true
             });
         case RECEIVE_NEXT_BLOCKS:
-            console.log('RECEIVE_NEXT_BLOCKS reducer');
-            console.log(action);
+            // console.log('RECEIVE_NEXT_BLOCKS reducer');
+            // console.log(action);
             return Object.assign({}, state, {
                 isFetching: false,
                 blocks: action.blocks
