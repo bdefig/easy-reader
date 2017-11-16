@@ -232,5 +232,18 @@ function getIndicesFromCheckpoints (indexCheckpoints, oneIndex) {
 }
 
 export function loadInitialReaderState() {
-    
+    return (dispatch, getState) => {
+        return dispatch(fetchCurrentDocument())
+        .then(dispatch(calculateIndexCheckpoints()))
+        .then(dispatch(fetchNextBlocks()))
+        .catch(err => {
+            console.log('Error loading initial reader state: ' + err);
+        });
+    }
+}
+
+export function debugState() {
+    return (dispatch, getState) => {
+        console.log(getState());
+    }
 }

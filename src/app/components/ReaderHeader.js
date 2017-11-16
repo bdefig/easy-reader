@@ -1,7 +1,7 @@
 import React from 'react';
 import './ReaderHeader.css';
 
-const ReaderHeader = ({ onPrevClick, onNextClick }) => (
+const ReaderHeader = ({ onPrevClick, onNextClick, debugState }) => (
     <div className="Reader-header">
         <div className="Reader-headerButtonWrapper">
             <button
@@ -11,7 +11,7 @@ const ReaderHeader = ({ onPrevClick, onNextClick }) => (
             &lt;
             </button>
         </div>
-        <h1>Easy Reader</h1>
+        <h1 onClick={debugState}>Easy Reader</h1>
         <div className="Reader-headerButtonWrapper">
             <button
                 className="Reader-headerPageButton"

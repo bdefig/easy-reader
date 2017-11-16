@@ -7,7 +7,9 @@ import {
     fetchPrevBlocks,
     fetchNextBlocks,
     fetchCurrentDocument,
-    calculateIndexCheckpoints
+    calculateIndexCheckpoints,
+    loadInitialReaderState,
+    debugState
 } from '../redux/ReduxActions';
 
 class Reader extends Component {
@@ -22,11 +24,12 @@ class Reader extends Component {
     }
 
     componentDidMount() {
-        const { onNextClick, fetchCurrentDocument, calculateIndexCheckpoints } = this.props;
-        console.log(this.props.currentDocument);
-        fetchCurrentDocument()
-        .then(calculateIndexCheckpoints)
-        .then(onNextClick());
+        const { onNextClick, fetchCurrentDocument, calculateIndexCheckpoints, loadInitialReaderState } = this.props;
+        // console.log(this.props.currentDocument);
+        // fetchCurrentDocument()
+        // .then(calculateIndexCheckpoints)
+        // .then(onNextClick());
+        loadInitialReaderState();
     }
 
     render() {
@@ -37,13 +40,18 @@ class Reader extends Component {
         } = this.props;
         const {
             onPrevClick,
-            onNextClick
+            onNextClick,
+            loadInitialReaderState,
+            // For debugging only--delete later
+            debugState
         } = this.props;
         return (
             <div className="Reader-app">
                 <ReaderHeader
                     onPrevClick={onPrevClick}
                     onNextClick={onNextClick}
+                    // For debugging only--delete later
+                    debugState={debugState}
                 />
                 <ReaderText
                     textBlocks={textBlocks}
@@ -67,7 +75,10 @@ const mapDispatchToProps = dispatch => {
         onPrevClick: () => dispatch(fetchPrevBlocks()),
         onNextClick: () => dispatch(fetchNextBlocks()),
         fetchCurrentDocument: () => dispatch(fetchCurrentDocument()),
-        calculateIndexCheckpoints: () => dispatch(calculateIndexCheckpoints())
+        calculateIndexCheckpoints: () => dispatch(calculateIndexCheckpoints()),
+        loadInitialReaderState: () => dispatch(loadInitialReaderState()),
+        // For debugging only--delete later
+        debugState: () => dispatch(debugState())
     }
 }
 
