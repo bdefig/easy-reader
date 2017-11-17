@@ -21,7 +21,7 @@ export function fetchPrevBlocks() {
         const currentState = getState();
         if (currentState.textBlocks.blocks.length > 0 && currentState.textBlocks.blocks[0].index > 0) {
             let indicesToGet = getIndicesFromCheckpoints(currentState.currentDocument.indexCheckpoints, 0);
-            if (currentState.textBlocks.blocks.length != 0) {
+            if (currentState.textBlocks.blocks.length !== 0) {
                 indicesToGet = getIndicesFromCheckpoints(currentState.currentDocument.indexCheckpoints, currentState.textBlocks.blocks[0].index - 1);
                 console.log('Get indices: ' + indicesToGet);
             }
@@ -69,15 +69,13 @@ export function fetchNextBlocks() {
         if (currentState.currentDocument.currentIndex) {
             indicesToGet = getIndicesFromCheckpoints(currentState.currentDocument.indexCheckpoints, currentState.currentDocument.currentIndex);
         }
-        if (currentState.textBlocks.blocks.length != 0) {
+        if (currentState.textBlocks.blocks.length !== 0) {
             indicesToGet = getIndicesFromCheckpoints(currentState.currentDocument.indexCheckpoints, currentState.textBlocks.blocks[currentState.textBlocks.blocks.length - 1].index + 1);
-            // console.log('Get indices: ' + indicesToGet);
         }
-
+        console.log('Get indices: ' + indicesToGet);
         if (indicesToGet[0] === -1 && indicesToGet[1] === -1) {
             // TODO: Handle this error more gracefully
             console.log('Can\'t fetch blocks: getIndicesFromCheckpoints failed');
-            console.log('Current state: ');
             console.log(getState());
         } else {
             const url = AppConfig.baseURL + 'document/' + currentState.currentDocument.documentID + '/first/' + indicesToGet[0] + '/last/' + indicesToGet[1];
@@ -106,9 +104,33 @@ function requestCurrentDocument(state) {
 
 export const RECEIVE_CURRENT_DOCUMENT = 'RECEIVE_CURRENT_DOCUMENT';
 function receiveCurrentDocument(state, currentDocument) {
-    return {
-        type: RECEIVE_CURRENT_DOCUMENT,
-        currentDocument: currentDocument
+    return (dispatch) => {
+        // Calculate index checkpoints
+        const indexCheckpoints = calculateIndexCheckpoints(currentDocument.document.wordCountPerBlock, state.user.settings.minWordCount);
+        dispatch(fetchCurrentBlocks(state, currentDocument, indexCheckpoints));
+        return {
+            type: RECEIVE_CURRENT_DOCUMENT,
+            currentDocument: currentDocument,
+            indexCheckpoints: indexCheckpoints
+        }
+    }
+}
+
+function fetchCurrentBlocks(state, currentDocument, indexCheckpoints) {
+    return (dispatch, currentDocument, indexCheckpoints) => {
+        const indicesToGet = getIndicesFromCheckpoints(indexCheckpoints, currentDocument.currentIndex);
+        const url = AppConfig.baseURL + 'document/' + currentDocument.documentID + '/first/' + indicesToGet[0] + '/last/' + indicesToGet[1];
+
+        dispatch(requestNextBlocks(state));
+        return fetch(url, {
+            method: 'get',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+            }
+        })
+        .then(receivedBlocks => receivedBlocks.json())
+        .then(jsonBlocks => dispatch(receiveNextBlocks(state, jsonBlocks)));
     }
 }
 
@@ -139,30 +161,6 @@ export function fetchCurrentDocument() {
     }
 }
 
-// export function fetchCurrentDocument() {
-//     return (dispatch, getState) => {
-//         return new Promise ( (resolve, reject) => {
-//             const currentState = getState();
-//             const userID = currentState.user.userID;
-//             const url = AppConfig.baseURL + 'user/' + userID + '/getDocumentProgress';
-
-//             dispatch(requestCurrentDocument(getState()));
-//             fetch(url, {
-//                 method: 'get',
-//                 headers: {
-//                     'Content-Type': 'application/json',
-//                     'Accept': 'application/json',
-//                 }
-//             })
-//             .then(currentDocument => currentDocument.json())
-//             // Only send the most recent current document
-//             .then(jsonCurrentDocument => dispatch(receiveCurrentDocument(getState(), jsonCurrentDocument[0])))
-//             .then(() => resolve())
-//             .catch(err => reject(Error('Error fetching current document')));
-//         });
-//     }
-// }
-
 export const UPDATE_INDEX_CHECKPOINTS = 'CALCULATE_INDEX_CHECKPOINTS';
 export function updateIndexCheckpoints(state, indexCheckpoints) {
     return {
@@ -171,56 +169,23 @@ export function updateIndexCheckpoints(state, indexCheckpoints) {
     }
 }
 
-export function calculateIndexCheckpoints () {
-    return (dispatch, getState) => {
-        const state = getState();
-        const documentMetadata = state.currentDocument;
-        const minWordCountPerBlock = state.user.settings.minWordCount;
-        let indexCounter = 0;
-        let indexCheckpoints = [0];
-        let wordCountCounter = 0;
+function calculateIndexCheckpoints (wordCountPerBlock, minWordCountPerBlock) {
+    let indexCounter = 0;
+    let indexCheckpoints = [0];
+    let wordCountCounter = 0;
 
-        while (indexCounter < documentMetadata.wordCountPerBlock.length) {
-            if (wordCountCounter > minWordCountPerBlock) {
-                indexCheckpoints.push(indexCounter);
-                wordCountCounter = 0;
-            }
-            wordCountCounter += documentMetadata.wordCountPerBlock[indexCounter];
-            indexCounter += 1;
+    while (indexCounter < wordCountPerBlock.length) {
+        if (wordCountCounter > minWordCountPerBlock) {
+            indexCheckpoints.push(indexCounter);
+            wordCountCounter = 0;
         }
-        indexCheckpoints.push(documentMetadata.wordCountPerBlock.length - 1)
-
-        return dispatch(updateIndexCheckpoints(state, indexCheckpoints));
+        wordCountCounter += wordCountPerBlock[indexCounter];
+        indexCounter += 1;
     }
+    indexCheckpoints.push(wordCountPerBlock.length - 1)
+
+    return indexCheckpoints;
 }
-
-// export function calculateIndexCheckpoints () {
-//     return (dispatch, getState) => {
-//         return new Promise ( (resolve, reject) => {
-//             const state = getState();
-//             const documentMetadata = state.currentDocument;
-//             const minWordCountPerBlock = state.user.settings.minWordCount;
-//             let indexCounter = 0;
-//             let indexCheckpoints = [0];
-//             let wordCountCounter = 0;
-
-//             while (indexCounter < documentMetadata.wordCountPerBlock.length) {
-//                 if (wordCountCounter > minWordCountPerBlock) {
-//                     indexCheckpoints.push(indexCounter);
-//                     wordCountCounter = 0;
-//                 }
-//                 wordCountCounter += documentMetadata.wordCountPerBlock[indexCounter];
-//                 indexCounter += 1;
-//             }
-//             indexCheckpoints.push(documentMetadata.wordCountPerBlock.length - 1)
-
-//             dispatch(updateIndexCheckpoints(state, indexCheckpoints));
-
-//             // This is wrong. I probably shouldn't use a promise here
-//             resolve();
-//         });
-//     }
-// }
 
 function getIndicesFromCheckpoints (indexCheckpoints, oneIndex) {
     for (let i = 0; i < (indexCheckpoints.length - 1); i++) {
@@ -234,13 +199,37 @@ function getIndicesFromCheckpoints (indexCheckpoints, oneIndex) {
 export function loadInitialReaderState() {
     return (dispatch, getState) => {
         return dispatch(fetchCurrentDocument())
-        .then(dispatch(calculateIndexCheckpoints()))
-        .then(dispatch(fetchNextBlocks()))
+        // TODO: Display blocks
+        // .then(dispatch(fetchNextBlocks()))
         .catch(err => {
             console.log('Error loading initial reader state: ' + err);
         });
     }
 }
+
+// export function loadInitialReaderState() {
+//     return (dispatch, getState) => {
+//         const currentState = getState();
+//         const userID = currentState.user.userID;
+//         const url = AppConfig.baseURL + 'user/' + userID + '/getDocumentProgress';
+
+//         dispatch(requestCurrentDocument(getState()));
+//         return fetch(url, {
+//             method: 'get',
+//             headers: {
+//                 'Content-Type': 'application/json',
+//                 'Accept': 'application/json',
+//             }
+//         })
+//         .then(currentDocument => currentDocument.json())
+//         // Only send the most recent current document
+//         .then(jsonCurrentDocument => dispatch(receiveCurrentDocument(getState(), jsonCurrentDocument[0])))
+//         // .then(dispatch(fetchNextBlocks()))
+//         .catch(err => {
+//             console.log('Error loading initial reader state: ' + err);
+//         });
+//     }
+// }
 
 export function debugState() {
     return (dispatch, getState) => {

@@ -7,7 +7,6 @@ import {
     fetchPrevBlocks,
     fetchNextBlocks,
     fetchCurrentDocument,
-    calculateIndexCheckpoints,
     loadInitialReaderState,
     debugState
 } from '../redux/ReduxActions';
@@ -75,7 +74,6 @@ const mapDispatchToProps = dispatch => {
         onPrevClick: () => dispatch(fetchPrevBlocks()),
         onNextClick: () => dispatch(fetchNextBlocks()),
         fetchCurrentDocument: () => dispatch(fetchCurrentDocument()),
-        calculateIndexCheckpoints: () => dispatch(calculateIndexCheckpoints()),
         loadInitialReaderState: () => dispatch(loadInitialReaderState()),
         // For debugging only--delete later
         debugState: () => dispatch(debugState())

@@ -31,13 +31,14 @@ function currentDocument(state = {}, action) {
                 title: action.currentDocument.document.title,
                 author: action.currentDocument.document.author,
                 wordCountPerBlock: action.currentDocument.document.wordCountPerBlock,
-                currentIndex: action.currentDocument.currentBlock
+                currentIndex: action.currentDocument.currentBlock,
+                indexCheckpoints: action.indexCheckpoints
             });
         case UPDATE_CURRENT_DOCUMENT:
         case UPDATE_INDEX_CHECKPOINTS:
             return Object.assign({}, state, {
                 indexCheckpoints: action.indexCheckpoints
-            })
+            });
         default:
             return state;
     }
