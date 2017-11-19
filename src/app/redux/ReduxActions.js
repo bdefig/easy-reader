@@ -66,16 +66,11 @@ function requestCurrentDocument(state) {
 }
 
 
-function receiveCurrentDocument(state, currentDocument) {
-    return (dispatch) => {
-        // Calculate index checkpoints
-        const indexCheckpoints = calculateIndexCheckpoints(currentDocument.document.wordCountPerBlock, state.user.settings.minWordCount);
-        // dispatch(fetchCurrentBlocks(state, currentDocument, indexCheckpoints));
-        return {
-            type: RECEIVE_CURRENT_DOCUMENT,
-            currentDocument: currentDocument,
-            indexCheckpoints: indexCheckpoints
-        }
+function receiveCurrentDocument(state, currentDocument, indexCheckpoints) {
+    return {
+        type: RECEIVE_CURRENT_DOCUMENT,
+        currentDocument: currentDocument,
+        indexCheckpoints: indexCheckpoints
     }
 }
 
@@ -85,14 +80,14 @@ function updateCurrentDocument(state) {
     }
 }
 
-export function updateIndexCheckpoints(state, indexCheckpoints) {
+function updateIndexCheckpoints(state, indexCheckpoints) {
     return {
         type: UPDATE_INDEX_CHECKPOINTS,
         indexCheckpoints: indexCheckpoints
     }
 }
 
-// Action Creators -------------------------------------------------------
+// Action Creators (Thunks) ----------------------------------------------
 
 export function fetchBlocks(direction) {
     // Direction: -1 (previous blocks), 0 (current blocks), 1 (next blocks)
@@ -100,8 +95,8 @@ export function fetchBlocks(direction) {
 
 export function fetchCurrentDocument() {
     return (dispatch, getState) => {
-        const currentState = getState();
-        const userID = currentState.user.userID;
+        const state = getState();
+        const userID = state.user.userID;
         const url = AppConfig.baseURL + 'user/' + userID + '/getDocumentProgress';
 
         dispatch(requestCurrentDocument(getState()));
@@ -112,15 +107,24 @@ export function fetchCurrentDocument() {
                 'Accept': 'application/json',
             }
         })
-        .then(currentDocument => currentDocument.json())
-        // Only send the most recent current document
-        .then(jsonCurrentDocument => dispatch(receiveCurrentDocument(getState(), jsonCurrentDocument[0])));
+        .then(currentDocuments => currentDocuments.json())
+        .then(jsonCurrentDocuments => {
+            // Only send the most recent current document
+            const currentDocument = jsonCurrentDocuments[0];
+            let wordCountPerBlock = currentDocument.document.wordCountPerBlock;
+            let minWordCount = 500;
+            if (state.user.settings.minWordCount) {
+                minWordCount = state.user.settings.minWordCount;
+            }
+            const indexCheckpoints = calculateIndexCheckpoints(wordCountPerBlock, minWordCount);
+            dispatch(receiveCurrentDocument(getState(), currentDocument, indexCheckpoints));
+        });
     }
 }
 
 export function loadInitialReaderState() {
     return (dispatch, getState) => {
-        return dispatch(fetchCurrentDocument())     // Might need to update this
+        dispatch(fetchCurrentDocument());
         // TODO: Display blocks
         // .then(dispatch(fetchNextBlocks()))
         // .catch(err => {
