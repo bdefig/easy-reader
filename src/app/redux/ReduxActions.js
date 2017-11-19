@@ -107,7 +107,7 @@ function receiveCurrentDocument(state, currentDocument) {
     return (dispatch) => {
         // Calculate index checkpoints
         const indexCheckpoints = calculateIndexCheckpoints(currentDocument.document.wordCountPerBlock, state.user.settings.minWordCount);
-        dispatch(fetchCurrentBlocks(state, currentDocument, indexCheckpoints));
+        // dispatch(fetchCurrentBlocks(state, currentDocument, indexCheckpoints));
         return {
             type: RECEIVE_CURRENT_DOCUMENT,
             currentDocument: currentDocument,
@@ -201,9 +201,9 @@ export function loadInitialReaderState() {
         return dispatch(fetchCurrentDocument())
         // TODO: Display blocks
         // .then(dispatch(fetchNextBlocks()))
-        .catch(err => {
-            console.log('Error loading initial reader state: ' + err);
-        });
+        // .catch(err => {
+        //     console.log('Error loading initial reader state: ' + err);
+        // });
     }
 }
 
