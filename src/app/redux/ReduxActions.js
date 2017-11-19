@@ -1,20 +1,171 @@
 import 'whatwg-fetch';
 import AppConfig from '../AppConfig';
 
-export const REQUEST_PREV_BLOCKS = 'REQUEST_PREV_BLOCKS';
+// Types -----------------------------------------------------------------
+
+export const REQUEST_BLOCKS = 'REQUEST_BLOCKS';
+export const RECEIVE_BLOCKS = 'RECEIVE_BLOCKS';
+export const REQUEST_PREV_BLOCKS = 'REQUEST_PREV_BLOCKS';   // Get rid of and replace with generic request/receive
+export const RECEIVE_PREV_BLOCKS = 'RECEIVE_PREV_BLOCKS';   // Get rid of and replace with generic request/receive
+export const REQUEST_NEXT_BLOCKS = 'REQUEST_NEXT_BLOCKS';   // Get rid of and replace with generic request/receive
+export const RECEIVE_NEXT_BLOCKS = 'RECEIVE_NEXT_BLOCKS';   // Get rid of and replace with generic request/receive
+export const REQUEST_CURRENT_DOCUMENT = 'REQUEST_CURRENT_DOCUMENT';
+export const RECEIVE_CURRENT_DOCUMENT = 'RECEIVE_CURRENT_DOCUMENT';
+export const UPDATE_CURRENT_DOCUMENT = 'UPDATE_CURRENT_DOCUMENT';
+export const UPDATE_INDEX_CHECKPOINTS = 'UPDATE_INDEX_CHECKPOINTS';
+
+// Actions ---------------------------------------------------------------
+
+function requestBlocks(state) {
+    return {
+        type: REQUEST_BLOCKS
+    }
+}
+
+function receiveBlocks(state, receivedBlocks) {
+    return {
+        type: RECEIVE_BLOCKS,
+        blocks: receivedBlocks
+    }
+}
+
+// Get rid of and replace with generic request/receive
 function requestPrevBlocks(state) {
     return {
         type: REQUEST_PREV_BLOCKS
     }
 }
 
-export const RECEIVE_PREV_BLOCKS = 'RECEIVE_PREV_BLOCKS';
+// Get rid of and replace with generic request/receive
 function receivePrevBlocks(state, receivedBlocks) {
     return {
         type: RECEIVE_PREV_BLOCKS,
         blocks: receivedBlocks
     }
 }
+
+// Get rid of and replace with generic request/receive
+function requestNextBlocks(state) {
+    return {
+        type: REQUEST_NEXT_BLOCKS
+    }
+}
+
+// Get rid of and replace with generic request/receive
+function receiveNextBlocks(state, receivedBlocks) {
+    return {
+        type: RECEIVE_NEXT_BLOCKS,
+        blocks: receivedBlocks
+    }
+}
+
+function requestCurrentDocument(state) { 
+    return {
+        type: REQUEST_CURRENT_DOCUMENT
+    }
+}
+
+
+function receiveCurrentDocument(state, currentDocument) {
+    return (dispatch) => {
+        // Calculate index checkpoints
+        const indexCheckpoints = calculateIndexCheckpoints(currentDocument.document.wordCountPerBlock, state.user.settings.minWordCount);
+        // dispatch(fetchCurrentBlocks(state, currentDocument, indexCheckpoints));
+        return {
+            type: RECEIVE_CURRENT_DOCUMENT,
+            currentDocument: currentDocument,
+            indexCheckpoints: indexCheckpoints
+        }
+    }
+}
+
+function updateCurrentDocument(state) {
+    return {
+        type: UPDATE_CURRENT_DOCUMENT
+    }
+}
+
+export function updateIndexCheckpoints(state, indexCheckpoints) {
+    return {
+        type: UPDATE_INDEX_CHECKPOINTS,
+        indexCheckpoints: indexCheckpoints
+    }
+}
+
+// Action Creators -------------------------------------------------------
+
+export function fetchBlocks(direction) {
+    // Direction: -1 (previous blocks), 0 (current blocks), 1 (next blocks)
+}
+
+export function fetchCurrentDocument() {
+    return (dispatch, getState) => {
+        const currentState = getState();
+        const userID = currentState.user.userID;
+        const url = AppConfig.baseURL + 'user/' + userID + '/getDocumentProgress';
+
+        dispatch(requestCurrentDocument(getState()));
+        return fetch(url, {
+            method: 'get',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+            }
+        })
+        .then(currentDocument => currentDocument.json())
+        // Only send the most recent current document
+        .then(jsonCurrentDocument => dispatch(receiveCurrentDocument(getState(), jsonCurrentDocument[0])));
+    }
+}
+
+export function loadInitialReaderState() {
+    return (dispatch, getState) => {
+        return dispatch(fetchCurrentDocument())     // Might need to update this
+        // TODO: Display blocks
+        // .then(dispatch(fetchNextBlocks()))
+        // .catch(err => {
+        //     console.log('Error loading initial reader state: ' + err);
+        // });
+    }
+}
+
+
+export function debugState() {
+    return (dispatch, getState) => {
+        console.log(getState());
+    }
+}
+
+// Helper Functions ------------------------------------------------------
+
+function calculateIndexCheckpoints (wordCountPerBlock, minWordCountPerBlock) {
+    let indexCounter = 0;
+    let indexCheckpoints = [0];
+    let wordCountCounter = 0;
+
+    while (indexCounter < wordCountPerBlock.length) {
+        if (wordCountCounter > minWordCountPerBlock) {
+            indexCheckpoints.push(indexCounter);
+            wordCountCounter = 0;
+        }
+        wordCountCounter += wordCountPerBlock[indexCounter];
+        indexCounter += 1;
+    }
+    indexCheckpoints.push(wordCountPerBlock.length - 1)
+
+    return indexCheckpoints;
+}
+
+function getIndicesFromCheckpoints (indexCheckpoints, oneIndex) {
+    for (let i = 0; i < (indexCheckpoints.length - 1); i++) {
+        if (oneIndex >= indexCheckpoints[i] && oneIndex < indexCheckpoints[i+1]) {
+            return [indexCheckpoints[i], indexCheckpoints[i+1] - 1];
+        }
+    }
+    return [-1, -1];    // Not found
+}
+
+// Old--Delete when replaced ---------------------------------------------
 
 export function fetchPrevBlocks() {
     return (dispatch, getState) => {
@@ -43,21 +194,6 @@ export function fetchPrevBlocks() {
             .then(blocks => blocks.json())
             .then(jsonBlocks => dispatch(receivePrevBlocks(getState(), jsonBlocks)));
         }
-    }
-}
-
-export const REQUEST_NEXT_BLOCKS = 'REQUEST_NEXT_BLOCKS';
-function requestNextBlocks(state) {
-    return {
-        type: REQUEST_NEXT_BLOCKS
-    }
-}
-
-export const RECEIVE_NEXT_BLOCKS = 'RECEIVE_NEXT_BLOCKS';
-function receiveNextBlocks(state, receivedBlocks) {
-    return {
-        type: RECEIVE_NEXT_BLOCKS,
-        blocks: receivedBlocks
     }
 }
 
@@ -95,27 +231,6 @@ export function fetchNextBlocks() {
     }
 }
 
-export const REQUEST_CURRENT_DOCUMENT = 'REQUEST_CURRENT_DOCUMENT';
-function requestCurrentDocument(state) { 
-    return {
-        type: REQUEST_CURRENT_DOCUMENT
-    }
-}
-
-export const RECEIVE_CURRENT_DOCUMENT = 'RECEIVE_CURRENT_DOCUMENT';
-function receiveCurrentDocument(state, currentDocument) {
-    return (dispatch) => {
-        // Calculate index checkpoints
-        const indexCheckpoints = calculateIndexCheckpoints(currentDocument.document.wordCountPerBlock, state.user.settings.minWordCount);
-        // dispatch(fetchCurrentBlocks(state, currentDocument, indexCheckpoints));
-        return {
-            type: RECEIVE_CURRENT_DOCUMENT,
-            currentDocument: currentDocument,
-            indexCheckpoints: indexCheckpoints
-        }
-    }
-}
-
 function fetchCurrentBlocks(state, currentDocument, indexCheckpoints) {
     return (dispatch, currentDocument, indexCheckpoints) => {
         const indicesToGet = getIndicesFromCheckpoints(indexCheckpoints, currentDocument.currentIndex);
@@ -131,79 +246,6 @@ function fetchCurrentBlocks(state, currentDocument, indexCheckpoints) {
         })
         .then(receivedBlocks => receivedBlocks.json())
         .then(jsonBlocks => dispatch(receiveNextBlocks(state, jsonBlocks)));
-    }
-}
-
-export const UPDATE_CURRENT_DOCUMENT = 'UPDATE_CURRENT_DOCUMENT';
-function updateCurrentDocument(state) {
-    return {
-        type: UPDATE_CURRENT_DOCUMENT
-    }
-}
-
-export function fetchCurrentDocument() {
-    return (dispatch, getState) => {
-        const currentState = getState();
-        const userID = currentState.user.userID;
-        const url = AppConfig.baseURL + 'user/' + userID + '/getDocumentProgress';
-
-        dispatch(requestCurrentDocument(getState()));
-        return fetch(url, {
-            method: 'get',
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json',
-            }
-        })
-        .then(currentDocument => currentDocument.json())
-        // Only send the most recent current document
-        .then(jsonCurrentDocument => dispatch(receiveCurrentDocument(getState(), jsonCurrentDocument[0])));
-    }
-}
-
-export const UPDATE_INDEX_CHECKPOINTS = 'CALCULATE_INDEX_CHECKPOINTS';
-export function updateIndexCheckpoints(state, indexCheckpoints) {
-    return {
-        type: UPDATE_INDEX_CHECKPOINTS,
-        indexCheckpoints: indexCheckpoints
-    }
-}
-
-function calculateIndexCheckpoints (wordCountPerBlock, minWordCountPerBlock) {
-    let indexCounter = 0;
-    let indexCheckpoints = [0];
-    let wordCountCounter = 0;
-
-    while (indexCounter < wordCountPerBlock.length) {
-        if (wordCountCounter > minWordCountPerBlock) {
-            indexCheckpoints.push(indexCounter);
-            wordCountCounter = 0;
-        }
-        wordCountCounter += wordCountPerBlock[indexCounter];
-        indexCounter += 1;
-    }
-    indexCheckpoints.push(wordCountPerBlock.length - 1)
-
-    return indexCheckpoints;
-}
-
-function getIndicesFromCheckpoints (indexCheckpoints, oneIndex) {
-    for (let i = 0; i < (indexCheckpoints.length - 1); i++) {
-        if (oneIndex >= indexCheckpoints[i] && oneIndex < indexCheckpoints[i+1]) {
-            return [indexCheckpoints[i], indexCheckpoints[i+1] - 1];
-        }
-    }
-    return [-1, -1];    // Not found
-}
-
-export function loadInitialReaderState() {
-    return (dispatch, getState) => {
-        return dispatch(fetchCurrentDocument())
-        // TODO: Display blocks
-        // .then(dispatch(fetchNextBlocks()))
-        // .catch(err => {
-        //     console.log('Error loading initial reader state: ' + err);
-        // });
     }
 }
 
@@ -230,9 +272,3 @@ export function loadInitialReaderState() {
 //         });
 //     }
 // }
-
-export function debugState() {
-    return (dispatch, getState) => {
-        console.log(getState());
-    }
-}
