@@ -109,7 +109,7 @@ export function fetchCurrentDocument() {
         })
         .then(currentDocuments => currentDocuments.json())
         .then(jsonCurrentDocuments => {
-            // Only send the most recent current document
+            // Only get the most recent current document
             const currentDocument = jsonCurrentDocuments[0];
             let wordCountPerBlock = currentDocument.document.wordCountPerBlock;
             let minWordCount = 500;
@@ -118,6 +118,7 @@ export function fetchCurrentDocument() {
             }
             const indexCheckpoints = calculateIndexCheckpoints(wordCountPerBlock, minWordCount);
             dispatch(receiveCurrentDocument(getState(), currentDocument, indexCheckpoints));
+            dispatch(fetchNextBlocks());
         });
     }
 }
