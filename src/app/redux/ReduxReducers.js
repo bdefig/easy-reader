@@ -26,7 +26,6 @@ function currentDocument(state = {}, action) {
                 isFetching: true
             });
         case RECEIVE_CURRENT_DOCUMENT:
-            // console.log(action.currentDocument);
             return Object.assign({}, state, {
                 isFetching: false,
                 documentID: action.currentDocument.document._id,
@@ -37,6 +36,7 @@ function currentDocument(state = {}, action) {
                 indexCheckpoints: action.indexCheckpoints
             });
         case UPDATE_CURRENT_DOCUMENT:
+            return state;
         case UPDATE_INDEX_CHECKPOINTS:
             return Object.assign({}, state, {
                 indexCheckpoints: action.indexCheckpoints
@@ -71,8 +71,6 @@ function textBlocks(state = {}, action) {
                 isFetching: true
             });
         case RECEIVE_NEXT_BLOCKS:   // Get rid of and replace with generic request/receive
-            // console.log('RECEIVE_NEXT_BLOCKS reducer');
-            // console.log(action);
             return Object.assign({}, state, {
                 isFetching: false,
                 blocks: action.blocks

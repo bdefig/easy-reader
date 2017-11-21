@@ -6,28 +6,13 @@ import ReaderText from '../components/ReaderText';
 import {
     fetchPrevBlocks,
     fetchNextBlocks,
-    fetchCurrentDocument,
     loadInitialReaderState,
     debugState
 } from '../redux/ReduxActions';
 
 class Reader extends Component {
-    constructor(props) {
-        super(props);
-        // Get user progress, including document metadata
-        // TODO: Fetch current document
-        
-        
-        // TODO: What happens if there is no most recent document?
-        // calculateIndexCheckpoints();
-    }
-
     componentDidMount() {
-        const { onNextClick, fetchCurrentDocument, calculateIndexCheckpoints, loadInitialReaderState } = this.props;
-        // console.log(this.props.currentDocument);
-        // fetchCurrentDocument()
-        // .then(calculateIndexCheckpoints)
-        // .then(onNextClick());
+        const { loadInitialReaderState } = this.props;
         loadInitialReaderState();
     }
 
@@ -73,7 +58,6 @@ const mapDispatchToProps = dispatch => {
         // Can add dispatch if needed
         onPrevClick: () => dispatch(fetchPrevBlocks()),
         onNextClick: () => dispatch(fetchNextBlocks()),
-        fetchCurrentDocument: () => dispatch(fetchCurrentDocument()),
         loadInitialReaderState: () => dispatch(loadInitialReaderState()),
         // For debugging only--delete later
         debugState: () => dispatch(debugState())

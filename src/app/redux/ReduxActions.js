@@ -14,7 +14,7 @@ export const RECEIVE_CURRENT_DOCUMENT = 'RECEIVE_CURRENT_DOCUMENT';
 export const UPDATE_CURRENT_DOCUMENT = 'UPDATE_CURRENT_DOCUMENT';
 export const UPDATE_INDEX_CHECKPOINTS = 'UPDATE_INDEX_CHECKPOINTS';
 
-// Actions ---------------------------------------------------------------
+// Action creators (and actions) -----------------------------------------
 
 function requestBlocks(state) {
     return {
@@ -87,7 +87,7 @@ function updateIndexCheckpoints(state, indexCheckpoints) {
     }
 }
 
-// Action Creators (Thunks) ----------------------------------------------
+// Thunks (call action creators) -----------------------------------------
 
 export function fetchBlocks(direction) {
     // Direction: -1 (previous blocks), 0 (current blocks), 1 (next blocks)
@@ -118,6 +118,9 @@ export function fetchCurrentDocument() {
             }
             const indexCheckpoints = calculateIndexCheckpoints(wordCountPerBlock, minWordCount);
             dispatch(receiveCurrentDocument(getState(), currentDocument, indexCheckpoints));
+            return;
+        })
+        .then(() => {
             dispatch(fetchNextBlocks());
         });
     }
@@ -126,14 +129,28 @@ export function fetchCurrentDocument() {
 export function loadInitialReaderState() {
     return (dispatch, getState) => {
         dispatch(fetchCurrentDocument());
-        // TODO: Display blocks
-        // .then(dispatch(fetchNextBlocks()))
-        // .catch(err => {
-        //     console.log('Error loading initial reader state: ' + err);
-        // });
     }
 }
 
+export function updateDocumentProgress(state, index) {
+    return (dispatch, getState) => {
+        const url = AppConfig.baseURL + 'user/' + state.user.userID + '/updateDocumentProgress/document/' + state.currentDocument.documentID;
+        const msgBody = {
+            currentBlock: index
+        };
+
+        fetch(url, {
+            method: 'put',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+            },
+            body: JSON.stringify(msgBody)
+        })
+        .then(reply => dispatch(updateCurrentDocument(getState())))
+        .catch(err => console.log(Error('Error updating document progress')));
+    }
+}
 
 export function debugState() {
     return (dispatch, getState) => {
@@ -197,7 +214,12 @@ export function fetchPrevBlocks() {
                 }
             })
             .then(blocks => blocks.json())
-            .then(jsonBlocks => dispatch(receivePrevBlocks(getState(), jsonBlocks)));
+            .then(jsonBlocks => {
+                dispatch(receivePrevBlocks(getState(), jsonBlocks));
+                if (jsonBlocks) {
+                    dispatch(updateDocumentProgress(getState(), jsonBlocks[0].index));
+                }
+            });
         }
     }
 }
@@ -220,7 +242,6 @@ export function fetchNextBlocks() {
             console.log(getState());
         } else {
             const url = AppConfig.baseURL + 'document/' + currentState.currentDocument.documentID + '/first/' + indicesToGet[0] + '/last/' + indicesToGet[1];
-            // console.log('Request url: ' + url);
 
             dispatch(requestNextBlocks(getState()));
             return fetch(url, {
@@ -231,7 +252,12 @@ export function fetchNextBlocks() {
                 }
             })
             .then(receivedBlocks => receivedBlocks.json())
-            .then(jsonBlocks => dispatch(receiveNextBlocks(getState(), jsonBlocks)));
+            .then(jsonBlocks => {
+                dispatch(receiveNextBlocks(getState(), jsonBlocks));
+                if (jsonBlocks) {
+                    dispatch(updateDocumentProgress(getState(), jsonBlocks[0].index));
+                }
+            });
         }
     }
 }
@@ -253,27 +279,3 @@ function fetchCurrentBlocks(state, currentDocument, indexCheckpoints) {
         .then(jsonBlocks => dispatch(receiveNextBlocks(state, jsonBlocks)));
     }
 }
-
-// export function loadInitialReaderState() {
-//     return (dispatch, getState) => {
-//         const currentState = getState();
-//         const userID = currentState.user.userID;
-//         const url = AppConfig.baseURL + 'user/' + userID + '/getDocumentProgress';
-
-//         dispatch(requestCurrentDocument(getState()));
-//         return fetch(url, {
-//             method: 'get',
-//             headers: {
-//                 'Content-Type': 'application/json',
-//                 'Accept': 'application/json',
-//             }
-//         })
-//         .then(currentDocument => currentDocument.json())
-//         // Only send the most recent current document
-//         .then(jsonCurrentDocument => dispatch(receiveCurrentDocument(getState(), jsonCurrentDocument[0])))
-//         // .then(dispatch(fetchNextBlocks()))
-//         .catch(err => {
-//             console.log('Error loading initial reader state: ' + err);
-//         });
-//     }
-// }
