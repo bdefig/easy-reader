@@ -4,8 +4,6 @@ import './Reader.css';
 import ReaderHeader from '../components/ReaderHeader';
 import ReaderText from '../components/ReaderText';
 import {
-    // fetchPrevBlocks,
-    // fetchNextBlocks,
     fetchBlocks,
     loadInitialReaderState,
     debugState
@@ -57,9 +55,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         // Can add dispatch if needed
-        // onPrevClick: () => dispatch(fetchPrevBlocks()),     // Switch to fetchBlocks(-1)
         onPrevClick: () => dispatch(fetchBlocks(-1)),
-        // onNextClick: () => dispatch(fetchNextBlocks()),     // Switch to fetchBlocks(1)
         onNextClick: () => dispatch(fetchBlocks(1)),
         loadInitialReaderState: () => dispatch(loadInitialReaderState()),
         // For debugging only--delete later

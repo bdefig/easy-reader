@@ -5,10 +5,6 @@ import AppConfig from '../AppConfig';
 
 export const REQUEST_BLOCKS = 'REQUEST_BLOCKS';
 export const RECEIVE_BLOCKS = 'RECEIVE_BLOCKS';
-// export const REQUEST_PREV_BLOCKS = 'REQUEST_PREV_BLOCKS';   // Get rid of and replace with generic request/receive
-// export const RECEIVE_PREV_BLOCKS = 'RECEIVE_PREV_BLOCKS';   // Get rid of and replace with generic request/receive
-// export const REQUEST_NEXT_BLOCKS = 'REQUEST_NEXT_BLOCKS';   // Get rid of and replace with generic request/receive
-// export const RECEIVE_NEXT_BLOCKS = 'RECEIVE_NEXT_BLOCKS';   // Get rid of and replace with generic request/receive
 export const REQUEST_CURRENT_DOCUMENT = 'REQUEST_CURRENT_DOCUMENT';
 export const RECEIVE_CURRENT_DOCUMENT = 'RECEIVE_CURRENT_DOCUMENT';
 export const UPDATE_CURRENT_DOCUMENT = 'UPDATE_CURRENT_DOCUMENT';
@@ -28,36 +24,6 @@ function receiveBlocks(state, receivedBlocks) {
         blocks: receivedBlocks
     }
 }
-
-// // Get rid of and replace with generic request/receive
-// function requestPrevBlocks(state) {
-//     return {
-//         type: REQUEST_PREV_BLOCKS
-//     }
-// }
-
-// // Get rid of and replace with generic request/receive
-// function receivePrevBlocks(state, receivedBlocks) {
-//     return {
-//         type: RECEIVE_PREV_BLOCKS,
-//         blocks: receivedBlocks
-//     }
-// }
-
-// // Get rid of and replace with generic request/receive
-// function requestNextBlocks(state) {
-//     return {
-//         type: REQUEST_NEXT_BLOCKS
-//     }
-// }
-
-// // Get rid of and replace with generic request/receive
-// function receiveNextBlocks(state, receivedBlocks) {
-//     return {
-//         type: RECEIVE_NEXT_BLOCKS,
-//         blocks: receivedBlocks
-//     }
-// }
 
 function requestCurrentDocument(state) { 
     return {
@@ -91,12 +57,11 @@ function updateIndexCheckpoints(state, indexCheckpoints) {
 // Thunks (call action creators) -----------------------------------------
 
 export function fetchBlocks(direction) {
-    // Direction: -1 (previous blocks), 0 (current blocks), 1 (next blocks)
+    // direction: -1 (previous blocks), 0 (current blocks), 1 (next blocks)
     return (dispatch, getState) => {
         const state = getState();
-        // TODO: Only execute if we're not on the last block
 
-        // We need to have:
+        // We should check:
             // state.currentDocument.indexCheckpoints (with length)
             // state.currentDocument.currentIndex
             // state.textBlocks.blocks (with length)
@@ -197,7 +162,6 @@ export function fetchCurrentDocument() {
             return;
         })
         .then(() => {
-            // dispatch(fetchNextBlocks());        // Switch to fetchBlocks(0)
             dispatch(fetchBlocks(0));
         });
     }
@@ -237,36 +201,6 @@ export function debugState() {
 
 // Helper Functions ------------------------------------------------------
 
-function calculateIndicesToFetch (state, direction) {
-    const currentDocument = state.currentDocument;
-    const textBlocks = state.textBlocks;
-
-    // If indexCheckpoints is empty
-        // 
-
-    // If current
-        // Same as next
-    // If previous
-        // If current index is not 0 and there are some text blocks
-    // If next
-        // If we're not at the end of the document
-            // If there are no text blocks
-                // Return current index from state
-            // If there are some text blocks
-
-    let indicesToGet = [-1, -1];
-    if (currentDocument.indexCheckpoints) {
-        indicesToGet = calculateIndicesFromCheckpoints(currentDocument.indexCheckpoints, currentDocument.currentIndex);
-    }
-    if (direction === 1) {
-        if (textBlocks.blocks.length !== 0) {
-            indicesToGet = calculateIndicesFromCheckpoints(currentDocument.indexCheckpoints, textBlocks.blocks[textBlocks.blocks.length - 1].index + 1);
-        }
-    } else if (direction === -1 && textBlocks.blocks[0].index > 0) {
-        indicesToGet = calculateIndicesFromCheckpoints(currentDocument.indexCheckpoints, textBlocks.blocks[0].index - 1);        
-    }
-}
-
 function calculateIndexCheckpoints (wordCountPerBlock, minWordCountPerBlock) {
     let indexCounter = 0;
     let indexCheckpoints = [0];
@@ -293,96 +227,3 @@ function calculateIndicesFromCheckpoints (indexCheckpoints, oneIndex) {
     }
     return [-1, -1];    // Not found
 }
-
-// Old--Delete when replaced ---------------------------------------------
-
-// export function fetchPrevBlocks() {
-//     return (dispatch, getState) => {
-//         const currentState = getState();
-//         if (currentState.textBlocks.blocks.length > 0 && currentState.textBlocks.blocks[0].index > 0) {
-//             let indicesToGet = calculateIndicesFromCheckpoints(currentState.currentDocument.indexCheckpoints, 0);
-//             if (currentState.textBlocks.blocks.length !== 0) {
-//                 indicesToGet = calculateIndicesFromCheckpoints(currentState.currentDocument.indexCheckpoints, currentState.textBlocks.blocks[0].index - 1);
-//                 console.log('Get indices: ' + indicesToGet);
-//             }
-
-//             if (indicesToGet[0] === -1 && indicesToGet[1] === -1) {
-//                 // Error: Do something else
-//             }
-
-//             const url = AppConfig.baseURL + 'document/' + currentState.currentDocument.documentID + '/first/' + indicesToGet[0] + '/last/' + indicesToGet[1];
-
-//             dispatch(requestPrevBlocks(getState()));
-//             return fetch(url, {
-//                 method: 'get',
-//                 headers: {
-//                     'Content-Type': 'application/json',
-//                     'Accept': 'application/json',
-//                 }
-//             })
-//             .then(blocks => blocks.json())
-//             .then(jsonBlocks => {
-//                 dispatch(receivePrevBlocks(getState(), jsonBlocks));
-//                 if (jsonBlocks) {
-//                     dispatch(updateDocumentProgress(getState(), jsonBlocks[0].index));
-//                 }
-//             });
-//         }
-//     }
-// }
-
-// export function fetchNextBlocks() {
-//     return (dispatch, getState) => {
-//         const currentState = getState();
-//         // TODO: Only execute if we're not on the last block
-//         let indicesToGet = calculateIndicesFromCheckpoints(currentState.currentDocument.indexCheckpoints, 0);
-//         if (currentState.currentDocument.currentIndex) {
-//             indicesToGet = calculateIndicesFromCheckpoints(currentState.currentDocument.indexCheckpoints, currentState.currentDocument.currentIndex);
-//         }
-//         if (currentState.textBlocks.blocks.length !== 0) {
-//             indicesToGet = calculateIndicesFromCheckpoints(currentState.currentDocument.indexCheckpoints, currentState.textBlocks.blocks[currentState.textBlocks.blocks.length - 1].index + 1);
-//         }
-//         console.log('Get indices: ' + indicesToGet);
-//         if (indicesToGet[0] === -1 && indicesToGet[1] === -1) {
-//             // TODO: Handle this error more gracefully
-//             console.log('Can\'t fetch blocks: calculateIndicesFromCheckpoints failed');
-//             console.log(getState());
-//         } else {
-//             const url = AppConfig.baseURL + 'document/' + currentState.currentDocument.documentID + '/first/' + indicesToGet[0] + '/last/' + indicesToGet[1];
-
-//             dispatch(requestNextBlocks(getState()));
-//             return fetch(url, {
-//                 method: 'get',
-//                 headers: {
-//                     'Content-Type': 'application/json',
-//                     'Accept': 'application/json',
-//                 }
-//             })
-//             .then(receivedBlocks => receivedBlocks.json())
-//             .then(jsonBlocks => {
-//                 dispatch(receiveNextBlocks(getState(), jsonBlocks));
-//                 if (jsonBlocks) {
-//                     dispatch(updateDocumentProgress(getState(), jsonBlocks[0].index));
-//                 }
-//             });
-//         }
-//     }
-// }
-
-// function fetchCurrentBlocks(state, currentDocument, indexCheckpoints) {
-//     return (dispatch, currentDocument, indexCheckpoints) => {
-//         const indicesToGet = calculateIndicesFromCheckpoints(indexCheckpoints, currentDocument.currentIndex);
-//         const url = AppConfig.baseURL + 'document/' + currentDocument.documentID + '/first/' + indicesToGet[0] + '/last/' + indicesToGet[1];
-
-//         dispatch(requestNextBlocks(state));
-//         return fetch(url, {
-//             method: 'get',
-//             headers: {
-//                 'Content-Type': 'application/json',
-//                 'Accept': 'application/json',
-//             }
-//         })
-//         .then(receivedBlocks => receivedBlocks.json())
-//         .then(jsonBlocks => dispatch(receiveNextBlocks(state, jsonBlocks)));
-//     }
-// }
