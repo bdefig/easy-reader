@@ -36,6 +36,9 @@ function currentDocument(state = {}, action) {
                 indexCheckpoints: action.indexCheckpoints
             });
         case UPDATE_CURRENT_DOCUMENT:
+            return Object.assign({}, state, {
+                currentIndex: action.currentIndex
+            })
             return state;
         case UPDATE_INDEX_CHECKPOINTS:
             return Object.assign({}, state, {
