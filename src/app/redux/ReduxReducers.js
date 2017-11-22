@@ -2,10 +2,10 @@ import { combineReducers } from 'redux';
 import {
     REQUEST_BLOCKS,
     RECEIVE_BLOCKS,
-    REQUEST_PREV_BLOCKS,    // Get rid of and replace with generic request/receive
-    RECEIVE_PREV_BLOCKS,    // Get rid of and replace with generic request/receive
-    REQUEST_NEXT_BLOCKS,    // Get rid of and replace with generic request/receive
-    RECEIVE_NEXT_BLOCKS,    // Get rid of and replace with generic request/receive
+    // REQUEST_PREV_BLOCKS,    // Get rid of and replace with generic request/receive
+    // RECEIVE_PREV_BLOCKS,    // Get rid of and replace with generic request/receive
+    // REQUEST_NEXT_BLOCKS,    // Get rid of and replace with generic request/receive
+    // RECEIVE_NEXT_BLOCKS,    // Get rid of and replace with generic request/receive
     REQUEST_CURRENT_DOCUMENT,
     RECEIVE_CURRENT_DOCUMENT,
     UPDATE_CURRENT_DOCUMENT,
@@ -59,25 +59,25 @@ function textBlocks(state = {}, action) {
             return Object.assign({}, state, {
                 isFetching: false,
                 blocks: action.blocks
-            })
-        case REQUEST_PREV_BLOCKS:   // Get rid of and replace with generic request/receive
-            return Object.assign({}, state, {
-                isFetching: true
             });
-        case RECEIVE_PREV_BLOCKS:   // Get rid of and replace with generic request/receive
-            return Object.assign({}, state, {
-                isFetching: false,
-                blocks: action.blocks
-            });
-        case REQUEST_NEXT_BLOCKS:   // Get rid of and replace with generic request/receive
-            return Object.assign({}, state, {
-                isFetching: true
-            });
-        case RECEIVE_NEXT_BLOCKS:   // Get rid of and replace with generic request/receive
-            return Object.assign({}, state, {
-                isFetching: false,
-                blocks: action.blocks
-            });
+        // case REQUEST_PREV_BLOCKS:   // Get rid of and replace with generic request/receive
+        //     return Object.assign({}, state, {
+        //         isFetching: true
+        //     });
+        // case RECEIVE_PREV_BLOCKS:   // Get rid of and replace with generic request/receive
+        //     return Object.assign({}, state, {
+        //         isFetching: false,
+        //         blocks: action.blocks
+        //     });
+        // case REQUEST_NEXT_BLOCKS:   // Get rid of and replace with generic request/receive
+        //     return Object.assign({}, state, {
+        //         isFetching: true
+        //     });
+        // case RECEIVE_NEXT_BLOCKS:   // Get rid of and replace with generic request/receive
+        //     return Object.assign({}, state, {
+        //         isFetching: false,
+        //         blocks: action.blocks
+        //     });
         default:
             return state;
     }
