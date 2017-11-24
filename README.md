@@ -5,10 +5,15 @@ A light reader built in React that makes reading books as easy as reading articl
 ## To Do
 
 ### User
-* Create new user
-* User login
-* Remember user
+- [ ] Login page
+    - [ ] Create new user
+    - [ ] Sign in
+- [ ] Store user information securely
+    - [ ] Hash and salt password
+- [ ] Session token
+    - [ ] Cookie
+    - [ ] Authentication
 
 ### Documents
-* Switch documents
-* Select new document from library
+- [ ] Switch documents
+- [ ] Select new document from library
