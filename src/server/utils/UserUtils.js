@@ -3,7 +3,7 @@ let urlPath = 'http://localhost:3001';
 
 function createUser (username, firstName, lastName) {
     return new Promise ( (resolve, reject) => {
-        const url = urlPath + '/v1/createUser';
+        const url = urlPath + '/v0/createUser';
 
         const newUser = {
             username: username,
@@ -30,7 +30,7 @@ function createUser (username, firstName, lastName) {
 
 function updateUserDocumentProgress(userID, documentID, blockIndex) {
     return new Promise ( (resolve, reject) => {
-        const url = urlPath + '/v1/user/' + userID + '/updateDocumentProgress/document/' + documentID;
+        const url = urlPath + '/v0/user/' + userID + '/updateDocumentProgress/document/' + documentID;
 
         const requestBody = {
             currentBlock: blockIndex

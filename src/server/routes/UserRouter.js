@@ -4,12 +4,12 @@ const router = express.Router();
 const userController = require('../controllers/UserController');
 
 // POST create new user
-router.post('/v1/createUser', userController.createUser);
+router.post('/v0/createUser', userController.createUser);
 
 // GET all document progress by user ID
-router.get('/v1/user/:userID/getDocumentProgress', userController.getUserDocumentProgressByUserID);
+router.get('/v0/user/:userID/getDocumentProgress', userController.getUserDocumentProgressByUserID);
 
 // PUT update document progress
-router.put('/v1/user/:userID/updateDocumentProgress/document/:documentID', userController.updateUserDocumentProgress);
+router.put('/v0/user/:userID/updateDocumentProgress/document/:documentID', userController.updateUserDocumentProgress);
 
 module.exports = router;

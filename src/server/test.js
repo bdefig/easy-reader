@@ -1,10 +1,10 @@
 const fetch = require('node-fetch');
-const baseURL = 'http://localhost:3000/v1/';
+const baseURL = 'http://localhost:3000/v0/';
 
-// const url = 'http://localhost:3000/v1/marcoPolo/helloWorld';
-// const url = 'http://localhost:3000/v1/documentMetadata/insert';
-// const url = 'http://localhost:3000/v1/clearAllDocuments';
-const url = 'http://localhost:3001/v1/document/59e6a95d2c748251c2615c78/first/1/last/4';
+// const url = 'http://localhost:3000/v0/marcoPolo/helloWorld';
+// const url = 'http://localhost:3000/v0/documentMetadata/insert';
+// const url = 'http://localhost:3000/v0/clearAllDocuments';
+const url = 'http://localhost:3001/v0/document/59e6a95d2c748251c2615c78/first/1/last/4';
 
 let documentMetadata = {
     _id: '59e6a95d2c748251c2615c78',

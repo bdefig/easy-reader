@@ -73,7 +73,7 @@ function insertDocument(docMetadata, docBlocks) {
         const docMetadataAndBlocks = {};
         docMetadataAndBlocks['metadata'] = docMetadata;
         docMetadataAndBlocks['blocks'] = docBlocks;
-        const url = urlPath + '/v1/document/insert';
+        const url = urlPath + '/v0/document/insert';
 
         fetch(url, {
             method: 'post',
@@ -102,7 +102,7 @@ function insertDocumentMetadata (documentTitle, documentAuthor) {
         thisDocumentMetadata['author'] = documentAuthor;
         thisDocumentMetadata['wordCountPerBlock'] = [];
 
-        const url = urlPath + '/v1/documentMetadata/insert';
+        const url = urlPath + '/v0/documentMetadata/insert';
 
         fetch(url, {
             method: 'post',
