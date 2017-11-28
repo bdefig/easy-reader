@@ -1,14 +1,14 @@
 const fetch = require('node-fetch');
 let urlPath = 'http://localhost:3001';
 
-function createUser (username, firstName, lastName) {
+function createUser (name, email, password) {
     return new Promise ( (resolve, reject) => {
         const url = urlPath + '/v0/createUser';
 
         const newUser = {
-            username: username,
-            firstName: firstName,
-            lastName: lastName
+            name: name,
+            email: firstName,
+            password: password
         };
 
         fetch(url, {
@@ -21,7 +21,7 @@ function createUser (username, firstName, lastName) {
         })
         .then(userSaved => userSaved.json())
         .then(userSaved => {
-            console.log('User saved to DB: ' + userSaved.username);
+            console.log('User saved to DB: ' + userSaved.name);
         })
         .catch(err => console.log('Error while creating new user'));
         // TODO: Reject if user was not saved

@@ -1,7 +1,7 @@
 user: {
 	isFetching: bool,
 	userID: string,
-	username: string,
+	name: string,
 	sessionToken: string,
 	settings: {
 		minWordCount: int

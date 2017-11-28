@@ -1,11 +1,11 @@
-const UserAccount = require('../models/UserAccount');
+const User = require('../models/User');
 const UserDocumentProgress = require('../models/UserDocumentProgress');
 
 exports.createUser = function (req, res, next) {
-    const newUser = new UserAccount ({
-        username: req.body.username,
-        firstName: req.body.firstName,
-        lastName: req.body.lastName
+    const newUser = new User ({
+        name: req.body.name,
+        email: req.body.email,
+        password: req.body.password
     });
 
     newUser.save()
