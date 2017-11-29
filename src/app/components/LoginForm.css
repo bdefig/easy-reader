@@ -20,17 +20,35 @@
     outline-style: none;
     border-style: none;
     font-size: 1.0em;
-} :focus {
+}
 
+.Login-noAccount {
+    text-align: center;
+    font-size: 0.75em;
+}
+.Login-noAccount a {
+    color: #0ED2F7;
 }
 
 .Login-submit {
     margin-top: 10px;
+    margin-bottom: 10px;
     border-color: #0ED2F7;
     border-style: solid;
     border-width: 2px;
     border-radius: 5px;
+    outline: none;
+    padding: 5px;
     font-size: 1.0em;
     background-color: transparent;
     color: #0ED2F7;
+} 
+.Login-submit:hover {
+    background-color: #0ED2F7;
+    color: white;
 }
+.Login-submit:focus {
+    background-color: #0ED2F7;
+    color: white;
+}
+
