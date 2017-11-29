@@ -10,24 +10,24 @@ import Login from './Login';
 import App from './App';
 
 const preloadedState = {
-    user: {
-        isFetching: false,
-        userID: '',
-        name: '',
-        sessionToken: null,
-        settings: {
-            minWordCount: 500
-        },
-    },
     // user: {
     //     isFetching: false,
-    //     userID: '59f3be1f0a510c84f9acd76a',
-    //     username: 'bryce1',
+    //     userID: '',
+    //     name: '',
     //     sessionToken: null,
     //     settings: {
     //         minWordCount: 500
     //     },
     // },
+    user: {
+        isFetching: false,
+        userID: '59f3be1f0a510c84f9acd76a',
+        username: 'bryce1',
+        sessionToken: null,
+        settings: {
+            minWordCount: 500
+        },
+    },
     // currentDocument: {
     //     isFetching: false,
     //     documentID: '59e6a95d2c748251c2615c78',
