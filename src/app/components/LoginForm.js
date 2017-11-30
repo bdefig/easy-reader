@@ -24,9 +24,12 @@ export default class LoginForm extends Component {
                 displayErrors: true
             });
             return;
+        } else {
+            this.setState({
+                displayErrors: false
+            });
+            alert('Submitting Signup: Name: ' + this.state.name + ', Email: ' +  this.state.email + ', Password: ' + this.state.password);
         }
-        console.log('Submitting Signup');
-        console.log('Name: ' + this.state.name + ', Email: ' +  this.state.email + ', Password: ' + this.state.password);
     }
 
     submitLogin(event) {
@@ -36,9 +39,12 @@ export default class LoginForm extends Component {
                 displayErrors: true
             });
             return;
+        } else {
+            this.setState({
+                displayErrors: false
+            });
+            alert('Submitting Login: Email: ' +  this.state.email + ', Password: ' + this.state.password);
         }
-        console.log('Submitting Login');
-        console.log('Email: ' +  this.state.email + ', Password: ' + this.state.password);
     }
 
     toggleSignup() {
@@ -52,17 +58,20 @@ export default class LoginForm extends Component {
     render() {
         if (this.state.signup) {
             // Return Signup form
+            let formClass = "Login-loginForm" + (this.state.displayErrors ? " Login-displayErrors" : "");
             return (
                 <div className="Login-loginFormBox">
                     <form
-                        className="Login-loginForm"
+                        className={formClass}
                         onSubmit={this.submitSignup}
+                        noValidate
                     >
                         <div className="Login-loginInput">
                             <input
                                 id="name"
                                 placeholder="Full Name"
                                 type="text"
+                                value={this.state.name}
                                 onChange={(text) => {
                                     this.setState({ name: text.target.value })
                                 }}
@@ -73,6 +82,7 @@ export default class LoginForm extends Component {
                                 id="email"
                                 placeholder="Email"
                                 type="email"
+                                value={this.state.email}
                                 onChange={(text) => {
                                     this.setState({ email: text.target.value })
                                 }}
@@ -83,6 +93,7 @@ export default class LoginForm extends Component {
                                 id="password"
                                 placeholder="Password"
                                 type="password"
+                                value={this.state.password}
                                 onChange={(text) => {
                                     this.setState({ password: text.target.value })
                                 }}
@@ -92,7 +103,6 @@ export default class LoginForm extends Component {
                             className="Login-submit"
                             type="submit"
                             value="Sign Up"
-                            onClick={() => {console.log(this.state)}}
                         />
                     </form>
                     <div className="Login-noAccount">
@@ -102,17 +112,20 @@ export default class LoginForm extends Component {
             );
         } else {
             // Return Login form
+            let formClass = "Login-loginForm" + (this.state.displayErrors ? " Login-displayErrors" : "");
             return (
                 <div className="Login-loginFormBox">
                     <form
-                        className="Login-loginForm"
+                        className={formClass}
                         onSubmit={this.submitLogin}
+                        noValidate
                     >
                         <div className="Login-loginInput">
                             <input
                                 id="email"
                                 placeholder="Email"
                                 type="email"
+                                value={this.state.email}
                                 onChange={(text) => {
                                     this.setState({ email: text.target.value })
                                 }}
@@ -123,6 +136,7 @@ export default class LoginForm extends Component {
                                 id="password"
                                 placeholder="Password"
                                 type="password"
+                                value={this.state.password}
                                 onChange={(text) => {
                                     this.setState({ password: text.target.value })
                                 }}
@@ -132,7 +146,6 @@ export default class LoginForm extends Component {
                             className="Login-submit"
                             type="submit"
                             value="Log In"
-                            onClick={() => {console.log(this.state)}}
                         />
                     </form>
                     <div className="Login-noAccount">
@@ -143,115 +156,3 @@ export default class LoginForm extends Component {
         }
     }
 }
-
-// class LoginForm extends Component {
-//     constructor(props) {
-//         super(props);
-//         this.state = {
-//             email: '',
-//             password: ''
-//         };
-//         this.switchToSignup = this.switchToSignup.bind(this);
-//     }
-
-//     switchToSignup() {
-//         alert('Switching to signup');
-//         this.props.switchToSignup();
-//     }
-
-//     render() {
-//         return (
-//             <form className="Login-loginForm">
-//                 <div className="Login-loginInput">
-//                     <input
-//                         placeholder="Email"
-//                         type="email"
-//                         onChange={(text) => {
-//                             this.setState({ email: text.target.value })
-//                         }}
-//                     />
-//                 </div>
-//                 <div className="Login-loginInput">
-//                     <input
-//                         placeholder="Password"
-//                         type="password"
-//                         onChange={(text) => {
-//                             this.setState({ password: text.target.value })
-//                         }}
-//                     />
-//                 </div>
-//                 <input
-//                     className="Login-submit"
-//                     type="submit"
-//                     value="Log In"
-//                     onClick={() => {console.log(this.state)}}
-//                 />
-//                 <div className="Login-noAccount">
-//                     Don't have an account? <button onClick={this.switchToSignup}>Sign up</button>
-//                 </div>
-//             </form>
-//         );
-//     }
-// }
-
-// class SignupForm extends Component {
-//     constructor(props) {
-//         super(props);
-//         this.state = {
-//             name: '',
-//             email: '',
-//             password: ''
-//         };
-//         this.switchToLogin = this.switchToLogin.bind(this);
-//     }
-
-//     switchToLogin() {
-//         alert('Switching to login');
-//         this.props.switchToLogin();
-//     }
-
-//     render() {
-//         return (
-//             <form className="Login-loginForm">
-//                 <div className="Login-loginInput">
-//                     <input
-//                         placeholder="Full Name"
-//                         type="text"
-//                         onChange={(text) => {
-//                             this.setState({ name: text.target.value })
-//                         }}
-//                     />
-//                 </div>
-//                 <div className="Login-loginInput">
-//                     <input
-//                         placeholder="Email"
-//                         type="email"
-//                         onChange={(text) => {
-//                             this.setState({ email: text.target.value })
-//                         }}
-//                     />
-//                 </div>
-//                 <div className="Login-loginInput">
-//                     <input
-//                         placeholder="Password"
-//                         type="password"
-//                         onChange={(text) => {
-//                             this.setState({ password: text.target.value })
-//                         }}
-//                     />
-//                 </div>
-//                 <input
-//                     className="Login-submit"
-//                     type="submit"
-//                     value="Sign Up"
-//                     onClick={() => {console.log(this.state)}}
-//                 />
-//                 <div className="Login-noAccount">
-//                     Already have an account? <button onClick={this.switchToLogin}>Log in</button>
-//                 </div>
-//             </form>
-//         );
-//     }
-// }
-
-// export { LoginForm, SignupForm };

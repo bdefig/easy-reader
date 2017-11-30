@@ -15,8 +15,8 @@
     flex-direction: column;
     align-items: center;
 }
-.Login-displayErrors {
-    border-color: salmon;
+.Login-displayErrors input:invalid {
+    color: salmon;
 }
 
 .Login-loginInput {

@@ -17,34 +17,3 @@ export default class Login extends Component {
         );
     }
 }
-
-// export default class Login extends Component {
-//     constructor(props) {
-//         alert('New Login component!');
-//         super(props);
-//         this.state = {
-//             signUp: true
-//         };
-//         this.switchToLogin = this.switchToLogin.bind(this);
-//         this.switchToSignup = this.switchToSignup.bind(this);
-//     }
-
-//     switchToLogin() {
-//         this.setState({ signup: false });
-//     }
-
-//     switchToSignup() {
-//         this.setState({ signup: true });
-//     }
-
-//     render() {
-//         return (
-//             <div className="Login-container">
-//                 {this.state.signUp ? 
-//                     <SignupForm switchToLogin={this.switchToLogin} /> :
-//                     <LoginForm switchToSignup={this.switchToSignup} />
-//                 }
-//             </div>
-//         );
-//     }
-// }
