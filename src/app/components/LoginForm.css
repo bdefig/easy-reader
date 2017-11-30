@@ -1,4 +1,4 @@
-.Login-loginForm {
+.Login-loginFormBox {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -8,6 +8,15 @@
     border-width: 1px;
     border-color: #808080;
     border-radius: 5px;
+}
+
+.Login-loginForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.Login-displayErrors {
+    border-color: salmon;
 }
 
 .Login-loginInput {
@@ -28,6 +37,10 @@
 }
 .Login-noAccount a {
     color: #0ED2F7;
+    cursor: pointer;
+}
+.Login-noAccount a:hover {
+    text-decoration: underline;
 }
 
 .Login-submit {
