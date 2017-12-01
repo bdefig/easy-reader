@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import './LoginForm.css';
+import * as LoginHelpers from '../helpers/LoginHelpers';
+
+// TODO: Don't submit with blank fields
+// TODO: Show error message for blank fields
+// TODO: Show error message for invalid email and password
 
 export default class LoginForm extends Component {
     constructor(props) {
@@ -8,6 +13,11 @@ export default class LoginForm extends Component {
         this.state = {
             signup: true,
             displayErrors: false,
+            errorMessage: {
+                name: '',
+                email: '',
+                password: ''
+            },
             name: '',
             email: '',
             password: ''
@@ -19,9 +29,15 @@ export default class LoginForm extends Component {
 
     submitSignup(event) {
         event.preventDefault();
-        if (!event.target.checkValidity()) {
+        const errors = LoginHelpers.validateSignup(this.state.name, this.state.email, this.state.password);
+        if (!event.target.checkValidity() || !errors.isValid) {
             this.setState({
-                displayErrors: true
+                displayErrors: true,
+                errorMessage: Object.assign(this.state.errorMessage, {
+                    name: errors.nameError,
+                    email: errors.emailError,
+                    password: errors.passwordError
+                })
             });
             return;
         } else {
@@ -71,11 +87,15 @@ export default class LoginForm extends Component {
                                 id="name"
                                 placeholder="Full Name"
                                 type="text"
+                                required
                                 value={this.state.name}
                                 onChange={(text) => {
                                     this.setState({ name: text.target.value })
                                 }}
                             />
+                        </div>
+                        <div className="Login-errorMessage">
+                            {this.state.errorMessage.name}
                         </div>
                         <div className="Login-loginInput">
                             <input
@@ -88,6 +108,9 @@ export default class LoginForm extends Component {
                                 }}
                             />
                         </div>
+                        <div className="Login-errorMessage">
+                            {this.state.errorMessage.email}
+                        </div>
                         <div className="Login-loginInput">
                             <input
                                 id="password"
@@ -98,6 +121,9 @@ export default class LoginForm extends Component {
                                     this.setState({ password: text.target.value })
                                 }}
                             />
+                        </div>
+                        <div className="Login-errorMessage">
+                            {this.state.errorMessage.password}
                         </div>
                         <input
                             className="Login-submit"

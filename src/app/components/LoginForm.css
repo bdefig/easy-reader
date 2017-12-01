@@ -21,7 +21,8 @@
 
 .Login-loginInput {
     border-bottom: 1px solid #808080;
-    margin-bottom: 10px;
+    margin-top: 10px;
+    margin-bottom: 5px;
 }
 
 .Login-loginInput input {
@@ -29,6 +30,12 @@
     outline-style: none;
     border-style: none;
     font-size: 1.0em;
+}
+
+.Login-errorMessage {
+    font-size: 0.75em;
+    color: salmon;
+    text-align: center;
 }
 
 .Login-noAccount {
@@ -54,14 +61,17 @@
     padding: 5px;
     font-size: 1.0em;
     background-color: transparent;
+    transition: background-color 0.5s ease;
     color: #0ED2F7;
 } 
 .Login-submit:hover {
     background-color: #0ED2F7;
+    transition: background-color 0.5s ease;
     color: white;
+    cursor: pointer;
 }
 .Login-submit:focus {
-    background-color: #0ED2F7;
-    color: white;
+    /* background-color: #0ED2F7;
+    color: white; */
 }
 
