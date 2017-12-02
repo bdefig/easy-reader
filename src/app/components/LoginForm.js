@@ -18,6 +18,7 @@ export default class LoginForm extends Component {
                 email: '',
                 password: ''
             },
+            shouldShake: false,
             name: '',
             email: '',
             password: ''
@@ -37,7 +38,8 @@ export default class LoginForm extends Component {
                     name: validity.nameError,
                     email: validity.emailError,
                     password: validity.passwordError
-                })
+                }),
+                shouldShake: true
             });
             return;
         } else {
@@ -97,10 +99,17 @@ export default class LoginForm extends Component {
         });
     }
 
+    componentDidUpdate() {
+        if (this.state.shouldShake == true) {
+            setTimeout(() => this.setState({shouldShake: false}), 1000);
+        }
+    }
+
     render() {
         if (this.state.signup) {
             // Return Signup form
             let formClass = "Login-loginForm" + (this.state.displayErrors ? " Login-displayErrors" : "");
+            let submitClass = "Login-submit" + (this.state.shouldShake ? " Login-shake" : "");
             return (
                 <div className="Login-loginFormBox">
                     <form
@@ -155,7 +164,7 @@ export default class LoginForm extends Component {
                             {this.state.errorMessage.password}
                         </div>
                         <input
-                            className="Login-submit"
+                            className={submitClass}
                             type="submit"
                             value="Sign Up"
                         />

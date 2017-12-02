@@ -75,3 +75,21 @@
     color: white; */
 }
 
+@keyframes shake {
+    from, to {
+      transform: translate3d(0, 0, 0);
+    }
+
+    12.5%, 37.5%, 62.5%, 87.5% {
+      transform: translate3d(-5px, 0, 0);
+    }
+
+    25%, 50%, 75% {
+      transform: translate3d(5px, 0, 0);
+    }
+  }
+  
+  .Login-shake {
+    animation-name: shake;
+    animation-duration: 1s;
+  }
