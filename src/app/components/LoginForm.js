@@ -29,24 +29,50 @@ export default class LoginForm extends Component {
 
     submitSignup(event) {
         event.preventDefault();
-        const errors = LoginHelpers.validateSignup(this.state.name, this.state.email, this.state.password);
-        if (!event.target.checkValidity() || !errors.isValid) {
+        const validity = LoginHelpers.validateSignupForm(event.target);
+        if (!validity.isValid) {
             this.setState({
                 displayErrors: true,
                 errorMessage: Object.assign(this.state.errorMessage, {
-                    name: errors.nameError,
-                    email: errors.emailError,
-                    password: errors.passwordError
+                    name: validity.nameError,
+                    email: validity.emailError,
+                    password: validity.passwordError
                 })
             });
             return;
         } else {
             this.setState({
-                displayErrors: false
+                displayErrors: false,
+                errorMessage: Object.assign(this.state.errorMessage, {
+                    name: '',
+                    email: '',
+                    password: ''
+                })
             });
             alert('Submitting Signup: Name: ' + this.state.name + ', Email: ' +  this.state.email + ', Password: ' + this.state.password);
         }
     }
+
+    // submitSignup(event) {
+    //     event.preventDefault();
+    //     const errors = LoginHelpers.validateSignup(this.state.name, this.state.email, this.state.password);
+    //     if (!event.target.checkValidity() || !errors.isValid) {
+    //         this.setState({
+    //             displayErrors: true,
+    //             errorMessage: Object.assign(this.state.errorMessage, {
+    //                 name: errors.nameError,
+    //                 email: errors.emailError,
+    //                 password: errors.passwordError
+    //             })
+    //         });
+    //         return;
+    //     } else {
+    //         this.setState({
+    //             displayErrors: false
+    //         });
+    //         alert('Submitting Signup: Name: ' + this.state.name + ', Email: ' +  this.state.email + ', Password: ' + this.state.password);
+    //     }
+    // }
 
     submitLogin(event) {
         event.preventDefault();
@@ -102,6 +128,7 @@ export default class LoginForm extends Component {
                                 id="email"
                                 placeholder="Email"
                                 type="email"
+                                required
                                 value={this.state.email}
                                 onChange={(text) => {
                                     this.setState({ email: text.target.value })
@@ -116,6 +143,8 @@ export default class LoginForm extends Component {
                                 id="password"
                                 placeholder="Password"
                                 type="password"
+                                required
+                                minLength="6"
                                 value={this.state.password}
                                 onChange={(text) => {
                                     this.setState({ password: text.target.value })
@@ -151,6 +180,7 @@ export default class LoginForm extends Component {
                                 id="email"
                                 placeholder="Email"
                                 type="email"
+                                required
                                 value={this.state.email}
                                 onChange={(text) => {
                                     this.setState({ email: text.target.value })
@@ -162,6 +192,7 @@ export default class LoginForm extends Component {
                                 id="password"
                                 placeholder="Password"
                                 type="password"
+                                required
                                 value={this.state.password}
                                 onChange={(text) => {
                                     this.setState({ password: text.target.value })
