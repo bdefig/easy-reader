@@ -21,33 +21,20 @@ export function validateSignupForm (form) {
     return toReturn;
 }
 
-export function validateSignup (name, email, password) {
-    // Name cannot be blank
-    // Email cannot be blank
-    // Password must have at least 6 characters
+export function validateLoginForm (form) {
+    // Pass in event.target
     const toReturn = {
         isValid: true,
-        nameError: '',
         emailError: '',
         passwordError: ''
-    };
-    if (!name.trim()) {
-        toReturn.isValid = false;
-        toReturn.nameError = 'Please enter your name';
     }
-    if (!email) {
-        // Note: The form is doing email format validation. Here we just need to make sure it's not blank
+    if (!form[0].validity.valid) {
         toReturn.isValid = false;
-        toReturn.emailError = 'Please enter an email address';
+        toReturn.emailError = 'Please enter a valid email address';
     }
-    if (password.length < 6) {
+    if (!form[1].validity.valid) {
         toReturn.isValid = false;
-        toReturn.passwordError = 'Password must be at least 6 characters long';
+        toReturn.passwordError = 'Please enter a password';
     }
     return toReturn;
-}
-
-export function validateLogin (email, password) {
-    // Email cannot be blank
-    // Password cannot be blank
 }

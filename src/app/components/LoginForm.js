@@ -3,10 +3,6 @@ import { Redirect } from 'react-router-dom';
 import './LoginForm.css';
 import * as LoginHelpers from '../helpers/LoginHelpers';
 
-// TODO: Don't submit with blank fields
-// TODO: Show error message for blank fields
-// TODO: Show error message for invalid email and password
-
 export default class LoginForm extends Component {
     constructor(props) {
         super(props);
@@ -55,37 +51,26 @@ export default class LoginForm extends Component {
         }
     }
 
-    // submitSignup(event) {
-    //     event.preventDefault();
-    //     const errors = LoginHelpers.validateSignup(this.state.name, this.state.email, this.state.password);
-    //     if (!event.target.checkValidity() || !errors.isValid) {
-    //         this.setState({
-    //             displayErrors: true,
-    //             errorMessage: Object.assign(this.state.errorMessage, {
-    //                 name: errors.nameError,
-    //                 email: errors.emailError,
-    //                 password: errors.passwordError
-    //             })
-    //         });
-    //         return;
-    //     } else {
-    //         this.setState({
-    //             displayErrors: false
-    //         });
-    //         alert('Submitting Signup: Name: ' + this.state.name + ', Email: ' +  this.state.email + ', Password: ' + this.state.password);
-    //     }
-    // }
-
     submitLogin(event) {
         event.preventDefault();
-        if (!event.target.checkValidity()) {
+        const validity = LoginHelpers.validateLoginForm(event.target);
+        if (!validity.isValid) {
             this.setState({
-                displayErrors: true
+                displayErrors: true,
+                errorMessage: Object.assign(this.state.errorMessage, {
+                    email: validity.emailError,
+                    password: validity.passwordError
+                }),
+                shouldShake: true
             });
             return;
         } else {
             this.setState({
-                displayErrors: false
+                displayErrors: false,
+                errorMessage: Object.assign(this.state.errorMessage, {
+                    email: '',
+                    password: ''
+                })
             });
             alert('Submitting Login: Email: ' +  this.state.email + ', Password: ' + this.state.password);
         }
@@ -177,6 +162,7 @@ export default class LoginForm extends Component {
         } else {
             // Return Login form
             let formClass = "Login-loginForm" + (this.state.displayErrors ? " Login-displayErrors" : "");
+            let submitClass = "Login-submit" + (this.state.shouldShake ? " Login-shake" : "");
             return (
                 <div className="Login-loginFormBox">
                     <form
@@ -196,6 +182,9 @@ export default class LoginForm extends Component {
                                 }}
                             />
                         </div>
+                        <div className="Login-errorMessage">
+                            {this.state.errorMessage.email}
+                        </div>
                         <div className="Login-loginInput">
                             <input
                                 id="password"
@@ -208,8 +197,11 @@ export default class LoginForm extends Component {
                                 }}
                             />
                         </div>
+                        <div className="Login-errorMessage">
+                            {this.state.errorMessage.password}
+                        </div>
                         <input
-                            className="Login-submit"
+                            className={submitClass}
                             type="submit"
                             value="Log In"
                         />
