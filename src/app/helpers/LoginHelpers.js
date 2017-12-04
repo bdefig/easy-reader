@@ -1,5 +1,5 @@
 export function validateSignupForm (form) {
-    // Pass in event.target
+    // Pass in event.target from the onSubmit event listener
     const toReturn = {
         isValid: true,
         nameError: '',
@@ -22,7 +22,7 @@ export function validateSignupForm (form) {
 }
 
 export function validateLoginForm (form) {
-    // Pass in event.target
+    // Pass in event.target from the onSubmit event listener
     const toReturn = {
         isValid: true,
         emailError: '',

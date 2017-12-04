@@ -9,6 +9,12 @@ export const REQUEST_CURRENT_DOCUMENT = 'REQUEST_CURRENT_DOCUMENT';
 export const RECEIVE_CURRENT_DOCUMENT = 'RECEIVE_CURRENT_DOCUMENT';
 export const UPDATE_CURRENT_DOCUMENT = 'UPDATE_CURRENT_DOCUMENT';
 export const UPDATE_INDEX_CHECKPOINTS = 'UPDATE_INDEX_CHECKPOINTS';
+export const REQUEST_CREATE_USER = 'REQUEST_CREATE_USER';
+export const CREATE_USER_SUCCESS = 'CREATE_USER_SUCCESS';
+export const CREATE_USER_FAILURE = 'CREATE_USER_FAILURE';
+export const REQUEST_LOGIN = 'REQUEST_LOGIN';
+export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
+export const LOGIN_FAILURE = 'LOGIN_FAILURE';
 
 // Action creators (and actions) -----------------------------------------
 
@@ -51,6 +57,48 @@ function updateIndexCheckpoints(state, indexCheckpoints) {
     return {
         type: UPDATE_INDEX_CHECKPOINTS,
         indexCheckpoints: indexCheckpoints
+    }
+}
+
+function requestCreateUser(state, userToCreate) {
+    return {
+        type: REQUEST_CREATE_USER,
+        userToCreate: userToCreate     // name, email, password
+    }
+}
+
+function createUserSuccess(state, createdUser) {
+    return {
+        type: CREATE_USER_SUCCESS,
+        createdUser: createdUser
+    }
+}
+
+function createUserFailure(state, error) {
+    return {
+        type: CREATE_USER_FAILURE,
+        error: error
+    }
+}
+
+function requestLogin(state, loginInfo) {
+    return {
+        type: REQUEST_LOGIN,
+        loginInfo: loginInfo
+    }
+}
+
+function loginSuccess(state, userInfo) {
+    return {
+        type: LOGIN_SUCCESS,
+        userInfo: userInfo
+    }
+}
+
+function loginFailure(state, error) {
+    return {
+        type: LOGIN_FAILURE,
+        error: error
     }
 }
 
