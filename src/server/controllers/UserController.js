@@ -1,12 +1,20 @@
+const AuthenticationHelper = require('../helpers/AuthenticationHelper');
 const User = require('../models/User');
 const UserDocumentProgress = require('../models/UserDocumentProgress');
 
 exports.createUser = function (req, res, next) {
-    const newUser = new User ({
+    const newUserRequest = new User ({
         name: req.body.name,
         email: req.body.email,
         password: req.body.password
     });
+
+    AuthenticationHelper.hashPassword(newUserRequest.password)
+    .then(hash => {
+        const userToStore = new User({
+            
+        })
+    })
 
     newUser.save()
     .then(onNewUserSaved => res.send({Success: 'New user saved'}))

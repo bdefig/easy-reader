@@ -241,6 +241,36 @@ export function updateDocumentProgress(state, index) {
     }
 }
 
+export function createUser(name, email, password) {
+    return (dispatch, getState) => {
+        const url = AppConfig.baseURL + 'createUser';
+        const msgBody = {
+            name: name,
+            email: email,
+            password: password
+        };
+
+        dispatch(requestCreateUser(msgBody));
+        fetch(url, {
+            method: 'post',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify(msgBody)
+        })
+        .then(reply => reply.json())
+        .then(jsonReply => {
+            if (jsonReply.success) {
+                dispatch(createUserSuccess(getState(), jsonReply.user));
+            } else {
+                dispatch(createUserFailure(getState(), jsonReply.error));
+            }
+        })
+        .catch(err => console.log(Error(err)));
+    }
+}
+
 export function debugState() {
     return (dispatch, getState) => {
         console.log(getState());
