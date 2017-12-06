@@ -5,11 +5,29 @@ import {
     REQUEST_CURRENT_DOCUMENT,
     RECEIVE_CURRENT_DOCUMENT,
     UPDATE_CURRENT_DOCUMENT,
-    UPDATE_INDEX_CHECKPOINTS
+    UPDATE_INDEX_CHECKPOINTS,
+    REQUEST_CREATE_USER,
+    CREATE_USER_SUCCESS,
+    CREATE_USER_FAILURE,
+    REQUEST_LOGIN,
+    LOGIN_SUCCESS,
+    LOGIN_FAILURE
 } from './ReduxActions';
 
 function user(state = {}, action) {
     switch (action.type) {
+        case REQUEST_CREATE_USER:
+            return state;
+        case CREATE_USER_SUCCESS:
+            return state;
+        case CREATE_USER_FAILURE:
+            return state;
+        case REQUEST_LOGIN:
+            return state;
+        case LOGIN_SUCCESS:
+            return state;
+        case LOGIN_FAILURE:
+            return state;
         default:
             return state;
     }

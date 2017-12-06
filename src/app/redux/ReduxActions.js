@@ -243,6 +243,8 @@ export function updateDocumentProgress(state, index) {
 
 export function createUser(name, email, password) {
     return (dispatch, getState) => {
+        console.log('Dispatching createUser');
+
         const url = AppConfig.baseURL + 'createUser';
         const msgBody = {
             name: name,
@@ -262,13 +264,19 @@ export function createUser(name, email, password) {
         .then(reply => reply.json())
         .then(jsonReply => {
             if (jsonReply.success) {
+                console.log('Success creating user');
                 dispatch(createUserSuccess(getState(), jsonReply.user));
             } else {
+                console.log('Error creating user');
                 dispatch(createUserFailure(getState(), jsonReply.error));
             }
         })
         .catch(err => console.log(Error(err)));
     }
+}
+
+export function login(email, password) {
+
 }
 
 export function debugState() {

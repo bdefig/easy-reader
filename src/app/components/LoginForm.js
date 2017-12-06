@@ -26,6 +26,7 @@ export default class LoginForm extends Component {
 
     submitSignup(event) {
         event.preventDefault();
+        const onSubmitSignup = this.props.onSubmitSignup;
         const validity = LoginHelpers.validateSignupForm(event.target);
         if (!validity.isValid) {
             this.setState({
@@ -48,11 +49,13 @@ export default class LoginForm extends Component {
                 })
             });
             alert('Submitting Signup: Name: ' + this.state.name + ', Email: ' +  this.state.email + ', Password: ' + this.state.password);
+            onSubmitSignup(this.state.name, this.state.email, this.state.password);
         }
     }
 
     submitLogin(event) {
         event.preventDefault();
+        const onSubmitLogin = this.props.onSubmitLogin;
         const validity = LoginHelpers.validateLoginForm(event.target);
         if (!validity.isValid) {
             this.setState({
@@ -73,6 +76,7 @@ export default class LoginForm extends Component {
                 })
             });
             alert('Submitting Login: Email: ' +  this.state.email + ', Password: ' + this.state.password);
+            onSubmitLogin(this.state.email, this.state.password);
         }
     }
 

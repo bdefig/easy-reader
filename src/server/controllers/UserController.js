@@ -3,21 +3,23 @@ const User = require('../models/User');
 const UserDocumentProgress = require('../models/UserDocumentProgress');
 
 exports.createUser = function (req, res, next) {
-    const newUserRequest = new User ({
-        name: req.body.name,
-        email: req.body.email,
-        password: req.body.password
-    });
-
-    AuthenticationHelper.hashPassword(newUserRequest.password)
+    AuthenticationHelper.hashPassword(req.body.password)
     .then(hash => {
-        const userToStore = new User({
-            
-        })
+        return newUser = new User({
+            name: req.body.name,
+            email: req.body.email,
+            passwordHash: hash
+        });
+        return newUser;
     })
-
-    newUser.save()
-    .then(onNewUserSaved => res.send({Success: 'New user saved'}))
+    .then(newUser => {
+        console.log('Saving new user ' + newUser.name);
+        newUser.save();
+    })
+    .then(onNewUserSaved => {
+        console.log('New user saved');
+        res.send({success: 'New user saved'});
+    })
     .catch(err => console.log(err));
 }
 
