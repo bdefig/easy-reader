@@ -1,6 +1,6 @@
 const fs = require('fs');
 const fetch = require('node-fetch');
-let urlPath = 'http://localhost:3001';
+let urlPath = 'http://localhost:8080';
 
 // Test data--delete later
 const docFileName = '../../assets/texts/brothers-part-i.txt';

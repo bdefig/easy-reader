@@ -1,5 +1,5 @@
 const fetch = require('node-fetch');
-let urlPath = 'http://localhost:3001';
+let urlPath = 'http://localhost:8080';
 
 function createUser (name, email, password) {
     return new Promise ( (resolve, reject) => {
