@@ -16,7 +16,7 @@ exports.checkPassword = function (passwordToCheck, actualHash) {
 exports.generateToken = function (userID) {
     const payload = {};
     const token = jwt.sign(payload, config.secret, {
-        subject: userID,
+        subject: userID.toString(),
         expiresIn: '1y'
     });
     return token;

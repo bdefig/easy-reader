@@ -13,20 +13,45 @@ exports.createUser = function (req, res, next) {
         return newUser;
     })
     .then(newUser => {
+        console.log('Checking for: ' + newUser.email);
+        const emailFound = User.count({ email: newUser.email });
+        return {
+            emailFound: emailFound,
+            newUser: newUser
+        };
+    })
+    .then( ({emailFound, newUser}) => {
+        console.log('emailFound: ' + emailFound);
+        console.log('newUser: ' + JSON.stringify(newUser));
+        if ( emailFound > 0 ) {
+            throw 'Email already exists';
+        } else {
+            return newUser;
+        }
+    })
+    .then(newUser => {
         console.log('Saving new user ' + newUser.name);
         newUser.save();
     })
     .then(onNewUserSaved => {
         console.log('New user saved');
-        res.send({success: 'New user saved'});
+        res.send({
+            success: true
+        });
     })
-    .catch(err => console.log(err));
+    .catch(err => {
+        console.log(err);
+        res.send({
+            success: false
+        });
+    });
 }
 
 exports.login = function (req, res, next) {
     const passwordSubmitted = req.body.password;
     let loginSuccess = false;
     let userID = '';
+    console.log('User to try to authenticate: ' + JSON.stringify(req.body));
 
     User.findOne({
         email: req.body.email
@@ -41,7 +66,6 @@ exports.login = function (req, res, next) {
             return AuthenticationHelper.checkPassword(passwordSubmitted, userFound.passwordHash);
         } else {
             console.log('User not found by email');
-            // return new Error('User not found by email');
             throw 'Caught: User not found by email';
         }
     })
@@ -50,7 +74,6 @@ exports.login = function (req, res, next) {
             console.log('Creating token with userID: ' + userID);
             return AuthenticationHelper.generateToken(userID)
         } else {
-            // return new Error('Login failed');
             throw 'Caught: It wasn\'t a success';
         }
     })
@@ -62,7 +85,7 @@ exports.login = function (req, res, next) {
         });
     })
     .catch(err => {
-        console.log('Login error');
+        console.log('Login error: ' + err);
         res.json({ success: false });
     })
 }
