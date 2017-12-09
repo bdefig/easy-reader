@@ -252,7 +252,7 @@ export function createUser(name, email, password) {
             password: password
         };
 
-        dispatch(requestCreateUser(msgBody));
+        dispatch(requestCreateUser(getState(), msgBody));
         fetch(url, {
             method: 'post',
             headers: {
@@ -276,7 +276,35 @@ export function createUser(name, email, password) {
 }
 
 export function login(email, password) {
+    return (dispatch, getState) => {
+        const url = AppConfig.baseURL + 'login';
+        const msgBody = {
+            email: email,
+            password: password
+        };
 
+        dispatch(requestLogin(getState(), msgBody));
+        fetch(url, {
+            method: 'post',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify(msgBody)
+        })
+        .then(reply => reply.json())
+        .then(jsonReply => {
+            if (jsonReply.success) {
+                console.log('Login success');
+                console.log(jsonReply.token);
+                dispatch(createUserSuccess(getState(), jsonReply.user));
+            } else {
+                console.log('LoginError');
+                dispatch(createUserFailure(getState(), jsonReply.error));
+            }
+        })
+        .catch(err => console.log(Error(err)));
+    }
 }
 
 export function debugState() {

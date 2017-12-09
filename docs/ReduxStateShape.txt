@@ -2,7 +2,7 @@ user: {
 	isFetching: bool,
 	userID: string,
 	name: string,
-	sessionToken: string,
+	token: string,
 	settings: {
 		minWordCount: int
 	}

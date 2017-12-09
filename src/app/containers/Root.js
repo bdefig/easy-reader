@@ -14,7 +14,7 @@ const preloadedState = {
     //     isFetching: false,
     //     userID: '',
     //     name: '',
-    //     sessionToken: null,
+    //     token: null,
     //     settings: {
     //         minWordCount: 500
     //     },
@@ -23,7 +23,7 @@ const preloadedState = {
         isFetching: false,
         userID: '59f3be1f0a510c84f9acd76a',
         username: 'bryce1',
-        sessionToken: null,
+        token: null,
         settings: {
             minWordCount: 500
         },

@@ -48,7 +48,7 @@ export default class LoginForm extends Component {
                     password: ''
                 })
             });
-            alert('Submitting Signup: Name: ' + this.state.name + ', Email: ' +  this.state.email + ', Password: ' + this.state.password);
+            console.log('Submitting Signup: Name: ' + this.state.name + ', Email: ' +  this.state.email + ', Password: ' + this.state.password);
             onSubmitSignup(this.state.name, this.state.email, this.state.password);
         }
     }
@@ -75,7 +75,7 @@ export default class LoginForm extends Component {
                     password: ''
                 })
             });
-            alert('Submitting Login: Email: ' +  this.state.email + ', Password: ' + this.state.password);
+            console.log('Submitting Login: Email: ' +  this.state.email + ', Password: ' + this.state.password);
             onSubmitLogin(this.state.email, this.state.password);
         }
     }
