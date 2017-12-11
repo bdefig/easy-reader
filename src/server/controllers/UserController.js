@@ -5,33 +5,18 @@ const UserDocumentProgress = require('../models/UserDocumentProgress');
 exports.createUser = function (req, res, next) {
     AuthenticationHelper.hashPassword(req.body.password)
     .then(hash => {
-        return newUser = new User({
+        return newUserInfo = {
             name: req.body.name,
             email: req.body.email,
             passwordHash: hash
-        });
-        return newUser;
-    })
-    .then(newUser => {
-        console.log('Checking for: ' + newUser.email);
-        const emailFound = User.count({ email: newUser.email });
-        return {
-            emailFound: emailFound,
-            newUser: newUser
         };
     })
-    .then( ({emailFound, newUser}) => {
-        console.log('emailFound: ' + emailFound);
-        console.log('newUser: ' + JSON.stringify(newUser));
-        if ( emailFound > 0 ) {
-            throw 'Email already exists';
-        } else {
-            return newUser;
-        }
-    })
-    .then(newUser => {
-        console.log('Saving new user ' + newUser.name);
-        newUser.save();
+    .then(newUserInfo => {
+        // console.log('Saving new user ' + newUser.name);
+        console.log(JSON.stringify(newUserInfo));
+        const newUser = new User(newUserInfo);
+        return newUser.save()
+        .catch(err => {return Promise.reject(err)});
     })
     .then(onNewUserSaved => {
         console.log('New user saved');
@@ -40,7 +25,11 @@ exports.createUser = function (req, res, next) {
         });
     })
     .catch(err => {
-        console.log(err);
+        if (err.code && err.code === 11000) {
+            console.log('Error: Email already exists');
+        } else {
+            console.log('Error with Create User process: ' + err);
+        }
         res.send({
             success: false
         });
