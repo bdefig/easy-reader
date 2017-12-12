@@ -17,17 +17,33 @@ import {
 function user(state = {}, action) {
     switch (action.type) {
         case REQUEST_CREATE_USER:
-            return state;
+            return Object.assign({}, state, {
+                authenticationErrorMessage: null
+            });
         case CREATE_USER_SUCCESS:
-            return state;
+            return Object.assign({}, state, {
+                userID: action.userID,
+                name: action.name,
+                token: action.token
+            });
         case CREATE_USER_FAILURE:
-            return state;
+            return Object.assign({}, state, {
+                authenticationErrorMessage: action.errorMessage
+            });
         case REQUEST_LOGIN:
-            return state;
+            return Object.assign({}, state, {
+                authenticationErrorMessage: null
+            });
         case LOGIN_SUCCESS:
-            return state;
+            return Object.assign({}, state, {
+                userID: action.userID,
+                name: action.name,
+                token: action.token
+            });
         case LOGIN_FAILURE:
-            return state;
+            return Object.assign({}, state, {
+                authenticationErrorMessage: action.errorMessage
+            });
         default:
             return state;
     }

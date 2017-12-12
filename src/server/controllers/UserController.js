@@ -23,6 +23,7 @@ exports.createUser = function (req, res, next) {
         res.send({
             success: true,
             userID: newUserSaved._id,
+            name: req.body.name,
             token: token
         });
     })
@@ -43,6 +44,7 @@ exports.login = function (req, res, next) {
     const passwordSubmitted = req.body.password;
     let loginSuccess = false;
     let userID = '';
+    let name = '';
     console.log('User to try to authenticate: ' + JSON.stringify(req.body));
 
     User.findOne({
@@ -54,6 +56,7 @@ exports.login = function (req, res, next) {
         if (userFound) {
             console.log('User found by email');
             userID = userFound._id;     // This might not work
+            name = userFound.name;
             console.log('Checking password: ' + req.body.password);
             return AuthenticationHelper.checkPassword(passwordSubmitted, userFound.passwordHash);
         } else {
@@ -74,6 +77,7 @@ exports.login = function (req, res, next) {
         res.json({
             success: true,
             userID: userID,
+            name: name,
             token: token
         });
     })
@@ -81,7 +85,7 @@ exports.login = function (req, res, next) {
         console.log('Login error: ' + err);
         res.json({
             success: false,
-            message: 'Invalid email or password'
+            message: 'Incorrect email or password'
         });
     })
 }

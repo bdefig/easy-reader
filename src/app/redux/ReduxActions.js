@@ -67,17 +67,19 @@ function requestCreateUser(state, userToCreate) {
     }
 }
 
-function createUserSuccess(state, createdUser) {
+function createUserSuccess(state, userID, name, token) {
     return {
         type: CREATE_USER_SUCCESS,
-        createdUser: createdUser
+        userID: userID,
+        name: name,
+        token: token
     }
 }
 
-function createUserFailure(state, error) {
+function createUserFailure(state, errorMessage) {
     return {
         type: CREATE_USER_FAILURE,
-        error: error
+        errorMessage: errorMessage
     }
 }
 
@@ -88,17 +90,19 @@ function requestLogin(state, loginInfo) {
     }
 }
 
-function loginSuccess(state, userInfo) {
+function loginSuccess(state, userID, name, token) {
     return {
         type: LOGIN_SUCCESS,
-        userInfo: userInfo
+        userID: userID,
+        name: name,
+        token: token
     }
 }
 
-function loginFailure(state, error) {
+function loginFailure(state, errorMessage) {
     return {
         type: LOGIN_FAILURE,
-        error: error
+        errorMessage: errorMessage
     }
 }
 
@@ -265,10 +269,12 @@ export function createUser(name, email, password) {
         .then(jsonReply => {
             if (jsonReply.success) {
                 console.log('Success creating user');
-                dispatch(createUserSuccess(getState(), jsonReply.user));
+                console.log('userID: ' + jsonReply.userID);
+                console.log('token: ' + jsonReply.token);
+                dispatch(createUserSuccess(getState(), jsonReply.userID, jsonReply.name, jsonReply.token));
             } else {
                 console.log('Error creating user');
-                dispatch(createUserFailure(getState(), jsonReply.error));
+                dispatch(createUserFailure(getState(), jsonReply.message));
             }
         })
         .catch(err => console.log(Error(err)));
@@ -296,11 +302,12 @@ export function login(email, password) {
         .then(jsonReply => {
             if (jsonReply.success) {
                 console.log('Login success');
-                console.log(jsonReply.token);
-                dispatch(createUserSuccess(getState(), jsonReply.user));
+                console.log('userID: ' + jsonReply.userID);
+                console.log('token: ' + jsonReply.token);
+                dispatch(createUserSuccess(getState(), jsonReply.userID, jsonReply.name, jsonReply.token));
             } else {
                 console.log('LoginError');
-                dispatch(createUserFailure(getState(), jsonReply.error));
+                dispatch(createUserFailure(getState(), jsonReply.message));
             }
         })
         .catch(err => console.log(Error(err)));

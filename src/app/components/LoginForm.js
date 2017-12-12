@@ -95,6 +95,7 @@ export default class LoginForm extends Component {
     }
 
     render() {
+        this.authenticationErrorMessage = this.props.authenticationErrorMessage;
         if (this.state.signup) {
             // Return Signup form
             let formClass = "Login-loginForm" + (this.state.displayErrors ? " Login-displayErrors" : "");
@@ -152,6 +153,9 @@ export default class LoginForm extends Component {
                         <div className="Login-errorMessage">
                             {this.state.errorMessage.password}
                         </div>
+                        <div className="Login-errorMessage">
+                            {this.authenticationErrorMessage}
+                        </div>
                         <input
                             className={submitClass}
                             type="submit"
@@ -203,6 +207,9 @@ export default class LoginForm extends Component {
                         </div>
                         <div className="Login-errorMessage">
                             {this.state.errorMessage.password}
+                        </div>
+                        <div className="Login-errorMessage">
+                            {this.authenticationErrorMessage}
                         </div>
                         <input
                             className={submitClass}
