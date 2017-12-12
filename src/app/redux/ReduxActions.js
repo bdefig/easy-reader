@@ -271,6 +271,9 @@ export function createUser(name, email, password) {
                 console.log('Success creating user');
                 console.log('userID: ' + jsonReply.userID);
                 console.log('token: ' + jsonReply.token);
+                localStorage.setItem('userID', jsonReply.userID);
+                localStorage.setItem('name', jsonReply.name);
+                localStorage.setItem('token', jsonReply.token);
                 dispatch(createUserSuccess(getState(), jsonReply.userID, jsonReply.name, jsonReply.token));
             } else {
                 console.log('Error creating user');
@@ -304,6 +307,9 @@ export function login(email, password) {
                 console.log('Login success');
                 console.log('userID: ' + jsonReply.userID);
                 console.log('token: ' + jsonReply.token);
+                localStorage.setItem('userID', jsonReply.userID);
+                localStorage.setItem('name', jsonReply.name);
+                localStorage.setItem('token', jsonReply.token);
                 dispatch(createUserSuccess(getState(), jsonReply.userID, jsonReply.name, jsonReply.token));
             } else {
                 console.log('LoginError');

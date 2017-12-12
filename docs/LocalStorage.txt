@@ -1,0 +1,3 @@
+userID: string
+name: string
+token: string
