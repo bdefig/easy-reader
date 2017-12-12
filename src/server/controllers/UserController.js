@@ -12,16 +12,18 @@ exports.createUser = function (req, res, next) {
         };
     })
     .then(newUserInfo => {
-        // console.log('Saving new user ' + newUser.name);
         console.log(JSON.stringify(newUserInfo));
         const newUser = new User(newUserInfo);
         return newUser.save()
         .catch(err => {return Promise.reject(err)});
     })
-    .then(onNewUserSaved => {
+    .then(newUserSaved => {
+        const token = AuthenticationHelper.generateToken(newUserSaved._id);
         console.log('New user saved');
         res.send({
-            success: true
+            success: true,
+            userID: newUserSaved._id,
+            token: token
         });
     })
     .catch(err => {
@@ -31,7 +33,8 @@ exports.createUser = function (req, res, next) {
             console.log('Error with Create User process: ' + err);
         }
         res.send({
-            success: false
+            success: false,
+            message: 'Email is already registered'
         });
     });
 }
@@ -70,12 +73,16 @@ exports.login = function (req, res, next) {
         console.log('Login success: ' + userID);
         res.json({
             success: true,
+            userID: userID,
             token: token
         });
     })
     .catch(err => {
         console.log('Login error: ' + err);
-        res.json({ success: false });
+        res.json({
+            success: false,
+            message: 'Invalid email or password'
+        });
     })
 }
 
