@@ -14,6 +14,7 @@ exports.checkPassword = function (passwordToCheck, actualHash) {
 }
 
 exports.generateToken = function (userID) {
+    // TODO: Should probably do this asynchronously
     const payload = {};
     const token = jwt.sign(payload, config.secret, {
         subject: userID.toString(),
@@ -21,3 +22,5 @@ exports.generateToken = function (userID) {
     });
     return token;
 }
+
+// TODO: Implement verifyToken (asynchronously)
