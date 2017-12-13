@@ -1,29 +1,23 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import Reader from './Reader';
+import * as AuthenticationHelpers from '../helpers/AuthenticationHelpers';
 
-export default class App extends Component {
-    isLoggedIn() {
-        return false;
-    }
-
+class App extends Component {
     render() {
-        if (this.isLoggedIn()) {
-            return (
-                <Reader />
-            );
-        } else {
-            return (
-                <Redirect to='/login' />
-            );
-        }
+        return AuthenticationHelpers.loggedIn() ?
+            (<Reader />) :
+            (<Redirect to="/login" />);
     }
 }
 
-// const App = () => (
-//     <div>
-//         <Reader />
-//     </div>
-// )
+const mapStateToProps = state => {
+    return {
+        user: state.user
+    };
+}
 
-// export default App;
+export default connect(
+    mapStateToProps
+)(App);

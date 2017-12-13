@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { 
-    BrowserRouter as Router,
-    Route,
-    Switch
+    Redirect
 } from 'react-router-dom';
 import {
     createUser,
@@ -11,20 +9,23 @@ import {
 } from '../redux/ReduxActions';
 import './Login.css';
 import LoginForm from '../components/LoginForm';
+import * as AuthenticationHelpers from '../helpers/AuthenticationHelpers';
 
 class Login extends Component {
     render() {
         const { onSubmitSignup, onSubmitLogin } = this.props;
         const authenticationErrorMessage = this.props.user.authenticationErrorMessage;
-        return (
-            <div className="Login-container">
-                <LoginForm
-                    onSubmitSignup={onSubmitSignup}
-                    onSubmitLogin={onSubmitLogin}
-                    authenticationErrorMessage={authenticationErrorMessage}
-                />
-            </div>
-        );
+        return AuthenticationHelpers.loggedIn() ?
+            (<Redirect to="/" />) :
+            (
+                <div className="Login-container">
+                    <LoginForm
+                        onSubmitSignup={onSubmitSignup}
+                        onSubmitLogin={onSubmitLogin}
+                        authenticationErrorMessage={authenticationErrorMessage}
+                    />
+                </div>
+            );
     }
 }
 
