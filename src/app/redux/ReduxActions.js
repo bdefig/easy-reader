@@ -203,14 +203,27 @@ export function fetchCurrentDocument() {
         .then(currentDocuments => currentDocuments.json())
         .then(jsonCurrentDocuments => {
             // Only get the most recent current document
-            const currentDocument = jsonCurrentDocuments[0];
-            let wordCountPerBlock = currentDocument.document.wordCountPerBlock;
-            let minWordCount = 500;
-            if (state.user.settings.minWordCount) {
-                minWordCount = state.user.settings.minWordCount;
+            if (jsonCurrentDocuments.length > 0) {
+                const currentDocument = jsonCurrentDocuments[0];
+                let wordCountPerBlock = currentDocument.document.wordCountPerBlock;
+                let minWordCount = 500;
+                if (state.user.settings.minWordCount) {
+                    minWordCount = state.user.settings.minWordCount;
+                }
+                const indexCheckpoints = calculateIndexCheckpoints(wordCountPerBlock, minWordCount);
+                dispatch(receiveCurrentDocument(getState(), currentDocument, indexCheckpoints));
+            } else {
+                const currentDocument = {
+                    document: {
+                        _id: null,
+                        title: null,
+                        author: null,
+                        wordCountPerBlock: []
+                    },
+                    currentIndex: null
+                };
+                dispatch(receiveCurrentDocument(getState(), currentDocument, []));
             }
-            const indexCheckpoints = calculateIndexCheckpoints(wordCountPerBlock, minWordCount);
-            dispatch(receiveCurrentDocument(getState(), currentDocument, indexCheckpoints));
             return;
         })
         .then(() => {
