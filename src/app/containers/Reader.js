@@ -3,9 +3,11 @@ import { connect } from 'react-redux';
 import './Reader.css';
 import ReaderHeader from '../components/ReaderHeader';
 import ReaderText from '../components/ReaderText';
+import ModalRoot from './ModalRoot';
 import {
     fetchBlocks,
     loadInitialReaderState,
+    openMenu,
     debugState
 } from '../redux/ReduxActions';
 
@@ -19,11 +21,13 @@ class Reader extends Component {
         const {
             user,
             currentDocument,
-            textBlocks
+            textBlocks,
+            modal
         } = this.props;
         const {
             onPrevClick,
             onNextClick,
+            showMenu,
             loadInitialReaderState,
             // For debugging only--delete later
             debugState
@@ -33,11 +37,16 @@ class Reader extends Component {
                 <ReaderHeader
                     onPrevClick={onPrevClick}
                     onNextClick={onNextClick}
+                    showMenu={showMenu}
                     // For debugging only--delete later
                     debugState={debugState}
                 />
                 <ReaderText
                     textBlocks={textBlocks}
+                />
+                <ModalRoot
+                    modalType={modal.modalType}
+                    modalProps={modal.modalProps}
                 />
             </div>
         )
@@ -48,7 +57,8 @@ const mapStateToProps = state => {
     return {
         user: state.user,
         currentDocument: state.currentDocument,
-        textBlocks: state.textBlocks
+        textBlocks: state.textBlocks,
+        modal: state.modal
     }
 }
 
@@ -58,6 +68,7 @@ const mapDispatchToProps = dispatch => {
         onPrevClick: () => dispatch(fetchBlocks(-1)),
         onNextClick: () => dispatch(fetchBlocks(1)),
         loadInitialReaderState: () => dispatch(loadInitialReaderState()),
+        showMenu: () => dispatch(openMenu()),
         // For debugging only--delete later
         debugState: () => dispatch(debugState())
     }

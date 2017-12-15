@@ -27,3 +27,7 @@ textBlocks: {
 		wordCount: int
 	}]
 }
+modal: {
+	modalType: string,
+	modalProps: {}
+}

@@ -50,6 +50,10 @@ const preloadedState = {
     textBlocks: {
         isFetching: false,
         blocks: []
+    },
+    modal: {
+        modalType: null,
+        modalProps: {}
     }
 };
 

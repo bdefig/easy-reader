@@ -9,12 +9,16 @@
     background: -webkit-linear-gradient(to right, #0ED2F7, #B2FEFA);  /* Chrome 10-25, Safari 5.1-6 */
     background: linear-gradient(to right, #0ED2F7, #B2FEFA); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     color: rgb(64, 64, 64);
-    z-index: 1;
+    /* z-index: 1; */
 
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
+}
+
+.Reader-headerTitle {
+    cursor: pointer;
 }
 
 .Reader-headerButtonWrapper {
@@ -33,4 +37,5 @@
     font-weight: 800;
     vertical-align: middle;
     text-align: center;
+    cursor: pointer;
 }

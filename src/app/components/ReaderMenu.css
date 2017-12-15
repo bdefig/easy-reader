@@ -1,0 +1,48 @@
+/* http://www.cssarrowplease.com/ */
+
+.ReaderMenu-arrowBox {
+	/* position: relative; */
+	position: relative;
+	top: 70px;
+	width: 200px;
+	margin: 0 auto;
+	/*  */
+	background: #FFFFFF;
+	border: 1px solid #404040;
+}
+.ReaderMenu-arrowBox:after, .ReaderMenu-arrowBox:before {
+	bottom: 100%;
+	left: 50%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+}
+
+.ReaderMenu-arrowBox:after {
+	border-color: rgba(255, 255, 255, 0);
+	border-bottom-color: #FFFFFF;
+	border-width: 10px;
+	margin-left: -10px;
+}
+.ReaderMenu-arrowBox:before {
+	border-color: rgba(64, 64, 64, 0);
+	border-bottom-color: #404040;
+	border-width: 11px;
+	margin-left: -11px;
+}
+
+.ReaderMenu-arrowBox :focus {
+	outline: none;
+}
+
+.ReaderMenu-overlay {
+	position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    /* background-color: rgba(128, 128, 128 ,0.8); */
+}

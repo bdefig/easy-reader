@@ -9,6 +9,8 @@ export const REQUEST_CURRENT_DOCUMENT = 'REQUEST_CURRENT_DOCUMENT';
 export const RECEIVE_CURRENT_DOCUMENT = 'RECEIVE_CURRENT_DOCUMENT';
 export const UPDATE_CURRENT_DOCUMENT = 'UPDATE_CURRENT_DOCUMENT';
 export const UPDATE_INDEX_CHECKPOINTS = 'UPDATE_INDEX_CHECKPOINTS';
+export const SHOW_MODAL = 'HIDE_MODAL';
+export const HIDE_MODAL = 'HIDE_MODAL';
 export const REQUEST_CREATE_USER = 'REQUEST_CREATE_USER';
 export const CREATE_USER_SUCCESS = 'CREATE_USER_SUCCESS';
 export const CREATE_USER_FAILURE = 'CREATE_USER_FAILURE';
@@ -57,6 +59,20 @@ function updateIndexCheckpoints(state, indexCheckpoints) {
     return {
         type: UPDATE_INDEX_CHECKPOINTS,
         indexCheckpoints: indexCheckpoints
+    }
+}
+
+function showModal(state, modalType, modalProps) {
+    return {
+        type: SHOW_MODAL,
+        modalType: modalType,
+        modalProps: modalProps
+    }
+}
+
+export function hideModal(state) {
+    return {
+        type: HIDE_MODAL
     }
 }
 
@@ -338,6 +354,21 @@ export function debugState() {
         console.log(getState());
     }
 }
+
+// Call modal action creators --------------------------------------------
+
+export function openMenu() {
+    console.log('Show menu');
+    return (dispatch, getState) => {
+        dispatch(showModal(getState, 'READER_MENU', {}));
+    }
+}
+
+// export function closeMenu() {
+//     return (dispatch, getState) => {
+//         dispatch(hideModal(getState));
+//     }
+// }
 
 // Helper Functions ------------------------------------------------------
 

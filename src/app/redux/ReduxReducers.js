@@ -6,6 +6,8 @@ import {
     RECEIVE_CURRENT_DOCUMENT,
     UPDATE_CURRENT_DOCUMENT,
     UPDATE_INDEX_CHECKPOINTS,
+    SHOW_MODAL,
+    HIDE_MODAL,
     REQUEST_CREATE_USER,
     CREATE_USER_SUCCESS,
     CREATE_USER_FAILURE,
@@ -101,10 +103,27 @@ function textBlocks(state = {}, action) {
     }
 }
 
+function modal(state = {}, action) {
+    switch (action.type) {
+        case SHOW_MODAL:
+            return Object.assign({}, state, {
+                modalType: action.modalType,
+                modalProps: action.modalProps
+            });
+        case HIDE_MODAL:
+            return Object.assign({}, state, {
+                modalType: null
+            });
+        default:
+            return state;
+    }
+}
+
 const rootReducer = combineReducers({
     user,
     currentDocument,
-    textBlocks
+    textBlocks,
+    modal
 })
 
 export default rootReducer;
