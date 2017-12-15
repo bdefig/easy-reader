@@ -1,4 +1,7 @@
 /* http://www.cssarrowplease.com/ */
+/* TODO: Animate on open and close */
+	/* https://github.com/reactjs/react-modal/issues/125 */
+	/* https://github.com/reactjs/react-modal/issues/334 */
 
 .ReaderMenu-arrowBox {
 	/* position: relative; */
@@ -9,6 +12,7 @@
 	/*  */
 	background: #FFFFFF;
 	border: 1px solid #404040;
+	outline: none;
 }
 .ReaderMenu-arrowBox:after, .ReaderMenu-arrowBox:before {
 	bottom: 100%;
@@ -34,15 +38,11 @@
 	margin-left: -11px;
 }
 
-.ReaderMenu-arrowBox :focus {
-	outline: none;
-}
-
 .ReaderMenu-overlay {
 	position: fixed;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    /* background-color: rgba(128, 128, 128 ,0.8); */
+	/* background-color: rgba(128, 128, 128 ,0.8); */
 }

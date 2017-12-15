@@ -7,7 +7,7 @@ const MODAL_COMPONENTS = {
     'READER_MENU': ReaderMenu
 }
 
-const ModalRoot = ({ modalType, modalProps }) => {
+const ModalRoot = ({ modalType, modalProps, hideModal }) => {
     if (!modalType) {
         return null;
     }

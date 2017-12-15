@@ -71,6 +71,7 @@ function showModal(state, modalType, modalProps) {
 }
 
 export function hideModal(state) {
+    console.log('Hide modal');
     return {
         type: HIDE_MODAL
     }

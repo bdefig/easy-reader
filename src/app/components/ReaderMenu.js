@@ -15,6 +15,7 @@ const ReaderMenu = ({ dispatch, isOpen, hideModal }) => {
             onRequestClose={hideModal}
         >
             <h1>Some content here</h1>
+            <button onClick={hideModal}>Close</button>
         </ReactModal>
     )
 }
