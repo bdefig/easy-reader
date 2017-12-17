@@ -19,9 +19,9 @@ const ReaderHeader = ({ onPrevClick, onNextClick, showMenu, debugState }) => (
             >
             &gt;
             </button>
-            <button onClick={debugState}>
+            {/* <button onClick={debugState}>
                 Debug State
-            </button>
+            </button> */}
         </div>
     </div>
 )

@@ -7,11 +7,17 @@
 	/* position: relative; */
 	position: relative;
 	top: 70px;
-	width: 200px;
+	width: 300px;
 	margin: 0 auto;
+	padding: 8px;
+	/*  */
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 	/*  */
 	background: #FFFFFF;
 	border: 1px solid #404040;
+	border-radius: 5px;
 	outline: none;
 }
 .ReaderMenu-arrowBox:after, .ReaderMenu-arrowBox:before {
@@ -26,14 +32,14 @@
 }
 
 .ReaderMenu-arrowBox:after {
-	border-color: rgba(255, 255, 255, 0);
+	/* border-color: rgba(255, 255, 255, 0); */
 	border-bottom-color: #FFFFFF;
 	border-width: 10px;
 	margin-left: -10px;
 }
 .ReaderMenu-arrowBox:before {
-	border-color: rgba(64, 64, 64, 0);
-	border-bottom-color: #404040;
+	/* border-color: rgba(64, 64, 64, 0); */
+	/* border-bottom-color: #404040; */
 	border-width: 11px;
 	margin-left: -11px;
 }
@@ -45,4 +51,16 @@
     right: 0;
     bottom: 0;
 	/* background-color: rgba(128, 128, 128 ,0.8); */
+}
+
+.ReaderMenu-item {
+	font-size: 1.5em;
+	color: #404040;
+}
+
+.ReaderMenu-dividingLine {
+	width: 250px;
+	height: 1px;
+	background-color: #C0C0C0;
+	border-width: 0px;
 }

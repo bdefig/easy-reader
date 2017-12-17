@@ -14,8 +14,21 @@ const ReaderMenu = ({ dispatch, isOpen, hideModal }) => {
             isOpen={isOpen}
             onRequestClose={hideModal}
         >
-            <h1>Some content here</h1>
-            <button onClick={hideModal}>Close</button>
+            <div className="ReaderMenu-item">
+                Jump to Section
+            </div>
+            <hr className="ReaderMenu-dividingLine" />
+            <div className="ReaderMenu-item">
+                Switch Books
+            </div>
+            <hr className="ReaderMenu-dividingLine" />
+            <div className="ReaderMenu-item">
+                Settings
+            </div>
+            <hr className="ReaderMenu-dividingLine" />
+            <div className="ReaderMenu-item">
+                Log Out
+            </div>
         </ReactModal>
     )
 }
