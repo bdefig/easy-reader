@@ -17,15 +17,15 @@ const ReaderMenu = ({ dispatch, isOpen, hideModal }) => {
             <div className="ReaderMenu-item">
                 Jump to Section
             </div>
-            <hr className="ReaderMenu-dividingLine" />
+            <div className="ReaderMenu-dividingLine"></div>
             <div className="ReaderMenu-item">
                 Switch Books
             </div>
-            <hr className="ReaderMenu-dividingLine" />
+            <div className="ReaderMenu-dividingLine"></div>
             <div className="ReaderMenu-item">
                 Settings
             </div>
-            <hr className="ReaderMenu-dividingLine" />
+            <div className="ReaderMenu-dividingLine"></div>
             <div className="ReaderMenu-item">
                 Log Out
             </div>

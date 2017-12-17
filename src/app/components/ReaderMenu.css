@@ -9,7 +9,7 @@
 	top: 70px;
 	width: 300px;
 	margin: 0 auto;
-	padding: 8px;
+	padding: 5px;
 	/*  */
 	display: flex;
 	flex-direction: column;
@@ -32,14 +32,14 @@
 }
 
 .ReaderMenu-arrowBox:after {
-	/* border-color: rgba(255, 255, 255, 0); */
+	border-color: rgba(255, 255, 255, 0);
 	border-bottom-color: #FFFFFF;
 	border-width: 10px;
 	margin-left: -10px;
 }
 .ReaderMenu-arrowBox:before {
-	/* border-color: rgba(64, 64, 64, 0); */
-	/* border-bottom-color: #404040; */
+	border-color: rgba(64, 64, 64, 0);
+	border-bottom-color: #404040;
 	border-width: 11px;
 	margin-left: -11px;
 }
@@ -50,7 +50,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-	/* background-color: rgba(128, 128, 128 ,0.8); */
+	background-color: rgba(128, 128, 128 ,0.25);
 }
 
 .ReaderMenu-item {
@@ -63,4 +63,6 @@
 	height: 1px;
 	background-color: #C0C0C0;
 	border-width: 0px;
+	margin-top: 5px;
+	margin-bottom: 5px;
 }
