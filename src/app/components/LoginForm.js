@@ -7,7 +7,7 @@ export default class LoginForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            signup: true,
+            signup: localStorage.getItem('hasLoggedIn') ? false : true,
             displayErrors: false,
             errorMessage: {
                 name: '',

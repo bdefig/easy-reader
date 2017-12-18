@@ -5,14 +5,15 @@ A light reader built in React that makes reading books as easy as reading articl
 ## To Do
 
 ### User
-- [ ] Login page
-    - [ ] Create new user
-    - [ ] Sign in
-- [ ] Store user information securely
-    - [ ] Hash and salt password
-- [ ] Session token
-    - [ ] Cookie
+- [x] Login page
+    - [x] Create new user
+    - [x] Sign in
+- [x] Store user information securely
+    - [x] Hash and salt password
+- [x] Session token
+    - [x] Cookie (local storage instead)
     - [ ] Authentication
+        - [ ] Protect routes
 
 ### Documents
 - [ ] Switch documents

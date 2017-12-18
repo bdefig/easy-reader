@@ -1,12 +1,18 @@
 import React from 'react';
 import ReactModal from 'react-modal';
-import { hideModal } from '../redux/ReduxActions';
+import { Link } from 'react-router-dom';
+import {
+    logout
+} from '../redux/ReduxActions';
 import './ReaderMenu.css';
 
 ReactModal.setAppElement('#root');
 
 const ReaderMenu = ({ dispatch, isOpen, hideModal }) => {
-
+    const onLogout = () => {
+        dispatch(hideModal);
+        dispatch(logout);
+    };
     return (
         <ReactModal
             className="ReaderMenu-arrowBox"
@@ -26,8 +32,10 @@ const ReaderMenu = ({ dispatch, isOpen, hideModal }) => {
                 Settings
             </div>
             <div className="ReaderMenu-dividingLine"></div>
-            <div className="ReaderMenu-item">
-                Log Out
+            <div className="ReaderMenu-item" onClick={onLogout}>
+                <Link to="/login">
+                    Log Out
+                </Link>
             </div>
         </ReactModal>
     )

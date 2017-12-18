@@ -7,13 +7,14 @@ const MODAL_COMPONENTS = {
     'READER_MENU': ReaderMenu
 }
 
-const ModalRoot = ({ modalType, modalProps, hideModal }) => {
+const ModalRoot = ({ dispatch, modalType, modalProps, hideModal }) => {
     if (!modalType) {
         return null;
     }
 
     const SpecificModal = MODAL_COMPONENTS[modalType];
     return <SpecificModal
+        dispatch={dispatch}
         isOpen={!!modalType}
         hideModal={hideModal}
         {...modalProps}
@@ -27,10 +28,12 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = dispatch => {
-    return {
+    const toReturn = {
         // Can add dispatch if needed
+        dispatch: (actionCreator) => dispatch(actionCreator),
         hideModal: () => dispatch(hideModal())
-    }
+    };
+    return toReturn;
 }
 
 export default connect(

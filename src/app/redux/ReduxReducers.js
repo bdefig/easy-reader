@@ -13,7 +13,8 @@ import {
     CREATE_USER_FAILURE,
     REQUEST_LOGIN,
     LOGIN_SUCCESS,
-    LOGIN_FAILURE
+    LOGIN_FAILURE,
+    LOGOUT
 } from './ReduxActions';
 
 function user(state = {}, action) {
@@ -52,6 +53,12 @@ function user(state = {}, action) {
                 isFetching: false,
                 authenticationErrorMessage: action.errorMessage
             });
+        case LOGOUT:
+            return Object.assign({}, state, {
+                userID: null,
+                name: null,
+                token: null
+            })
         default:
             return state;
     }
@@ -77,7 +84,6 @@ function currentDocument(state = {}, action) {
             return Object.assign({}, state, {
                 currentIndex: action.currentIndex
             })
-            return state;
         case UPDATE_INDEX_CHECKPOINTS:
             return Object.assign({}, state, {
                 indexCheckpoints: action.indexCheckpoints

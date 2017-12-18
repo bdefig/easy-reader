@@ -17,6 +17,7 @@ export const CREATE_USER_FAILURE = 'CREATE_USER_FAILURE';
 export const REQUEST_LOGIN = 'REQUEST_LOGIN';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAILURE = 'LOGIN_FAILURE';
+export const LOGOUT = 'LOGOUT';
 
 // Action creators (and actions) -----------------------------------------
 
@@ -71,7 +72,6 @@ function showModal(state, modalType, modalProps) {
 }
 
 export function hideModal(state) {
-    console.log('Hide modal');
     return {
         type: HIDE_MODAL
     }
@@ -108,6 +108,7 @@ function requestLogin(state, loginInfo) {
 }
 
 function loginSuccess(state, userID, name, token) {
+    localStorage.setItem('hasLoggedIn', true);
     return {
         type: LOGIN_SUCCESS,
         userID: userID,
@@ -120,6 +121,14 @@ function loginFailure(state, errorMessage) {
     return {
         type: LOGIN_FAILURE,
         errorMessage: errorMessage
+    }
+}
+
+export function logout(state) {
+    localStorage.clear();
+    localStorage.setItem('hasLoggedIn', true);
+    return {
+        type: LOGOUT
     }
 }
 
@@ -277,7 +286,7 @@ export function updateDocumentProgress(state, index) {
 
 export function createUser(name, email, password) {
     return (dispatch, getState) => {
-        console.log('Dispatching createUser');
+        // console.log('Dispatching createUser');
 
         const url = AppConfig.baseURL + 'createUser';
         const msgBody = {
@@ -340,10 +349,10 @@ export function login(email, password) {
                 localStorage.setItem('userID', jsonReply.userID);
                 localStorage.setItem('name', jsonReply.name);
                 localStorage.setItem('token', jsonReply.token);
-                dispatch(createUserSuccess(getState(), jsonReply.userID, jsonReply.name, jsonReply.token));
+                dispatch(loginSuccess(getState(), jsonReply.userID, jsonReply.name, jsonReply.token));
             } else {
                 console.log('LoginError');
-                dispatch(createUserFailure(getState(), jsonReply.message));
+                dispatch(loginFailure(getState(), jsonReply.message));
             }
         })
         .catch(err => console.log(Error(err)));
@@ -359,17 +368,10 @@ export function debugState() {
 // Call modal action creators --------------------------------------------
 
 export function openMenu() {
-    console.log('Show menu');
     return (dispatch, getState) => {
         dispatch(showModal(getState, 'READER_MENU', {}));
     }
 }
-
-// export function closeMenu() {
-//     return (dispatch, getState) => {
-//         dispatch(hideModal(getState));
-//     }
-// }
 
 // Helper Functions ------------------------------------------------------
 
