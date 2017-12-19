@@ -151,7 +151,7 @@ export function fetchBlocks(direction) {
             console.log(Error('Error fetching blocks: No index checkpoints in state'));
             return;
         }
-        if (typeof(state.currentDocument.currentIndex) == 'undefined') {
+        if (typeof(state.currentDocument.currentIndex) === 'undefined') {
             // No current index in state; just get the first set of blocks
             indicesToGet = calculateIndicesFromCheckpoints(state.currentDocument.indexCheckpoints, 0);
         } else {
@@ -281,6 +281,14 @@ export function updateDocumentProgress(state, index) {
         })
         .then(reply => dispatch(updateCurrentDocument(getState(), index)))
         .catch(err => console.log(Error('Error updating document progress')));
+    }
+}
+
+export function setNewIndexCheckpoints() {
+    return (dispatch, getState) => {
+        const state = getState();
+        const newIndexCheckpoints = calculateIndexCheckpoints(state.currentDocument.wordCountPerBlock, state.user.settings.minWordCount);
+        dispatch(updateIndexCheckpoints(getState(), newIndexCheckpoints));
     }
 }
 

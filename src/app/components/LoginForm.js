@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
 import './LoginForm.css';
 import * as LoginHelpers from '../helpers/LoginHelpers';
 
@@ -89,7 +88,7 @@ export default class LoginForm extends Component {
     }
 
     componentDidUpdate() {
-        if (this.state.shouldShake == true) {
+        if (this.state.shouldShake === true) {
             setTimeout(() => this.setState({shouldShake: false}), 1000);
         }
     }

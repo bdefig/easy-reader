@@ -19,8 +19,6 @@ class Reader extends Component {
 
     render() {
         const {
-            user,
-            currentDocument,
             textBlocks,
             modal
         } = this.props;
@@ -28,7 +26,6 @@ class Reader extends Component {
             onPrevClick,
             onNextClick,
             showMenu,
-            loadInitialReaderState,
             // For debugging only--delete later
             debugState
         } = this.props;
