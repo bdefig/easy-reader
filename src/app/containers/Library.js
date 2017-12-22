@@ -12,7 +12,7 @@ class Library extends Component {
     render() {
         return (
             <div className="Library-container">
-                <LibraryHeader
+                <SimpleHeader
                     showMenu={showMenu}
                 />
                 <LibraryMain />

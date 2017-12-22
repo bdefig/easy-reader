@@ -1,4 +1,4 @@
-.Library-header {
+.SimpleHeader-header {
     position: fixed;
     left: 0;
     top: 0;
@@ -17,6 +17,6 @@
     align-items: center;
 }
 
-.Library-headerTitle {
+.SimpleHeader-headerTitle {
     cursor: pointer;
 }
