@@ -26,6 +26,18 @@ textBlocks: {
 		textType: string,
 		wordCount: int
 	}]
+},
+library: {
+	userDocuments: [{
+		documentID: string,
+		title: string,
+		author: string
+	}],
+	otherDocuments: [{
+		documentID: string,
+		title: string,
+		author: string
+	}]
 }
 modal: {
 	modalType: string,
