@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import './Library.css';
-import LibraryHeader from '../components/LibraryHeader';
+import SimpleHeader from '../components/SimpleHeader';
 import LibraryMain from '../components/LibraryMain';
 import ModalRoot from './ModalRoot';
 import {
