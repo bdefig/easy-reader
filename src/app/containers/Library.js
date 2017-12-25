@@ -16,6 +16,12 @@ class Library extends Component {
                     showMenu={showMenu}
                 />
                 <LibraryMain />
+                <button
+                    className="Library-moreButton"
+                    onClick={onMoreClick}
+                >
+                    + More
+                </button>
                 <ModalRoot
                     modalType={modal.modalType}
                     modalProps={modal.modalProps}
@@ -31,7 +37,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-
+        showMenu: () => dispatch(openMenu()),
+        onMore: () => dispatch(addLibraryItems)
     }
 }
 
