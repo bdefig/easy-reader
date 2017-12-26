@@ -32,7 +32,11 @@ class Library extends Component {
 }
 
 const mapStateToProps = state => {
-
+    return {
+        currentDocument: state.currentDocument,
+        userDocuments: state.userDocuments,
+        otherDocuments: state.otherDocuments
+    }
 }
 
 const mapDispatchToProps = dispatch => {
