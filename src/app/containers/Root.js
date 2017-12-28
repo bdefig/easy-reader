@@ -51,6 +51,10 @@ const preloadedState = {
         isFetching: false,
         blocks: []
     },
+    library: {
+        userDocuments: [],
+        otherDocuments: []
+    },
     modal: {
         modalType: null,
         modalProps: {}
