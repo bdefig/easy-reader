@@ -5,6 +5,8 @@ import {
     REQUEST_CURRENT_DOCUMENT,
     RECEIVE_CURRENT_DOCUMENT,
     UPDATE_CURRENT_DOCUMENT,
+    REQUEST_USER_DOCUMENTS,
+    RECEIVE_USER_DOCUMENTS,
     UPDATE_INDEX_CHECKPOINTS,
     SHOW_MODAL,
     HIDE_MODAL,
@@ -109,6 +111,22 @@ function textBlocks(state = {}, action) {
     }
 }
 
+function library(state = {}, action) {
+    switch (action.type) {
+        case REQUEST_USER_DOCUMENTS:
+            return Object.assign({}, state, {
+                isFetching: true
+            });
+        case RECEIVE_USER_DOCUMENTS:
+            return Object.assign({}, state, {
+                isFetching: false,
+                userDocuments: action.userDocuments
+            });
+        default:
+            return state;
+    }
+}
+
 function modal(state = {}, action) {
     switch (action.type) {
         case SHOW_MODAL:
@@ -129,6 +147,7 @@ const rootReducer = combineReducers({
     user,
     currentDocument,
     textBlocks,
+    library,
     modal
 })
 

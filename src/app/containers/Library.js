@@ -9,13 +9,29 @@ import {
 } from '../redux/ReduxActions';
 
 class Library extends Component {
+    componentDidMount() {
+        // Load documents
+        const { loadInitialLibraryState } = this.props;
+        loadInitialLibraryState();
+    }
+
     render() {
+        const {
+            userDocuments,
+            modal
+        } = this.props;
+        const {
+            showMenu,
+            onMoreClick
+        } = this.props;
         return (
             <div className="Library-container">
                 <SimpleHeader
                     showMenu={showMenu}
                 />
-                <LibraryMain />
+                <LibraryMain
+                    userDocuments={userDocuments}
+                />
                 <button
                     className="Library-moreButton"
                     onClick={onMoreClick}
@@ -42,7 +58,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         showMenu: () => dispatch(openMenu()),
-        onMore: () => dispatch(addLibraryItems)
+        loadInitialLibraryState: () => dispatch(loadInitialLibraryState()),
+        onMoreClick: () => dispatch(addLibraryItems())
     }
 }
 

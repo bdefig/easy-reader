@@ -8,6 +8,8 @@ export const RECEIVE_BLOCKS = 'RECEIVE_BLOCKS';
 export const REQUEST_CURRENT_DOCUMENT = 'REQUEST_CURRENT_DOCUMENT';
 export const RECEIVE_CURRENT_DOCUMENT = 'RECEIVE_CURRENT_DOCUMENT';
 export const UPDATE_CURRENT_DOCUMENT = 'UPDATE_CURRENT_DOCUMENT';
+export const REQUEST_USER_DOCUMENTS = 'REQUEST_USER_DOCUMENTS';
+export const RECEIVE_USER_DOCUMENTS = 'RECEIVE_USER_DOCUMENTS';
 export const UPDATE_INDEX_CHECKPOINTS = 'UPDATE_INDEX_CHECKPOINTS';
 export const SHOW_MODAL = 'HIDE_MODAL';
 export const HIDE_MODAL = 'HIDE_MODAL';
@@ -53,6 +55,19 @@ function updateCurrentDocument(state, index) {
     return {
         type: UPDATE_CURRENT_DOCUMENT,
         currentIndex: index
+    }
+}
+
+function requestUserDocuments(state) {
+    return {
+        type: REQUEST_USER_DOCUMENTS
+    }
+}
+
+function receiveUserDocuments(state, userDocuments) {
+    return {
+        type: RECEIVE_USER_DOCUMENTS,
+        userDocuments: userDocuments
     }
 }
 
@@ -212,7 +227,7 @@ export function fetchBlocks(direction) {
     }
 }
 
-export function fetchCurrentDocument() {
+function fetchCurrentDocument() {
     return (dispatch, getState) => {
         const state = getState();
         const userID = state.user.userID;
@@ -261,6 +276,34 @@ export function fetchCurrentDocument() {
 export function loadInitialReaderState() {
     return (dispatch, getState) => {
         dispatch(fetchCurrentDocument());
+    }
+}
+
+function fetchUserDocuments() {
+    return (dispatch, getState) => {
+        const state = getState();
+        const userID = state.user.userID;
+        const url = AppConfig.baseURL + 'user/' + userID + '/getDocumentProgress';
+
+        dispatch(requestUserDocuments(getState()));
+        return fetch(url, {
+            method: 'get',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+            }
+        })
+        .then(userDocuments => userDocuments.json())
+        .then(jsonUserDocuments => {
+            dispatch(receiveUserDocuments(getState(), jsonUserDocuments));
+            return;
+        });
+    }
+}
+
+export function loadInitialLibraryState() {
+    return (dispatch, getState) => {
+        dispatch(fetchUserDocuments());
     }
 }
 

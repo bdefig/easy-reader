@@ -28,15 +28,20 @@ textBlocks: {
 	}]
 },
 library: {
+	isFetching: bool,
 	userDocuments: [{
 		documentID: string,
 		title: string,
-		author: string
+		author: string,
+		wordCountPerBlock: [int],
+		currentIndex: int
 	}],
 	otherDocuments: [{
 		documentID: string,
 		title: string,
-		author: string
+		author: string,
+		wordCountPerBlock: [int],
+		currentIndex: int
 	}]
 }
 modal: {
