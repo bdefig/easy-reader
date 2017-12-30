@@ -13,6 +13,7 @@ export default class LibraryMain extends Component {
                     author={userDoc.author}
                     wordCountPerBlock={userDoc.wordCountPerBlock}
                     currentIndex={userDoc.currentIndex}
+                    documentMetadata={userDoc}
                 />
             );
         });
