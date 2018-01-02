@@ -4,16 +4,13 @@ import './LibraryMain.css';
 
 export default class LibraryMain extends Component {
     render() {
+        let onSwitchTo = this.props.onSwitchTo;
         let userDocuments = this.props.userDocuments.map(userDoc => {
             return (
                 <LibraryBlock
                     key={userDoc.documentID}
-                    documentID={userDoc.documentID}
-                    title={userDoc.title}
-                    author={userDoc.author}
-                    wordCountPerBlock={userDoc.wordCountPerBlock}
-                    currentIndex={userDoc.currentIndex}
                     documentMetadata={userDoc}
+                    onSwitchTo={onSwitchTo}
                 />
             );
         });
@@ -37,5 +34,6 @@ LibraryMain.propTypes = {
                 currentIndex: PropTypes.number.isRequired
             })
         )
-    })
+    }),
+    onSwitchTo: PropTypes.func.isRequired
 }

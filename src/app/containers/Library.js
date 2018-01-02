@@ -5,7 +5,10 @@ import SimpleHeader from '../components/SimpleHeader';
 import LibraryMain from '../components/LibraryMain';
 import ModalRoot from './ModalRoot';
 import {
-
+    openMenu,
+    loadInitialLibraryState,
+    addLibraryItems,
+    switchToDocument
 } from '../redux/ReduxActions';
 
 class Library extends Component {
@@ -22,7 +25,8 @@ class Library extends Component {
         } = this.props;
         const {
             showMenu,
-            onMoreClick
+            onMoreClick,
+            onSwitchTo
         } = this.props;
         return (
             <div className="Library-container">
@@ -31,6 +35,7 @@ class Library extends Component {
                 />
                 <LibraryMain
                     userDocuments={userDocuments}
+                    onSwitchTo={onSwitchTo}
                 />
                 <button
                     className="Library-moreButton"
@@ -59,7 +64,8 @@ const mapDispatchToProps = dispatch => {
     return {
         showMenu: () => dispatch(openMenu()),
         loadInitialLibraryState: () => dispatch(loadInitialLibraryState()),
-        onMoreClick: () => dispatch(addLibraryItems())
+        onMoreClick: () => dispatch(addLibraryItems()),
+        onSwitchTo: (documentID) => dispatch(switchToDocument(documentID))
     }
 }
 

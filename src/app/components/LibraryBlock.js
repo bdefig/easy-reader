@@ -2,8 +2,21 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './LibraryBlock.css';
 
-const LibraryBlock = ({ documentMetadata }) => {
-    
+const LibraryBlock = ({ documentMetadata, onSwitchTo }) => {
+    const { documentID, title, author, wordCountPerBlock, currentIndex } = documentMetadata;
+    return (
+        <div
+            className="LibraryBlock-block"
+            onClick={onSwitchTo(documentID)}
+        >
+            <div className="LibraryBlock-title">
+                {title}
+            </div>
+            <div className="LibraryBlock-author">
+                {author}
+            </div>
+        </div>
+    );
 }
 
 LibraryBlock.PropTypes = {
