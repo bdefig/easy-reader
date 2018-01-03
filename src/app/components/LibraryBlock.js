@@ -26,5 +26,6 @@ LibraryBlock.PropTypes = {
         author: PropTypes.string.isRequired,
         wordCountPerBlock: PropTypes.arrayOf(PropTypes.number),
         currentIndex: PropTypes.number.isRequired
-    })
+    }),
+    onSwitchTo: PropTypes.func.isRequired
 }

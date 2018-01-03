@@ -3,6 +3,7 @@ import AppConfig from '../AppConfig';
 
 // Types -----------------------------------------------------------------
 
+// Document actions
 export const REQUEST_BLOCKS = 'REQUEST_BLOCKS';
 export const RECEIVE_BLOCKS = 'RECEIVE_BLOCKS';
 export const REQUEST_CURRENT_DOCUMENT = 'REQUEST_CURRENT_DOCUMENT';
@@ -11,8 +12,13 @@ export const UPDATE_CURRENT_DOCUMENT = 'UPDATE_CURRENT_DOCUMENT';
 export const REQUEST_USER_DOCUMENTS = 'REQUEST_USER_DOCUMENTS';
 export const RECEIVE_USER_DOCUMENTS = 'RECEIVE_USER_DOCUMENTS';
 export const UPDATE_INDEX_CHECKPOINTS = 'UPDATE_INDEX_CHECKPOINTS';
+export const SWITCH_CURRENT_DOCUMENT = 'SWITCH_CURRENT_DOCUMENT';
+
+// Modal actions
 export const SHOW_MODAL = 'HIDE_MODAL';
 export const HIDE_MODAL = 'HIDE_MODAL';
+
+// Login actions
 export const REQUEST_CREATE_USER = 'REQUEST_CREATE_USER';
 export const CREATE_USER_SUCCESS = 'CREATE_USER_SUCCESS';
 export const CREATE_USER_FAILURE = 'CREATE_USER_FAILURE';
@@ -332,6 +338,14 @@ export function setNewIndexCheckpoints() {
         const state = getState();
         const newIndexCheckpoints = calculateIndexCheckpoints(state.currentDocument.wordCountPerBlock, state.user.settings.minWordCount);
         dispatch(updateIndexCheckpoints(getState(), newIndexCheckpoints));
+    }
+}
+
+export function switchCurrentDocument(documentID) {
+    return (dispatch, getState) => {
+        const state = getState();
+        // TODO: Write code to switch the current document
+        
     }
 }
 

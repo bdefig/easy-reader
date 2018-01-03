@@ -7,8 +7,8 @@ import ModalRoot from './ModalRoot';
 import {
     openMenu,
     loadInitialLibraryState,
-    addLibraryItems,
-    switchToDocument
+    libraryClickMore,
+    switchCurrentDocument
 } from '../redux/ReduxActions';
 
 class Library extends Component {
@@ -36,13 +36,8 @@ class Library extends Component {
                 <LibraryMain
                     userDocuments={userDocuments}
                     onSwitchTo={onSwitchTo}
+                    onMoreClick={onMoreClick}
                 />
-                <button
-                    className="Library-moreButton"
-                    onClick={onMoreClick}
-                >
-                    + More
-                </button>
                 <ModalRoot
                     modalType={modal.modalType}
                     modalProps={modal.modalProps}
@@ -64,8 +59,8 @@ const mapDispatchToProps = dispatch => {
     return {
         showMenu: () => dispatch(openMenu()),
         loadInitialLibraryState: () => dispatch(loadInitialLibraryState()),
-        onMoreClick: () => dispatch(addLibraryItems()),
-        onSwitchTo: (documentID) => dispatch(switchToDocument(documentID))
+        onMoreClick: () => dispatch(libraryClickMore()),
+        onSwitchTo: (documentID) => dispatch(switchCurrentDocument(documentID))
     }
 }
 

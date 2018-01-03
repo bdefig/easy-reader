@@ -16,7 +16,15 @@ export default class LibraryMain extends Component {
         });
         return (
             <div className="Library-userDocumentArea">
-                {userDocuments}
+                <div>
+                    {userDocuments}
+                </div>
+                <button
+                    className="Library-moreButton"
+                    onClick={onMoreClick}
+                >
+                    + More
+                </button>
             </div>
         )
     }
@@ -35,5 +43,6 @@ LibraryMain.propTypes = {
             })
         )
     }),
-    onSwitchTo: PropTypes.func.isRequired
+    onSwitchTo: PropTypes.func.isRequired,
+    onMoreClick: PropTypes.func.isRequired
 }

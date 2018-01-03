@@ -3,26 +3,3 @@
     align-items: center;
     flex-direction: column;
 }
-
-.Library-moreButton {
-    position: fixed;
-    bottom: 30px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    border-color: #0ED2F7;
-    border-style: solid;
-    border-width: 2px;
-    border-radius: 5px;
-    outline: none;
-    padding: 5px;
-    font-size: 1.0em;
-    background-color: #0ED2F7;
-    transition: background-color 0.25s ease;
-    color: white;
-} 
-.Library-moreButton:hover {
-    background-color: transparent;
-    transition: background-color 0.25s ease;
-    color: #0ED2F7;
-    cursor: pointer;
-}

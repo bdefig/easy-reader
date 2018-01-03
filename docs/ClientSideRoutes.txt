@@ -1,0 +1,3 @@
+/ - Reader
+/login - Login and signup page
+/library - User's book library
