@@ -53,6 +53,7 @@ const preloadedState = {
         blocks: []
     },
     library: {
+        isFetching: false,
         userDocuments: [],
         otherDocuments: []
     },

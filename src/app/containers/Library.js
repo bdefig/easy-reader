@@ -23,14 +23,14 @@ class Library extends Component {
     }
 
     render() {
-        const { match } = this.props;
+        // const { match } = this.props;
         const {
             library,
             modal
         } = this.props;
         const {
             showMenu,
-            onSwitchTo
+            switchDocTo
         } = this.props;
         return (
             <div className="Library-container">
@@ -42,7 +42,7 @@ class Library extends Component {
                         <LibraryAdd
                             isFetching={library.isFetching}
                             userDocuments={library.userDocuments}
-                            onSwitchTo={onSwitchTo}
+                            onSwitchTo={switchDocTo}
                         />
                     )}
                 />
@@ -51,7 +51,7 @@ class Library extends Component {
                         <LibraryMain
                             isFetching={library.isFetching}
                             userDocuments={library.userDocuments}
-                            onSwitchTo={onSwitchTo}
+                            onSwitchTo={switchDocTo}
                         />
                     )}
                 />
@@ -78,7 +78,7 @@ const mapDispatchToProps = dispatch => {
     return {
         showMenu: () => dispatch(openMenu()),
         loadInitialLibraryState: () => dispatch(loadInitialLibraryState()),
-        onSwitchTo: (documentID) => dispatch(switchCurrentDocument(documentID))
+        switchDocTo: (documentID) => dispatch(switchCurrentDocument(documentID))
     }
 }
 

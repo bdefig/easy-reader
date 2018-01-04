@@ -7,7 +7,6 @@ import LibraryBlock from './LibraryBlock';
 export default class LibraryMain extends Component {
     render() {
         const onSwitchTo = this.props.onSwitchTo;
-        const onMoreClick = this.props.onMoreClick;
         let userDocuments = this.props.userDocuments.map(userDoc => {
             return (
                 <LibraryBlock
@@ -23,12 +22,12 @@ export default class LibraryMain extends Component {
                     {userDocuments}
                 </div>
                 <button className="Library-moreButton">
-                    <Link to='/add'>
+                    <Link to='/library/add'>
                         + More
                     </Link>
                 </button>
             </div>
-        )
+        );
     }
 }
 
@@ -43,6 +42,5 @@ LibraryMain.propTypes = {
             currentIndex: PropTypes.number.isRequired
         })
     ),
-    onSwitchTo: PropTypes.func.isRequired,
-    onMoreClick: PropTypes.func.isRequired
+    onSwitchTo: PropTypes.func.isRequired
 }
