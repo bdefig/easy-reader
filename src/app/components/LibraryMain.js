@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import './LibraryMain.css';
+import LibraryBlock from './LibraryBlock';
 
 export default class LibraryMain extends Component {
     render() {
-        let onSwitchTo = this.props.onSwitchTo;
+        const onSwitchTo = this.props.onSwitchTo;
+        const onMoreClick = this.props.onMoreClick;
         let userDocuments = this.props.userDocuments.map(userDoc => {
             return (
                 <LibraryBlock
@@ -19,11 +22,10 @@ export default class LibraryMain extends Component {
                 <div>
                     {userDocuments}
                 </div>
-                <button
-                    className="Library-moreButton"
-                    onClick={onMoreClick}
-                >
-                    + More
+                <button className="Library-moreButton">
+                    <Link to='/add'>
+                        + More
+                    </Link>
                 </button>
             </div>
         )
@@ -31,18 +33,16 @@ export default class LibraryMain extends Component {
 }
 
 LibraryMain.propTypes = {
-    userDocuments: PropTypes.shape({
-        isFetching: PropTypes.bool.isRequired,
-        userDocuments: PropTypes.arrayOf(
-            PropTypes.shape({
-                documentID: PropTypes.string.isRequired,
-                title: PropTypes.string.isRequired,
-                author: PropTypes.string.isRequired,
-                wordCountPerBlock: PropTypes.arrayOf(PropTypes.number),
-                currentIndex: PropTypes.number.isRequired
-            })
-        )
-    }),
+    isFetching: PropTypes.bool.isRequired,
+    userDocuments: PropTypes.arrayOf(
+        PropTypes.shape({
+            documentID: PropTypes.string.isRequired,
+            title: PropTypes.string.isRequired,
+            author: PropTypes.string.isRequired,
+            wordCountPerBlock: PropTypes.arrayOf(PropTypes.number),
+            currentIndex: PropTypes.number.isRequired
+        })
+    ),
     onSwitchTo: PropTypes.func.isRequired,
     onMoreClick: PropTypes.func.isRequired
 }

@@ -25,7 +25,9 @@ const ReaderMenu = ({ dispatch, isOpen, hideModal }) => {
             </div>
             <div className="ReaderMenu-dividingLine"></div>
             <div className="ReaderMenu-item">
-                Switch Books
+                <Link to='/library'>
+                    Switch Books
+                </Link>
             </div>
             <div className="ReaderMenu-dividingLine"></div>
             <div className="ReaderMenu-item">

@@ -1,13 +1,17 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import {
+    Route,
+    withRouter
+} from 'react-router-dom';
 import './Library.css';
 import SimpleHeader from '../components/SimpleHeader';
 import LibraryMain from '../components/LibraryMain';
+import LibraryAdd from '../components/LibraryAdd';
 import ModalRoot from './ModalRoot';
 import {
     openMenu,
     loadInitialLibraryState,
-    libraryClickMore,
     switchCurrentDocument
 } from '../redux/ReduxActions';
 
@@ -19,13 +23,13 @@ class Library extends Component {
     }
 
     render() {
+        const { match } = this.props;
         const {
-            userDocuments,
+            library,
             modal
         } = this.props;
         const {
             showMenu,
-            onMoreClick,
             onSwitchTo
         } = this.props;
         return (
@@ -33,10 +37,23 @@ class Library extends Component {
                 <SimpleHeader
                     showMenu={showMenu}
                 />
-                <LibraryMain
-                    userDocuments={userDocuments}
-                    onSwitchTo={onSwitchTo}
-                    onMoreClick={onMoreClick}
+                <Route path='/add' render={
+                    (userDocuments, onSwitchTo, onMoreClick) => (
+                        <LibraryAdd
+                            isFetching={library.isFetching}
+                            userDocuments={library.userDocuments}
+                            onSwitchTo={onSwitchTo}
+                        />
+                    )}
+                />
+                <Route path='/' render={
+                    (userDocuments, onSwitchTo, onMoreClick) => (
+                        <LibraryMain
+                            isFetching={library.isFetching}
+                            userDocuments={library.userDocuments}
+                            onSwitchTo={onSwitchTo}
+                        />
+                    )}
                 />
                 <ModalRoot
                     modalType={modal.modalType}
@@ -50,8 +67,10 @@ class Library extends Component {
 const mapStateToProps = state => {
     return {
         currentDocument: state.currentDocument,
+        library: state.library,
         userDocuments: state.userDocuments,
-        otherDocuments: state.otherDocuments
+        otherDocuments: state.otherDocuments,
+        modal: state.modal
     }
 }
 
@@ -59,12 +78,11 @@ const mapDispatchToProps = dispatch => {
     return {
         showMenu: () => dispatch(openMenu()),
         loadInitialLibraryState: () => dispatch(loadInitialLibraryState()),
-        onMoreClick: () => dispatch(libraryClickMore()),
         onSwitchTo: (documentID) => dispatch(switchCurrentDocument(documentID))
     }
 }
 
-export default connect(
+export default withRouter(connect(
     mapStateToProps,
     mapDispatchToProps
-)(Library);
+)(Library));

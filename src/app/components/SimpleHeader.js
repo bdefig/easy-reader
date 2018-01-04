@@ -1,7 +1,7 @@
 import React from 'react';
 import './SimpleHeader.css';
 
-const ReaderHeader = ({ showMenu, debugState }) => (
+const SimpleHeader = ({ showMenu, debugState }) => (
     <div className="SimpleHeader-header">
         <h1 className="SimpleHeader-headerTitle" onClick={showMenu}>Easy Reader</h1>
     </div>

@@ -29,3 +29,5 @@ LibraryBlock.PropTypes = {
     }),
     onSwitchTo: PropTypes.func.isRequired
 }
+
+export default LibraryBlock;

@@ -7,6 +7,7 @@ import {
 } from 'react-router-dom';
 import configureStore from '../redux/ConfigureStore';
 import Login from './Login';
+import Library from './Library';
 import App from './App';
 
 const preloadedState = {
@@ -70,6 +71,7 @@ export default class Root extends Component {
                 <Router>
                     <Switch>
                         <Route path='/login' component={Login} />
+                        <Route path='/library' component={Library} />
                         <Route exact path='/' component={App} />
                     </Switch>
                 </Router>
