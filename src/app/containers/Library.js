@@ -38,7 +38,7 @@ class Library extends Component {
                     showMenu={showMenu}
                 />
                 <Route path='/add' render={
-                    (userDocuments, onSwitchTo, onMoreClick) => (
+                    () => (
                         <LibraryAdd
                             isFetching={library.isFetching}
                             userDocuments={library.userDocuments}
@@ -47,7 +47,7 @@ class Library extends Component {
                     )}
                 />
                 <Route path='/' render={
-                    (userDocuments, onSwitchTo, onMoreClick) => (
+                    () => (
                         <LibraryMain
                             isFetching={library.isFetching}
                             userDocuments={library.userDocuments}

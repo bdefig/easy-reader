@@ -13,20 +13,26 @@
     bottom: 30px;
     margin-top: 10px;
     margin-bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
     border-color: #0ED2F7;
     border-style: solid;
     border-width: 2px;
-    border-radius: 5px;
+    border-radius: 25px;
     outline: none;
     padding: 5px;
-    font-size: 1.0em;
+    font-size: 1.125em;
     background-color: #0ED2F7;
     transition: background-color 0.25s ease;
     color: white;
 } 
-.Library-moreButton:hover {
+/* .Library-moreButton:hover {
     background-color: transparent;
     transition: background-color 0.25s ease;
     color: #0ED2F7;
     cursor: pointer;
+} */
+.Library-moreButton a {
+    color: white;
+    text-decoration: none;
 }
