@@ -1,14 +1,33 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import {
+    Switch,
+    Route,
+    Redirect
+} from 'react-router-dom';
 import Reader from './Reader';
+import Login from './Login';
+import Library from './Library';
 import * as AuthenticationHelpers from '../helpers/AuthenticationHelpers';
 
 class App extends Component {
     render() {
-        return AuthenticationHelpers.loggedIn() ?
-            (<Reader />) :
-            (<Redirect to="/login" />);
+        if (AuthenticationHelpers.loggedIn()) {
+            return (
+                <Switch>
+                    <Route path='/library' component={Library} />
+                    <Route exact path='/' component={Reader} />
+                </Switch>
+            )
+        } else {
+            return (
+                <Redirect to='/login' />
+            );
+        }
+
+        // return AuthenticationHelpers.loggedIn() ?
+        //     (<Reader />) :
+        //     (<Redirect to="/login" />);
     }
 }
 

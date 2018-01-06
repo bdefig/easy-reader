@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {
+    Switch,
     Route,
     withRouter
 } from 'react-router-dom';
@@ -37,24 +38,26 @@ class Library extends Component {
                 <SimpleHeader
                     showMenu={showMenu}
                 />
-                <Route path='/add' render={
-                    () => (
-                        <LibraryAdd
-                            isFetching={library.isFetching}
-                            userDocuments={library.userDocuments}
-                            onSwitchTo={switchDocTo}
-                        />
-                    )}
-                />
-                <Route path='/' render={
-                    () => (
-                        <LibraryMain
-                            isFetching={library.isFetching}
-                            userDocuments={library.userDocuments}
-                            onSwitchTo={switchDocTo}
-                        />
-                    )}
-                />
+                <Switch>
+                    <Route exact path='/library/add' render={
+                        () => (
+                            <LibraryAdd
+                                isFetching={library.isFetching}
+                                userDocuments={library.userDocuments}
+                                onSwitchTo={switchDocTo}
+                            />
+                        )}
+                    />
+                    <Route exact path='/library' render={
+                        () => (
+                            <LibraryMain
+                                isFetching={library.isFetching}
+                                userDocuments={library.userDocuments}
+                                onSwitchTo={switchDocTo}
+                            />
+                        )}
+                    />
+                </Switch>
                 <ModalRoot
                     modalType={modal.modalType}
                     modalProps={modal.modalProps}

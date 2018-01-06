@@ -72,8 +72,7 @@ export default class Root extends Component {
                 <Router>
                     <Switch>
                         <Route path='/login' component={Login} />
-                        <Route path='/library' component={Library} />
-                        <Route exact path='/' component={App} />
+                        <Route path='/' component={App} />
                     </Switch>
                 </Router>
             </Provider>
