@@ -3,7 +3,8 @@ import './UniversalHeader.css';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import {
     faChevronLeft,
-    faChevronRight
+    faChevronRight,
+    faSearch
 } from '@fortawesome/fontawesome-free-solid';
 
 // Header types
@@ -11,11 +12,13 @@ export const READER_HEADER = 'READER_HEADER';
 export const USER_LIBRARY_HEADER = 'USER_LIBRARY_HEADER';
 export const LIBRARY_ADD_HEADER = 'LIBRARY_ADD_HEADER';
 
+// TODO: Open menu when title is clicked
+
 export const UniversalHeader = ({ headerType, title }) => {
     switch (headerType) {
         case READER_HEADER:
+            // Maybe change the chevrons to chevrons in circles
             return (
-                // Reader header here
                 <div className="Header-container">
                     <div className="Header-leftButton">
                         <FontAwesomeIcon icon={faChevronLeft} />
@@ -30,15 +33,36 @@ export const UniversalHeader = ({ headerType, title }) => {
             );
         case USER_LIBRARY_HEADER:
             return (
-                // User library header here
+                <div className="Header-container">
+                    <div className="Header-leftButton">
+                        <FontAwesomeIcon icon={faChevronLeft} />
+                    </div>
+                    <div className="Header-title">
+                        Library
+                    </div>
+                </div>
             );
         case LIBRARY_ADD_HEADER:
             return (
-                // Library add header here
+                <div className="Header-container">
+                    <div className="Header-leftButton">
+                        <FontAwesomeIcon icon={faChevronLeft} />
+                    </div>
+                    <div className="Header-title">
+                        Add to Library
+                    </div>
+                    <div className="Header-rightButton">
+                        <FontAwesomeIcon icon={faSearch} />
+                    </div>
+                </div>
             );
         default:
             return (
-                // Default case here
+                <div className="Header-container">
+                    <div className="Header-title">
+                        Easy Reader
+                    </div>
+                </div>
             );
     }
 }
