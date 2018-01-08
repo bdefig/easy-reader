@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import './Reader.css';
 import ReaderHeader from '../components/ReaderHeader';
+import {
+    UniversalHeader,
+    READER_HEADER
+} from '../components/UniversalHeader';
 import ReaderText from '../components/ReaderText';
 import ModalRoot from './ModalRoot';
 import {
@@ -31,12 +35,19 @@ class Reader extends Component {
         } = this.props;
         return (
             <div className="Reader-app">
-                <ReaderHeader
+                {/* <ReaderHeader
                     onPrevClick={onPrevClick}
                     onNextClick={onNextClick}
                     showMenu={showMenu}
                     // For debugging only--delete later
                     debugState={debugState}
+                /> */}
+                <UniversalHeader
+                    headerType={READER_HEADER}
+                    title='[Book Title]'
+                    onLeftButtonClick={onPrevClick}
+                    onRightButtonClick={onNextClick}
+                    onTitleClick={showMenu}
                 />
                 <ReaderText
                     textBlocks={textBlocks}
