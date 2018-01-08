@@ -19,40 +19,46 @@ export const UniversalHeader = ({ headerType, title, onLeftButtonClick, onRightB
         case READER_HEADER:
             // Maybe change the chevrons to chevrons in circles
             return (
-                <div className="Header-container">
-                    <div className="Header-leftButton" onClick={onLeftButtonClick}>
-                        <FontAwesomeIcon icon={faChevronLeft} />
-                    </div>
-                    <div className="Header-title" onClick={onTitleClick}>
-                        {title}
-                    </div>
-                    <div className="Header-rightButton" onClick={onRightButtonClick}>
-                        <FontAwesomeIcon icon={faChevronRight} />
+                <div className="Header-banner">
+                    <div className="Header-contentContainer">
+                        <div className="Header-leftButton" onClick={onLeftButtonClick}>
+                            <FontAwesomeIcon icon={faChevronLeft} />
+                        </div>
+                        <div className="Header-title" onClick={onTitleClick}>
+                            {title}
+                        </div>
+                        <div className="Header-rightButton" onClick={onRightButtonClick}>
+                            <FontAwesomeIcon icon={faChevronRight} />
+                        </div>
                     </div>
                 </div>
             );
         case USER_LIBRARY_HEADER:
             return (
-                <div className="Header-container">
-                    <div className="Header-leftButton" onClick={onLeftButtonClick}>
-                        <FontAwesomeIcon icon={faChevronLeft} />
-                    </div>
-                    <div className="Header-title" onClick={onTitleClick}>
-                        Library
+                <div className="Header-banner">
+                    <div className="Header-contentContainer">
+                        <div className="Header-leftButton" onClick={onLeftButtonClick}>
+                            <FontAwesomeIcon icon={faChevronLeft} />
+                        </div>
+                        <div className="Header-title" onClick={onTitleClick}>
+                            Library
+                        </div>
                     </div>
                 </div>
             );
         case LIBRARY_ADD_HEADER:
             return (
-                <div className="Header-container">
-                    <div className="Header-leftButton" onClick={onLeftButtonClick}>
-                        <FontAwesomeIcon icon={faChevronLeft} />
-                    </div>
-                    <div className="Header-title" onClick={onTitleClick}>
-                        Add to Library
-                    </div>
-                    <div className="Header-rightButton" onClick={onRightButtonClick}>
-                        <FontAwesomeIcon icon={faSearch} />
+                <div className="Header-banner">
+                    <div className="Header-contentContainer">
+                        <div className="Header-leftButton" onClick={onLeftButtonClick}>
+                            <FontAwesomeIcon icon={faChevronLeft} />
+                        </div>
+                        <div className="Header-title" onClick={onTitleClick}>
+                            Add to Library
+                        </div>
+                        <div className="Header-rightButton" onClick={onRightButtonClick}>
+                            <FontAwesomeIcon icon={faSearch} />
+                        </div>
                     </div>
                 </div>
             );
