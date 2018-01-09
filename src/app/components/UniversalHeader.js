@@ -15,8 +15,6 @@ export const READER_HEADER = 'READER_HEADER';
 export const USER_LIBRARY_HEADER = 'USER_LIBRARY_HEADER';
 export const LIBRARY_ADD_HEADER = 'LIBRARY_ADD_HEADER';
 
-// TODO: Open menu when title is clicked
-
 export const UniversalHeader = ({ headerType, title, onLeftButtonClick, onRightButtonClick, onTitleClick }) => {
     switch (headerType) {
         case READER_HEADER:

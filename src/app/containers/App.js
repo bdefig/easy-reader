@@ -6,7 +6,6 @@ import {
     Redirect
 } from 'react-router-dom';
 import Reader from './Reader';
-import Login from './Login';
 import Library from './Library';
 import * as AuthenticationHelpers from '../helpers/AuthenticationHelpers';
 
@@ -24,10 +23,6 @@ class App extends Component {
                 <Redirect to='/login' />
             );
         }
-
-        // return AuthenticationHelpers.loggedIn() ?
-        //     (<Reader />) :
-        //     (<Redirect to="/login" />);
     }
 }
 

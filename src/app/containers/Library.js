@@ -28,7 +28,6 @@ class Library extends Component {
     }
 
     render() {
-        // const { match } = this.props;
         const {
             library,
             modal

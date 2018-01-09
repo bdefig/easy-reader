@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import './LibraryBlock.css';
 
 const LibraryBlock = ({ documentMetadata, onSwitchTo }) => {
-    const { documentID, title, author, wordCountPerBlock, currentIndex } = documentMetadata;
+    const { documentID, title, author } = documentMetadata;
     return (
         <div
             className="LibraryBlock-block"

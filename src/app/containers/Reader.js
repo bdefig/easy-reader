@@ -30,7 +30,7 @@ class Reader extends Component {
             onNextClick,
             showMenu,
             // For debugging only--delete later
-            debugState
+            // debugState
         } = this.props;
         return (
             <div className="Reader-app">
