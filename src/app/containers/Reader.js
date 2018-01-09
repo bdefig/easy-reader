@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import './Reader.css';
-import ReaderHeader from '../components/ReaderHeader';
 import {
     UniversalHeader,
     READER_HEADER
@@ -35,13 +34,6 @@ class Reader extends Component {
         } = this.props;
         return (
             <div className="Reader-app">
-                {/* <ReaderHeader
-                    onPrevClick={onPrevClick}
-                    onNextClick={onNextClick}
-                    showMenu={showMenu}
-                    // For debugging only--delete later
-                    debugState={debugState}
-                /> */}
                 <UniversalHeader
                     headerType={READER_HEADER}
                     title='[Book Title]'

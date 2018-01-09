@@ -6,7 +6,11 @@ import {
     withRouter
 } from 'react-router-dom';
 import './Library.css';
-import SimpleHeader from '../components/SimpleHeader';
+import {
+    UniversalHeader,
+    USER_LIBRARY_HEADER,
+    LIBRARY_ADD_HEADER
+} from '../components/UniversalHeader';
 import LibraryMain from '../components/LibraryMain';
 import LibraryAdd from '../components/LibraryAdd';
 import ModalRoot from './ModalRoot';
@@ -34,35 +38,46 @@ class Library extends Component {
             switchDocTo
         } = this.props;
         return (
-            <div className="Library-container">
-                <SimpleHeader
-                    showMenu={showMenu}
-                />
-                <Switch>
-                    <Route exact path='/library/add' render={
-                        () => (
+            <Switch>
+                <Route exact path='/library/add' render={
+                    () => (
+                        <div className="Library-container">
+                            <UniversalHeader
+                                headerType={LIBRARY_ADD_HEADER}
+                                onTitleClick={showMenu}
+                            />
                             <LibraryAdd
                                 isFetching={library.isFetching}
                                 userDocuments={library.userDocuments}
                                 onSwitchTo={switchDocTo}
                             />
-                        )}
-                    />
-                    <Route exact path='/library' render={
-                        () => (
+                            <ModalRoot
+                                modalType={modal.modalType}
+                                modalProps={modal.modalProps}
+                            />
+                        </div>
+                    )}
+                />
+                <Route exact path='/library' render={
+                    () => (
+                        <div className="Library-container">
+                            <UniversalHeader
+                                headerType={USER_LIBRARY_HEADER}
+                                onTitleClick={showMenu}
+                            />
                             <LibraryMain
                                 isFetching={library.isFetching}
                                 userDocuments={library.userDocuments}
                                 onSwitchTo={switchDocTo}
                             />
-                        )}
-                    />
-                </Switch>
-                <ModalRoot
-                    modalType={modal.modalType}
-                    modalProps={modal.modalProps}
+                            <ModalRoot
+                                modalType={modal.modalType}
+                                modalProps={modal.modalProps}
+                            />
+                        </div>
+                    )}
                 />
-            </div>
+            </Switch>
         );
     }
 }

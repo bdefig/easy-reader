@@ -1,4 +1,7 @@
 import React from 'react';
+import {
+    Link
+} from 'react-router-dom';
 import './UniversalHeader.css';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import {
@@ -38,7 +41,9 @@ export const UniversalHeader = ({ headerType, title, onLeftButtonClick, onRightB
                 <div className="Header-banner">
                     <div className="Header-contentContainer">
                         <div className="Header-leftButton" onClick={onLeftButtonClick}>
-                            <FontAwesomeIcon icon={faChevronLeft} />
+                            <Link to='/'>
+                                <FontAwesomeIcon icon={faChevronLeft} />
+                            </Link>
                         </div>
                         <div className="Header-title" onClick={onTitleClick}>
                             Library
@@ -51,7 +56,9 @@ export const UniversalHeader = ({ headerType, title, onLeftButtonClick, onRightB
                 <div className="Header-banner">
                     <div className="Header-contentContainer">
                         <div className="Header-leftButton" onClick={onLeftButtonClick}>
-                            <FontAwesomeIcon icon={faChevronLeft} />
+                            <Link to='/library'>
+                                <FontAwesomeIcon icon={faChevronLeft} />
+                            </Link>
                         </div>
                         <div className="Header-title" onClick={onTitleClick}>
                             Add to Library
@@ -64,9 +71,11 @@ export const UniversalHeader = ({ headerType, title, onLeftButtonClick, onRightB
             );
         default:
             return (
-                <div className="Header-container">
-                    <div className="Header-title" onClick={onTitleClick}>
-                        Easy Reader
+                <div className="Header-banner">
+                    <div className="Header-contentContainer">
+                        <div className="Header-title" onClick={onTitleClick}>
+                            Easy Reader
+                        </div>
                     </div>
                 </div>
             );
