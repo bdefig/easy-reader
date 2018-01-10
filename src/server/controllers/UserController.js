@@ -1,5 +1,6 @@
 const AuthenticationHelper = require('../helpers/AuthenticationHelper');
 const User = require('../models/User');
+const DocumentMetadata = require('../models/DocumentMetadata');
 const UserDocumentProgress = require('../models/UserDocumentProgress');
 
 exports.createUser = function (req, res, next) {
@@ -98,6 +99,18 @@ exports.getUserDocumentProgressByUserID = function (req, res, next) {
     .exec()
     .then(documentProgress => {
         res.send(documentProgress);
+    })
+    .catch(err => console.log(err));
+}
+
+exports.getMoreDocuments = function (req, res, next) {
+    const titleGreaterThan = req.query.titleGreaterThan;
+
+    DocumentMetadata.find({title: {$gt: titleGreaterThan}}, null, {sort: {title: 1}})
+    .limit(10)
+    .exec()
+    .then(docs => {
+        res.send(docs);
     })
     .catch(err => console.log(err));
 }

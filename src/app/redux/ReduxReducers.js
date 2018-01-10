@@ -7,6 +7,8 @@ import {
     UPDATE_CURRENT_DOCUMENT,
     REQUEST_USER_DOCUMENTS,
     RECEIVE_USER_DOCUMENTS,
+    REQUEST_NON_USER_DOCUMENTS,
+    RECEIVE_NON_USER_DOCUMENTS,
     UPDATE_INDEX_CHECKPOINTS,
     SHOW_MODAL,
     HIDE_MODAL,
@@ -121,6 +123,15 @@ function library(state = {}, action) {
             return Object.assign({}, state, {
                 isFetching: false,
                 userDocuments: action.userDocuments
+            });
+        case REQUEST_NON_USER_DOCUMENTS:
+            return Object.assign({}, state, {
+                isFetching: true
+            });
+        case RECEIVE_NON_USER_DOCUMENTS:
+            return Object.assign({}, state, {
+                isFetching: false,
+                nonUserDocuments: state.nonUserDocuments.concat(action.nonUserDocuments)
             });
         default:
             return state;

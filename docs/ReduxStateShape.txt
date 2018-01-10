@@ -36,12 +36,11 @@ library: {
 		wordCountPerBlock: [int],
 		currentIndex: int
 	}],
-	otherDocuments: [{
+	nonUserDocuments: [{
 		documentID: string,
 		title: string,
 		author: string,
-		wordCountPerBlock: [int],
-		currentIndex: int
+		wordCountPerBlock: [int]
 	}]
 }
 modal: {

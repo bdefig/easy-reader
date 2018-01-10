@@ -3,6 +3,7 @@
     
     position: absolute;
     top: 80px;
+    margin-top: 10px;
 
     display: flex;
     flex-direction: column;

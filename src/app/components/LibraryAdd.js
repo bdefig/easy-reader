@@ -4,13 +4,19 @@ import './LibraryAdd.css';
 import LibraryBlock from './LibraryBlock';
 
 export default class LibraryAdd extends Component {
+    componentDidMount() {
+        console.log('LibraryAdd mounted!');
+        this.props.fetchNonUserDocuments();
+    }
+
     render() {
+        console.log('LibraryAdd is rendering!');
         const onSwitchTo = this.props.onSwitchTo;
-        let userDocuments = this.props.userDocuments.map(userDoc => {
+        let nonUserDocuments = this.props.nonUserDocuments.map(doc => {
             return (
                 <LibraryBlock
-                    key={userDoc.documentID}
-                    documentMetadata={userDoc}
+                    key={doc._id}
+                    documentMetadata={doc}
                     onSwitchTo={onSwitchTo}
                 />
             );
@@ -18,7 +24,7 @@ export default class LibraryAdd extends Component {
         return (
             <div className="Library-userDocumentArea">
                 <div>
-                    {userDocuments}
+                    {nonUserDocuments}
                 </div>
             </div>
         );
@@ -32,9 +38,9 @@ LibraryAdd.propTypes = {
             documentID: PropTypes.string.isRequired,
             title: PropTypes.string.isRequired,
             author: PropTypes.string.isRequired,
-            wordCountPerBlock: PropTypes.arrayOf(PropTypes.number),
-            currentIndex: PropTypes.number.isRequired
+            wordCountPerBlock: PropTypes.arrayOf(PropTypes.number)
         })
     ),
+    fetchNonUserDocuments: PropTypes.func.isRequired,
     onSwitchTo: PropTypes.func.isRequired
 }

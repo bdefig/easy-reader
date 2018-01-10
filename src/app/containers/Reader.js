@@ -16,6 +16,7 @@ import {
 
 class Reader extends Component {
     componentDidMount() {
+        console.log('Reader mounted!');
         const { loadInitialReaderState } = this.props;
         loadInitialReaderState();
     }

@@ -11,6 +11,8 @@ export const RECEIVE_CURRENT_DOCUMENT = 'RECEIVE_CURRENT_DOCUMENT';
 export const UPDATE_CURRENT_DOCUMENT = 'UPDATE_CURRENT_DOCUMENT';
 export const REQUEST_USER_DOCUMENTS = 'REQUEST_USER_DOCUMENTS';
 export const RECEIVE_USER_DOCUMENTS = 'RECEIVE_USER_DOCUMENTS';
+export const REQUEST_NON_USER_DOCUMENTS = 'REQUEST_NON_USER_DOCUMENTS';
+export const RECEIVE_NON_USER_DOCUMENTS = 'RECEIVE_NON_USER_DOCUMENTS';
 export const UPDATE_INDEX_CHECKPOINTS = 'UPDATE_INDEX_CHECKPOINTS';
 export const SWITCH_CURRENT_DOCUMENT = 'SWITCH_CURRENT_DOCUMENT';
 
@@ -74,6 +76,19 @@ function receiveUserDocuments(state, userDocuments) {
     return {
         type: RECEIVE_USER_DOCUMENTS,
         userDocuments: userDocuments
+    }
+}
+
+function requestNonUserDocuments(state) {
+    return {
+        type: REQUEST_NON_USER_DOCUMENTS
+    }
+}
+
+function receiveNonUserDocuments(state, nonUserDocuments) {
+    return {
+        type: RECEIVE_NON_USER_DOCUMENTS,
+        nonUserDocuments: nonUserDocuments
     }
 }
 
@@ -310,6 +325,47 @@ function fetchUserDocuments() {
 export function loadInitialLibraryState() {
     return (dispatch, getState) => {
         dispatch(fetchUserDocuments());
+    }
+}
+
+export function fetchNonUserDocuments() {
+    return (dispatch, getState) => {
+        const state = getState();
+        const userID = state.user.userID;
+        
+        state.library.userDocuments.sort(function(a, b) {
+            return a.title.localeCompare(b.title);
+        });
+
+        let titleGreaterThan = (state.library.userDocuments.length ? state.library.userDocuments[state.library.userDocuments.length - 1].title : '');
+
+        const url = AppConfig.baseURL + 'user/' + userID + '/getMoreDocuments' + '?titleGreaterThan=' + titleGreaterThan;
+
+        console.log('Requesting non user documents');
+
+        dispatch(requestNonUserDocuments(getState()));
+        return fetch(url, {
+            method: 'get',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+            }
+        })
+        // Handle if no docs were received
+        .then(docs => {
+            if (docs) {
+                return docs.json();
+            } else {
+                dispatch(receiveNonUserDocuments(getState(), []));
+                return Error('No non-user documents received');
+            }
+        })
+        .then(jsonDocs => {
+            console.log('Received non user documents: ');
+            console.log(jsonDocs);
+            dispatch(receiveNonUserDocuments(getState(), jsonDocs));
+            return;
+        });
     }
 }
 

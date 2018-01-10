@@ -12,6 +12,9 @@ router.post('/v0/login', userController.login);
 // GET all document progress by user ID
 router.get('/v0/user/:userID/getDocumentProgress', userController.getUserDocumentProgressByUserID);
 
+// GET more documents
+router.get('/v0/user/:userID/getMoreDocuments', userController.getMoreDocuments);
+
 // PUT update document progress
 router.put('/v0/user/:userID/updateDocumentProgress/document/:documentID', userController.updateUserDocumentProgress);
 

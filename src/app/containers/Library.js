@@ -17,6 +17,7 @@ import ModalRoot from './ModalRoot';
 import {
     openMenu,
     loadInitialLibraryState,
+    fetchNonUserDocuments,
     switchCurrentDocument
 } from '../redux/ReduxActions';
 
@@ -34,6 +35,7 @@ class Library extends Component {
         } = this.props;
         const {
             showMenu,
+            fetchNonUserDocuments,
             switchDocTo
         } = this.props;
         return (
@@ -47,7 +49,8 @@ class Library extends Component {
                             />
                             <LibraryAdd
                                 isFetching={library.isFetching}
-                                userDocuments={library.userDocuments}
+                                nonUserDocuments={library.nonUserDocuments}
+                                fetchNonUserDocuments={fetchNonUserDocuments}
                                 onSwitchTo={switchDocTo}
                             />
                             <ModalRoot
@@ -85,8 +88,6 @@ const mapStateToProps = state => {
     return {
         currentDocument: state.currentDocument,
         library: state.library,
-        userDocuments: state.userDocuments,
-        otherDocuments: state.otherDocuments,
         modal: state.modal
     }
 }
@@ -95,6 +96,7 @@ const mapDispatchToProps = dispatch => {
     return {
         showMenu: () => dispatch(openMenu()),
         loadInitialLibraryState: () => dispatch(loadInitialLibraryState()),
+        fetchNonUserDocuments: () => dispatch(fetchNonUserDocuments()),
         switchDocTo: (documentID) => dispatch(switchCurrentDocument(documentID))
     }
 }
