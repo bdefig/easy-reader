@@ -5,6 +5,8 @@ import {
 import './UniversalHeader.css';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import {
+    faChevronCircleLeft,
+    faChevronCircleRight,
     faChevronLeft,
     faChevronRight,
     faSearch
@@ -22,14 +24,14 @@ export const UniversalHeader = ({ headerType, title, onLeftButtonClick, onRightB
             return (
                 <div className="Header-banner">
                     <div className="Header-contentContainer">
-                        <div className="Header-leftButton" onClick={onLeftButtonClick}>
-                            <FontAwesomeIcon icon={faChevronLeft} />
+                        <div className="Header-leftButton Header-readerNavigation" onClick={onLeftButtonClick}>
+                            <FontAwesomeIcon icon={faChevronCircleLeft} />
                         </div>
                         <div className="Header-title" onClick={onTitleClick}>
                             {title}
                         </div>
-                        <div className="Header-rightButton" onClick={onRightButtonClick}>
-                            <FontAwesomeIcon icon={faChevronRight} />
+                        <div className="Header-rightButton Header-readerNavigation" onClick={onRightButtonClick}>
+                            <FontAwesomeIcon icon={faChevronCircleRight} />
                         </div>
                     </div>
                 </div>
