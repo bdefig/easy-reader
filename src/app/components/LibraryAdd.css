@@ -1,4 +1,5 @@
 .Library-userDocumentArea {
+    /* width: 400px; */
     max-width: 600px;
     
     position: absolute;
@@ -7,4 +8,5 @@
 
     display: flex;
     flex-direction: column;
+
 }

@@ -5,7 +5,6 @@ import {
     Route,
     withRouter
 } from 'react-router-dom';
-import './Library.css';
 import {
     UniversalHeader,
     USER_LIBRARY_HEADER,
@@ -42,7 +41,7 @@ class Library extends Component {
             <Switch>
                 <Route exact path='/library/add' render={
                     () => (
-                        <div className="Library-container">
+                        <div>
                             <UniversalHeader
                                 headerType={LIBRARY_ADD_HEADER}
                                 onTitleClick={showMenu}
@@ -62,7 +61,7 @@ class Library extends Component {
                 />
                 <Route exact path='/library' render={
                     () => (
-                        <div className="Library-container">
+                        <div>
                             <UniversalHeader
                                 headerType={USER_LIBRARY_HEADER}
                                 onTitleClick={showMenu}

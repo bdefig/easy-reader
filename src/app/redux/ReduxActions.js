@@ -333,13 +333,13 @@ export function fetchNonUserDocuments() {
         const state = getState();
         const userID = state.user.userID;
         
-        state.library.userDocuments.sort(function(a, b) {
+        state.library.nonUserDocuments.sort(function(a, b) {
             return a.title.localeCompare(b.title);
         });
 
-        let titleGreaterThan = (state.library.userDocuments.length ? state.library.userDocuments[state.library.userDocuments.length - 1].title : '');
+        let titleGreaterThan = (state.library.nonUserDocuments.length ? state.library.nonUserDocuments[state.library.nonUserDocuments.length - 1].title : '');
 
-        const url = AppConfig.baseURL + 'user/' + userID + '/getMoreDocuments' + '?titleGreaterThan=' + titleGreaterThan;
+        const url = AppConfig.baseURL + 'user/' + userID + '/getMoreDocuments?titleGreaterThan=' + titleGreaterThan;
 
         console.log('Requesting non user documents');
 
