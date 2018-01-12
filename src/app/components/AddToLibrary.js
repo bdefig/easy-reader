@@ -22,8 +22,8 @@ export default class AddToLibrary extends Component {
             );
         });
         return (
-            <div className="Library-mainArea">
-                <div className="Library-addDocumentArea">
+            <div className="AddToLibrary-mainArea">
+                <div className="AddToLibrary-documentListArea">
                     {nonUserDocuments}
                 </div>
             </div>

@@ -1,14 +1,22 @@
-.Library-userDocumentArea {
-    max-width: 600px;
-    
-    position: absolute;
+.UserLibrary-mainArea {
+    position: fixed;
     top: 80px;
+    margin-top: 10px;
+    width: 100%;
+    
+    display: grid;
+    grid-template-columns: [leftEdge] auto [leftMain] minmax(max-content, 600px) [rightMain] auto [rightEdge];
+}
+
+.UserLibrary-documentListArea {
+    grid-column-start: leftMain;
+    grid-column-end: rightMain;
 
     display: flex;
     flex-direction: column;
 }
 
-.Library-moreButton {
+.UserLibrary-moreButton {
     position: fixed;
     bottom: 30px;
     margin-top: 10px;
@@ -30,12 +38,7 @@
     color: white;
     cursor: pointer;
 } 
-/* .Library-moreButton:hover {
-    background-color: transparent;
-    transition: background-color 0.25s ease;
-    color: #0ED2F7;
-} */
-.Library-moreButton a {
+.UserLibrary-moreButton a {
     color: white;
     text-decoration: none;
 }

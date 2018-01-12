@@ -17,11 +17,11 @@ export default class UserLibrary extends Component {
             );
         });
         return (
-            <div className="Library-userDocumentArea">
-                <div>
+            <div className="UserLibrary-mainArea">
+                <div className="UserLibrary-userDocumentArea">
                     {userDocuments}
                 </div>
-                <button className="Library-moreButton">
+                <button className="UserLibrary-moreButton">
                     <Link to='/library/add'>
                         + More
                     </Link>
