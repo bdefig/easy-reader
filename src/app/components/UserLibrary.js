@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import './LibraryMain.css';
+import './UserLibrary.css';
 import LibraryBlock from './LibraryBlock';
 
-export default class LibraryMain extends Component {
+export default class UserLibrary extends Component {
     render() {
         const onSwitchTo = this.props.onSwitchTo;
         let userDocuments = this.props.userDocuments.map(userDoc => {
@@ -31,7 +31,7 @@ export default class LibraryMain extends Component {
     }
 }
 
-LibraryMain.propTypes = {
+UserLibrary.propTypes = {
     isFetching: PropTypes.bool.isRequired,
     userDocuments: PropTypes.arrayOf(
         PropTypes.shape({

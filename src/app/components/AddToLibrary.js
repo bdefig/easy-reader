@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import './LibraryAdd.css';
+import './AddToLibrary.css';
 import LibraryBlock from './LibraryBlock';
 
-export default class LibraryAdd extends Component {
+export default class AddToLibrary extends Component {
     componentDidMount() {
-        console.log('LibraryAdd mounted!');
+        console.log('AddToLibrary mounted!');
         this.props.fetchNonUserDocuments();
     }
 
     render() {
-        console.log('LibraryAdd is rendering!');
+        console.log('AddToLibrary is rendering!');
         const onSwitchTo = this.props.onSwitchTo;
         let nonUserDocuments = this.props.nonUserDocuments.map(doc => {
             return (
@@ -31,7 +31,7 @@ export default class LibraryAdd extends Component {
     }
 }
 
-LibraryAdd.propTypes = {
+AddToLibrary.propTypes = {
     isFetching: PropTypes.bool.isRequired,
     userDocuments: PropTypes.arrayOf(
         PropTypes.shape({

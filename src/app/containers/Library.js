@@ -10,8 +10,8 @@ import {
     USER_LIBRARY_HEADER,
     LIBRARY_ADD_HEADER
 } from '../components/UniversalHeader';
-import LibraryMain from '../components/LibraryMain';
-import LibraryAdd from '../components/LibraryAdd';
+import UserLibrary from '../components/UserLibrary';
+import AddToLibrary from '../components/AddToLibrary';
 import ModalRoot from './ModalRoot';
 import {
     openMenu,
@@ -46,7 +46,7 @@ class Library extends Component {
                                 headerType={LIBRARY_ADD_HEADER}
                                 onTitleClick={showMenu}
                             />
-                            <LibraryAdd
+                            <AddToLibrary
                                 isFetching={library.isFetching}
                                 nonUserDocuments={library.nonUserDocuments}
                                 fetchNonUserDocuments={fetchNonUserDocuments}
@@ -66,7 +66,7 @@ class Library extends Component {
                                 headerType={USER_LIBRARY_HEADER}
                                 onTitleClick={showMenu}
                             />
-                            <LibraryMain
+                            <UserLibrary
                                 isFetching={library.isFetching}
                                 userDocuments={library.userDocuments}
                                 onSwitchTo={switchDocTo}
