@@ -46,7 +46,7 @@ export const UniversalHeader = ({ headerType, title, onLeftButtonClick, onRightB
                             </Link>
                         </div>
                         <div className="Header-title" onClick={onTitleClick}>
-                            Library
+                            Your Library
                         </div>
                     </div>
                 </div>

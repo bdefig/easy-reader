@@ -22,8 +22,8 @@ export default class LibraryAdd extends Component {
             );
         });
         return (
-            <div className="Library-userDocumentArea">
-                <div>
+            <div className="Library-mainArea">
+                <div className="Library-addDocumentArea">
                     {nonUserDocuments}
                 </div>
             </div>

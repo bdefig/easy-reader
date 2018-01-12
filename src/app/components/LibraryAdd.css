@@ -1,10 +1,16 @@
-.Library-userDocumentArea {
-    /* width: 400px; */
-    max-width: 600px;
-    
-    position: absolute;
+.Library-mainArea {
+    position: fixed;
     top: 80px;
     margin-top: 10px;
+    width: 100%;
+    
+    display: grid;
+    grid-template-columns: [leftEdge] auto [leftMain] minmax(max-content, 600px) [rightMain] auto [rightEdge];
+}
+
+.Library-addDocumentArea {
+    grid-column-start: leftMain;
+    grid-column-end: rightMain;
 
     display: flex;
     flex-direction: column;

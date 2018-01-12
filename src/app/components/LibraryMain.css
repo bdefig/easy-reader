@@ -28,12 +28,12 @@
     background-color: #0ED2F7;
     transition: background-color 0.25s ease;
     color: white;
+    cursor: pointer;
 } 
 /* .Library-moreButton:hover {
     background-color: transparent;
     transition: background-color 0.25s ease;
     color: #0ED2F7;
-    cursor: pointer;
 } */
 .Library-moreButton a {
     color: white;
