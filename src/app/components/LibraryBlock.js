@@ -7,7 +7,7 @@ const LibraryBlock = ({ documentMetadata, onSwitchTo }) => {
     return (
         <div
             className="LibraryBlock-block"
-            onClick={onSwitchTo(documentID)}
+            onClick={() => onSwitchTo(documentMetadata)}
         >
             <div className="LibraryBlock-title">
                 {title}

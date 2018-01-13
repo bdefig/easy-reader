@@ -10,6 +10,7 @@ import {
     REQUEST_NON_USER_DOCUMENTS,
     RECEIVE_NON_USER_DOCUMENTS,
     UPDATE_INDEX_CHECKPOINTS,
+    SWITCH_TO_LIBRARY_USER_DOCUMENT,
     SHOW_MODAL,
     HIDE_MODAL,
     REQUEST_CREATE_USER,
@@ -62,7 +63,7 @@ function user(state = {}, action) {
                 userID: null,
                 name: null,
                 token: null
-            })
+            });
         default:
             return state;
     }
@@ -87,9 +88,18 @@ function currentDocument(state = {}, action) {
         case UPDATE_CURRENT_DOCUMENT:
             return Object.assign({}, state, {
                 currentIndex: action.currentIndex
-            })
+            });
         case UPDATE_INDEX_CHECKPOINTS:
             return Object.assign({}, state, {
+                indexCheckpoints: action.indexCheckpoints
+            });
+        case SWITCH_TO_LIBRARY_USER_DOCUMENT:
+            return Object.assign({}, state, {
+                documentID: action.documentMetadata.documentID,
+                title: action.documentMetadata.title,
+                author: action.documentMetadata.author,
+                wordCountPerBlock: action.documentMetadata.wordCountPerBlock,
+                currentIndex: action.currentIndex,
                 indexCheckpoints: action.indexCheckpoints
             });
         default:

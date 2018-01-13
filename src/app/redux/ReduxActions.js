@@ -14,7 +14,7 @@ export const RECEIVE_USER_DOCUMENTS = 'RECEIVE_USER_DOCUMENTS';
 export const REQUEST_NON_USER_DOCUMENTS = 'REQUEST_NON_USER_DOCUMENTS';
 export const RECEIVE_NON_USER_DOCUMENTS = 'RECEIVE_NON_USER_DOCUMENTS';
 export const UPDATE_INDEX_CHECKPOINTS = 'UPDATE_INDEX_CHECKPOINTS';
-export const SWITCH_CURRENT_DOCUMENT = 'SWITCH_CURRENT_DOCUMENT';
+export const SWITCH_TO_LIBRARY_USER_DOCUMENT = 'SWITCH_TO_LIBRARY_USER_DOCUMENT';
 
 // Modal actions
 export const SHOW_MODAL = 'HIDE_MODAL';
@@ -99,6 +99,15 @@ function updateIndexCheckpoints(state, indexCheckpoints) {
     }
 }
 
+function switchToLibraryUserDocument(state, documentMetadata, currentIndex, indexCheckpoints) {
+    return {
+        type: SWITCH_TO_LIBRARY_USER_DOCUMENT,
+        documentMetadata: documentMetadata,
+        currentIndex: currentIndex,
+        indexCheckpoints: indexCheckpoints
+    }
+}
+
 function showModal(state, modalType, modalProps) {
     return {
         type: SHOW_MODAL,
@@ -165,6 +174,34 @@ export function logout(state) {
     localStorage.setItem('hasLoggedIn', true);
     return {
         type: LOGOUT
+    }
+}
+
+// Export action creators (no async) -------------------------------------
+
+export function onSwitchToLibraryUserDocument(libraryUserDocument) {
+    return (dispatch, getState) => {
+        const documentMetadata = libraryUserDocument;
+        const minWordCount = getState().user.settings.minWordCount;
+        const indexCheckpoints = calculateIndexCheckpoints(documentMetadata, minWordCount);
+        
+        dispatch(switchToLibraryUserDocument(getState(), documentMetadata, libraryUserDocument.currentIndex, indexCheckpoints));
+        dispatch(updateDocumentProgress(getState(), libraryUserDocument.currentIndex));
+
+        // TODO: Go to Reader component (route: '/')
+    }
+}
+
+export function onAddDocumentToLibrary(libraryNonUserDocument) {
+    return (dispatch, getState) => {
+        const documentMetadata = libraryNonUserDocument;
+        const minWordCount = getState().user.settings.minWordCount;
+        const indexCheckpoints = calculateIndexCheckpoints(documentMetadata, minWordCount);
+        
+        dispatch(switchToLibraryUserDocument(getState(), documentMetadata, 0, indexCheckpoints));
+        dispatch(updateDocumentProgress(getState(), 0));
+        
+        // TODO: Go to Reader component (route: '/')
     }
 }
 
@@ -394,14 +431,6 @@ export function setNewIndexCheckpoints() {
         const state = getState();
         const newIndexCheckpoints = calculateIndexCheckpoints(state.currentDocument.wordCountPerBlock, state.user.settings.minWordCount);
         dispatch(updateIndexCheckpoints(getState(), newIndexCheckpoints));
-    }
-}
-
-export function switchCurrentDocument(documentID) {
-    return (dispatch, getState) => {
-        const state = getState();
-        // TODO: Write code to switch the current document
-        
     }
 }
 

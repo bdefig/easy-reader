@@ -17,7 +17,8 @@ import {
     openMenu,
     loadInitialLibraryState,
     fetchNonUserDocuments,
-    switchCurrentDocument
+    onSwitchToLibraryUserDocument,
+    onAddDocumentToLibrary
 } from '../redux/ReduxActions';
 
 class Library extends Component {
@@ -35,7 +36,8 @@ class Library extends Component {
         const {
             showMenu,
             fetchNonUserDocuments,
-            switchDocTo
+            switchToUserDoc,
+            switchToNonUserDoc
         } = this.props;
         return (
             <Switch>
@@ -50,7 +52,7 @@ class Library extends Component {
                                 isFetching={library.isFetching}
                                 nonUserDocuments={library.nonUserDocuments}
                                 fetchNonUserDocuments={fetchNonUserDocuments}
-                                onSwitchTo={switchDocTo}
+                                onSwitchTo={switchToNonUserDoc}
                             />
                             <ModalRoot
                                 modalType={modal.modalType}
@@ -69,7 +71,7 @@ class Library extends Component {
                             <UserLibrary
                                 isFetching={library.isFetching}
                                 userDocuments={library.userDocuments}
-                                onSwitchTo={switchDocTo}
+                                onSwitchTo={switchToUserDoc}
                             />
                             <ModalRoot
                                 modalType={modal.modalType}
@@ -96,7 +98,8 @@ const mapDispatchToProps = dispatch => {
         showMenu: () => dispatch(openMenu()),
         loadInitialLibraryState: () => dispatch(loadInitialLibraryState()),
         fetchNonUserDocuments: () => dispatch(fetchNonUserDocuments()),
-        switchDocTo: (documentID) => dispatch(switchCurrentDocument(documentID))
+        switchToUserDoc: (libraryUserDocument) => dispatch(onSwitchToLibraryUserDocument(libraryUserDocument)),
+        switchToNonUserDoc: (nonLibraryUserDocument) => dispatch(onAddDocumentToLibrary(nonLibraryUserDocument))
     }
 }
 
