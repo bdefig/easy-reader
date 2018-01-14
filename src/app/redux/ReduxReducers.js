@@ -78,11 +78,11 @@ function currentDocument(state = {}, action) {
         case RECEIVE_CURRENT_DOCUMENT:
             return Object.assign({}, state, {
                 isFetching: false,
-                documentID: action.currentDocument.document._id,
-                title: action.currentDocument.document.title,
-                author: action.currentDocument.document.author,
-                wordCountPerBlock: action.currentDocument.document.wordCountPerBlock,
-                currentIndex: action.currentDocument.currentBlock,
+                _id: action.currentDocument._id,
+                title: action.currentDocument.title,
+                author: action.currentDocument.author,
+                wordCountPerBlock: action.currentDocument.wordCountPerBlock,
+                currentIndex: action.currentIndex,
                 indexCheckpoints: action.indexCheckpoints
             });
         case UPDATE_CURRENT_DOCUMENT:
@@ -95,7 +95,7 @@ function currentDocument(state = {}, action) {
             });
         case SWITCH_TO_LIBRARY_USER_DOCUMENT:
             return Object.assign({}, state, {
-                documentID: action.documentMetadata.documentID,
+                _id: action.documentMetadata._id,
                 title: action.documentMetadata.title,
                 author: action.documentMetadata.author,
                 wordCountPerBlock: action.documentMetadata.wordCountPerBlock,

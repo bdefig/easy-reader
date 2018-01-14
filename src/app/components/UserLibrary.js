@@ -10,7 +10,7 @@ export default class UserLibrary extends Component {
         let userDocuments = this.props.userDocuments.map(userDoc => {
             return (
                 <LibraryBlock
-                    key={userDoc.documentID}
+                    key={userDoc._id}
                     documentMetadata={userDoc}
                     onSwitchTo={onSwitchTo}
                 />
@@ -35,7 +35,7 @@ UserLibrary.propTypes = {
     isFetching: PropTypes.bool.isRequired,
     userDocuments: PropTypes.arrayOf(
         PropTypes.shape({
-            documentID: PropTypes.string.isRequired,
+            _id: PropTypes.string.isRequired,
             title: PropTypes.string.isRequired,
             author: PropTypes.string.isRequired,
             wordCountPerBlock: PropTypes.arrayOf(PropTypes.number),

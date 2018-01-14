@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import './LibraryBlock.css';
 
 const LibraryBlock = ({ documentMetadata, onSwitchTo }) => {
-    const { documentID, title, author } = documentMetadata;
+    const { _id, title, author } = documentMetadata;
     return (
         <div
             className="LibraryBlock-block"
@@ -21,7 +21,7 @@ const LibraryBlock = ({ documentMetadata, onSwitchTo }) => {
 
 LibraryBlock.PropTypes = {
     documentMetadata: PropTypes.shape({
-        documentID: PropTypes.string.isRequired,
+        _id: PropTypes.string.isRequired,
         title: PropTypes.string.isRequired,
         author: PropTypes.string.isRequired,
         wordCountPerBlock: PropTypes.arrayOf(PropTypes.number),

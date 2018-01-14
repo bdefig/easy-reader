@@ -35,7 +35,7 @@ AddToLibrary.propTypes = {
     isFetching: PropTypes.bool.isRequired,
     userDocuments: PropTypes.arrayOf(
         PropTypes.shape({
-            documentID: PropTypes.string.isRequired,
+            _id: PropTypes.string.isRequired,
             title: PropTypes.string.isRequired,
             author: PropTypes.string.isRequired,
             wordCountPerBlock: PropTypes.arrayOf(PropTypes.number)

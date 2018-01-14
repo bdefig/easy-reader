@@ -51,10 +51,11 @@ function requestCurrentDocument(state) {
 }
 
 
-function receiveCurrentDocument(state, currentDocument, indexCheckpoints) {
+function receiveCurrentDocument(state, currentDocument, currentIndex, indexCheckpoints) {
     return {
         type: RECEIVE_CURRENT_DOCUMENT,
         currentDocument: currentDocument,
+        currentIndex: currentIndex,
         indexCheckpoints: indexCheckpoints
     }
 }
@@ -183,10 +184,10 @@ export function onSwitchToLibraryUserDocument(libraryUserDocument) {
     return (dispatch, getState) => {
         const documentMetadata = libraryUserDocument;
         const minWordCount = getState().user.settings.minWordCount;
-        const indexCheckpoints = calculateIndexCheckpoints(documentMetadata, minWordCount);
+        const indexCheckpoints = calculateIndexCheckpoints(documentMetadata.wordCountPerBlock, minWordCount);
         
         dispatch(switchToLibraryUserDocument(getState(), documentMetadata, libraryUserDocument.currentIndex, indexCheckpoints));
-        dispatch(updateDocumentProgress(getState(), libraryUserDocument.currentIndex));
+        dispatch(updateDocumentProgress(getState(), documentMetadata._id, libraryUserDocument.currentIndex));
 
         // TODO: Go to Reader component (route: '/')
     }
@@ -196,10 +197,10 @@ export function onAddDocumentToLibrary(libraryNonUserDocument) {
     return (dispatch, getState) => {
         const documentMetadata = libraryNonUserDocument;
         const minWordCount = getState().user.settings.minWordCount;
-        const indexCheckpoints = calculateIndexCheckpoints(documentMetadata, minWordCount);
+        const indexCheckpoints = calculateIndexCheckpoints(documentMetadata.wordCountPerBlock, minWordCount);
         
         dispatch(switchToLibraryUserDocument(getState(), documentMetadata, 0, indexCheckpoints));
-        dispatch(updateDocumentProgress(getState(), 0));
+        dispatch(updateDocumentProgress(getState(), documentMetadata._id, 0));
         
         // TODO: Go to Reader component (route: '/')
     }
@@ -264,7 +265,7 @@ export function fetchBlocks(direction) {
             console.log(getState());
             return;
         } else {
-            const url = AppConfig.baseURL + 'document/' + state.currentDocument.documentID + '/first/' + indicesToGet[0] + '/last/' + indicesToGet[1];
+            const url = AppConfig.baseURL + 'document/' + state.currentDocument._id + '/first/' + indicesToGet[0] + '/last/' + indicesToGet[1];
 
             dispatch(requestBlocks(getState()));
             return fetch(url, {
@@ -278,7 +279,7 @@ export function fetchBlocks(direction) {
             .then(jsonBlocks => {
                 dispatch(receiveBlocks(getState(), jsonBlocks));
                 if (jsonBlocks) {
-                    dispatch(updateDocumentProgress(getState(), jsonBlocks[0].index));
+                    dispatch(updateDocumentProgress(getState(), jsonBlocks[0]._id, jsonBlocks[0].index));
                 }
             });
         }
@@ -299,29 +300,27 @@ function fetchCurrentDocument() {
                 'Accept': 'application/json',
             }
         })
-        .then(currentDocuments => currentDocuments.json())
-        .then(jsonCurrentDocuments => {
+        .then(currentDocumentProgresses => currentDocumentProgresses.json())
+        .then(jsonCurrentDocumentProgresses => {
             // Only get the most recent current document
-            if (jsonCurrentDocuments.length > 0) {
-                const currentDocument = jsonCurrentDocuments[0];
-                let wordCountPerBlock = currentDocument.document.wordCountPerBlock;
+            if (jsonCurrentDocumentProgresses.length > 0) {
+                const currentDocument = jsonCurrentDocumentProgresses[0].document;
+                const currentIndex = jsonCurrentDocumentProgresses[0].currentBlock;
+                let wordCountPerBlock = currentDocument.wordCountPerBlock;
                 let minWordCount = 500;
                 if (state.user.settings.minWordCount) {
                     minWordCount = state.user.settings.minWordCount;
                 }
                 const indexCheckpoints = calculateIndexCheckpoints(wordCountPerBlock, minWordCount);
-                dispatch(receiveCurrentDocument(getState(), currentDocument, indexCheckpoints));
+                dispatch(receiveCurrentDocument(getState(), currentDocument, currentIndex, indexCheckpoints));
             } else {
                 const currentDocument = {
-                    document: {
-                        _id: null,
-                        title: null,
-                        author: null,
-                        wordCountPerBlock: []
-                    },
-                    currentIndex: null
+                    _id: null,
+                    title: null,
+                    author: null,
+                    wordCountPerBlock: []
                 };
-                dispatch(receiveCurrentDocument(getState(), currentDocument, []));
+                dispatch(receiveCurrentDocument(getState(), currentDocument, 0, []));
             }
             return;
         })
@@ -406,9 +405,11 @@ export function fetchNonUserDocuments() {
     }
 }
 
-export function updateDocumentProgress(state, index) {
+export function updateDocumentProgress(state, documentID, index) {
     return (dispatch, getState) => {
-        const url = AppConfig.baseURL + 'user/' + state.user.userID + '/updateDocumentProgress/document/' + state.currentDocument.documentID;
+        console.log('Updating document progress');
+        console.log(getState());
+        const url = AppConfig.baseURL + 'user/' + state.user.userID + '/updateDocumentProgress/document/' + documentID;
         const msgBody = {
             currentBlock: index
         };
