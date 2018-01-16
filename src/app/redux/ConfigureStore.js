@@ -1,6 +1,6 @@
 import { createStore, applyMiddleware } from 'redux';
 import thunkMiddleware from 'redux-thunk';
-import rootReducer from './ReduxReducers';
+import rootReducer from './Reducer';
 
 export default function configureStore(preloadedState) {
     return createStore(
@@ -11,21 +11,3 @@ export default function configureStore(preloadedState) {
         )
     )
 }
-
-// export default configureStore;
-
-// import * as CurrentText from './CurrentText';
-
-// export const configureStore = () => {
-//     const store = createStore(CurrentText.reducer);
-
-//     const actions = {
-//         CurrentText: bindActionCreators(
-//             CurrentText.actions,
-//             store.dispatch)
-//     }
-
-//     return {store, actions};
-// }
-
-// export default configureStore;
