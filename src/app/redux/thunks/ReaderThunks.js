@@ -1,5 +1,5 @@
 import 'whatwg-fetch';
-import AppConfig from '../AppConfig';
+import AppConfig from '../../AppConfig';
 import {
     requestCurrentDocument,
     receiveCurrentDocument,
@@ -10,6 +10,10 @@ import {
     requestBlocks,
     receiveBlocks
 } from '../actions/TextBlocksActions';
+import {
+    calculateIndexCheckpoints,
+    calculateIndicesFromCheckpoints
+} from '../../helpers/ReaderHelpers';
 
 export function loadInitialReaderState() {
     return (dispatch, getState) => {

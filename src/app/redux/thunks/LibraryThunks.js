@@ -1,4 +1,5 @@
 import 'whatwg-fetch';
+import AppConfig from '../../AppConfig';
 import {
     requestUserDocuments,
     receiveUserDocuments,
@@ -11,6 +12,9 @@ import {
 import {
     updateDocumentProgress      // TODO: Maybe replace this
 } from './ReaderThunks';
+import {
+    calculateIndexCheckpoints
+} from '../../helpers/ReaderHelpers';
 
 export function loadInitialLibraryState() {
     return (dispatch, getState) => {

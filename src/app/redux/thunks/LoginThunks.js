@@ -1,4 +1,5 @@
 import 'whatwg-fetch';
+import AppConfig from '../../AppConfig';
 import {
     requestCreateUser,
     createUserSuccess,

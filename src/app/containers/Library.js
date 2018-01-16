@@ -14,7 +14,7 @@ import UserLibrary from '../components/UserLibrary';
 import AddToLibrary from '../components/AddToLibrary';
 import ModalRoot from './ModalRoot';
 import {
-    openMenu
+    openReaderMenu
 } from '../redux/thunks/ModalThunks';
 import {
     loadInitialLibraryState,
@@ -97,7 +97,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        showMenu: () => dispatch(openMenu()),
+        showMenu: () => dispatch(openReaderMenu()),
         loadInitialLibraryState: () => dispatch(loadInitialLibraryState()),
         fetchNonUserDocuments: () => dispatch(fetchNonUserDocuments()),
         switchToUserDoc: (libraryUserDocument) => dispatch(onSwitchToLibraryUserDocument(libraryUserDocument)),
