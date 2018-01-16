@@ -14,12 +14,14 @@ import UserLibrary from '../components/UserLibrary';
 import AddToLibrary from '../components/AddToLibrary';
 import ModalRoot from './ModalRoot';
 import {
-    openMenu,
+    openMenu
+} from '../redux/thunks/ModalThunks';
+import {
     loadInitialLibraryState,
     fetchNonUserDocuments,
     onSwitchToLibraryUserDocument,
     onAddDocumentToLibrary
-} from '../redux/ReduxActions';
+} from '../redux/thunks/LibraryThunks';
 
 class Library extends Component {
     componentDidMount() {

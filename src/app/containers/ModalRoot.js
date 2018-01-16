@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { hideModal } from '../redux/ReduxActions';
+import { hideModal } from '../redux/actions/ModalActions';
 import ReaderMenu from '../components/ReaderMenu';
 
 const MODAL_COMPONENTS = {

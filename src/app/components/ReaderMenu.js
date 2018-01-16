@@ -3,7 +3,7 @@ import ReactModal from 'react-modal';
 import { Link } from 'react-router-dom';
 import {
     logout
-} from '../redux/ReduxActions';
+} from '../redux/actions/UserActions';
 import './ReaderMenu.css';
 
 ReactModal.setAppElement('#root');

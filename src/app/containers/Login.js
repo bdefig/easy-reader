@@ -6,7 +6,7 @@ import {
 import {
     createUser,
     login
-} from '../redux/ReduxActions';
+} from '../redux/thunks/LoginThunks';
 import './Login.css';
 import LoginForm from '../components/LoginForm';
 import * as AuthenticationHelpers from '../helpers/AuthenticationHelpers';

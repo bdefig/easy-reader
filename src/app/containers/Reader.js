@@ -9,10 +9,12 @@ import ReaderText from '../components/ReaderText';
 import ModalRoot from './ModalRoot';
 import {
     fetchBlocks,
-    loadInitialReaderState,
-    openMenu,
+    loadInitialReaderState
+} from '../redux/thunks/ReaderThunks';
+import {
+    openReaderMenu,
     debugState
-} from '../redux/ReduxActions';
+} from '../redux/thunks/ModalThunks';
 
 class Reader extends Component {
     componentDidMount() {
@@ -69,7 +71,7 @@ const mapDispatchToProps = dispatch => {
         onPrevClick: () => dispatch(fetchBlocks(-1)),
         onNextClick: () => dispatch(fetchBlocks(1)),
         loadInitialReaderState: () => dispatch(loadInitialReaderState()),
-        showMenu: () => dispatch(openMenu()),
+        showMenu: () => dispatch(openReaderMenu()),
         // For debugging only--delete later
         debugState: () => dispatch(debugState())
     }
