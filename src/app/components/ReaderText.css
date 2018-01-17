@@ -4,8 +4,6 @@
     max-width: 600px;
     text-align: left;
 
-    position: absolute;
-    top: 80px;
     /* z-index: -1; */
     padding-top: 10px;
 }

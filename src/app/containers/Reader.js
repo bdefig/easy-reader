@@ -6,6 +6,7 @@ import {
     READER_HEADER
 } from '../components/UniversalHeader';
 import ReaderText from '../components/ReaderText';
+import { ReaderFooter } from '../components/ReaderFooter';
 import ModalRoot from './ModalRoot';
 import {
     fetchBlocks,
@@ -47,6 +48,9 @@ class Reader extends Component {
                 />
                 <ReaderText
                     textBlocks={textBlocks}
+                />
+                <ReaderFooter
+                    onNextButtonClick={onNextClick}
                 />
                 <ModalRoot
                     modalType={modal.modalType}
