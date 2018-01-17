@@ -18,7 +18,7 @@ export default class UserLibrary extends Component {
         });
         return (
             <div className="UserLibrary-mainArea">
-                <div className="UserLibrary-userDocumentArea">
+                <div className="UserLibrary-documentListArea">
                     {userDocuments}
                 </div>
                 <button className="UserLibrary-moreButton">

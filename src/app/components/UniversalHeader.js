@@ -20,7 +20,6 @@ export const LIBRARY_ADD_HEADER = 'LIBRARY_ADD_HEADER';
 export const UniversalHeader = ({ headerType, title, onLeftButtonClick, onRightButtonClick, onTitleClick }) => {
     switch (headerType) {
         case READER_HEADER:
-            // Maybe change the chevrons to chevrons in circles
             return (
                 <div className="Header-banner">
                     <div className="Header-contentContainer">
