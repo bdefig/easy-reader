@@ -4,6 +4,9 @@ import { Link } from 'react-router-dom';
 import {
     logout
 } from '../redux/actions/UserActions';
+// import {
+//     debugState
+// } from '../redux/thunks/ModalThunks';
 import './ReaderMenu.css';
 
 ReactModal.setAppElement('#root');
@@ -13,6 +16,9 @@ const ReaderMenu = ({ dispatch, isOpen, hideModal }) => {
         dispatch(hideModal);
         dispatch(logout);
     };
+    // const onDebug = () => {
+    //     dispatch(debugState);
+    // };
     return (
         <ReactModal
             className="ReaderMenu-arrowBox"
@@ -39,6 +45,12 @@ const ReaderMenu = ({ dispatch, isOpen, hideModal }) => {
                     Log Out
                 </Link>
             </div>
+            {/* <div className="ReaderMenu-dividingLine"></div>
+            <div className="ReaderMenu-item">
+                <button onClick={onDebug}>
+                    Get State
+                </button>
+            </div> */}
         </ReactModal>
     )
 }

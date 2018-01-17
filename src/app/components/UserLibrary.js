@@ -11,7 +11,7 @@ export default class UserLibrary extends Component {
             return (
                 <LibraryBlock
                     key={userDoc._id}
-                    documentMetadata={userDoc}
+                    documentMetadata={userDoc.document}
                     onSwitchTo={onSwitchTo}
                 />
             );
@@ -35,11 +35,13 @@ UserLibrary.propTypes = {
     isFetching: PropTypes.bool.isRequired,
     userDocuments: PropTypes.arrayOf(
         PropTypes.shape({
-            _id: PropTypes.string.isRequired,
-            title: PropTypes.string.isRequired,
-            author: PropTypes.string.isRequired,
-            wordCountPerBlock: PropTypes.arrayOf(PropTypes.number),
-            currentIndex: PropTypes.number.isRequired
+            document: PropTypes.shape({
+                _id: PropTypes.string.isRequired,
+                title: PropTypes.string.isRequired,
+                author: PropTypes.string.isRequired,
+                wordCountPerBlock: PropTypes.arrayOf(PropTypes.number)
+            }),
+            currentBlock: PropTypes.number.isRequired
         })
     ),
     onSwitchTo: PropTypes.func.isRequired

@@ -136,7 +136,7 @@ export function fetchBlocks(direction) {
             .then(jsonBlocks => {
                 dispatch(receiveBlocks(getState(), jsonBlocks));
                 if (jsonBlocks) {
-                    dispatch(updateDocumentProgress(getState(), jsonBlocks[0]._id, jsonBlocks[0].index));
+                    dispatch(updateDocumentProgress(getState(), jsonBlocks[0].documentID, jsonBlocks[0].index));
                 }
             });
         }
