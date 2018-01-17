@@ -3,8 +3,8 @@ const fetch = require('node-fetch');
 let urlPath = 'http://localhost:8080';
 
 // Test data--delete later
-const docFileName = '../../assets/texts/brothers-part-i.txt';
-const docTitle = 'Brothers Test Part I';
+const docFileName = '../../assets/texts/TheBrothersKaramazov.txt';
+const docTitle = 'The Brothers Karamazov';
 const docAuthor = 'Fyodor Dostoyevsky';
 
 function parseAndInsertDocument (fileName, title, author) {
