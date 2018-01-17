@@ -25,6 +25,7 @@ class Reader extends Component {
 
     render() {
         const {
+            currentDocument,
             textBlocks,
             modal
         } = this.props;
@@ -39,7 +40,7 @@ class Reader extends Component {
             <div className="Reader-app">
                 <UniversalHeader
                     headerType={READER_HEADER}
-                    title='[Book Title]'
+                    title={currentDocument.title}
                     onLeftButtonClick={onPrevClick}
                     onRightButtonClick={onNextClick}
                     onTitleClick={showMenu}
