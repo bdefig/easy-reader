@@ -1,9 +1,33 @@
 .LibraryBlock-block {
     width: 100%;
+    margin-top: 10px;
+
+    display: grid;
+    grid-template-columns: [start] 60px [left] auto [right] 60px [end];
+}
+
+.LibraryBlock-text {
+    grid-column-start: left;
+    grid-column-end: right;
     display: flex;
     flex-direction: column;
-    padding-left: 60px;
     align-items: flex-start;
+}
+
+.LibraryBlock-leftGlyph {
+    grid-column-start: start;
+    grid-column-end: left;
+    justify-self: center;
+    align-self: center;
+    font-size: 150%;
+}
+
+.LibraryBlock-rightGlyph {
+    grid-column-start: right;
+    grid-column-end: end;
+    justify-self: center;
+    align-self: center;
+    font-size: 150%;
 }
 
 .LibraryBlock-title {
@@ -14,4 +38,16 @@
     /* padding-left: 10px; */
     font-size: 1.125em;
     font-weight: 100;
+}
+
+.LibraryBlock-glyphGray {
+    color: #C0C0C0;
+}
+
+.LibraryBlock-glyphBlue {
+    color: #0ED2F7;
+}
+
+.LibraryBlock-glyphGreen {
+    color: #45C190;
 }

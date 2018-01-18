@@ -37,7 +37,7 @@
     justify-self: start;
     align-self: center;
 
-    font-size: 1.5em;
+    font-size: 150%;
     color: #404040;
 
     cursor: pointer;
@@ -53,17 +53,12 @@
     justify-self: end;
     align-self: center;
 
-    /* position: fixed;
-    right: 20px;
-    margin-top: 40px;
-    transform: translateY(-50%); */
-
-    font-size: 1.5em;
+    font-size: 150%;
     color: #404040;
 
     cursor: pointer;
 }
-.Header-leftButton a {
+.Header-rightButton a {
     color: #404040;
     text-decoration: none;
 }

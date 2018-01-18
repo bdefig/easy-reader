@@ -53,6 +53,7 @@ class Library extends Component {
                             <AddToLibrary
                                 isFetching={library.isFetching}
                                 nonUserDocuments={library.nonUserDocuments}
+                                userDocuments={library.userDocuments}
                                 fetchNonUserDocuments={fetchNonUserDocuments}
                                 onSwitchTo={switchToNonUserDoc}
                             />

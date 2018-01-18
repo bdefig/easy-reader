@@ -2,7 +2,10 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import './UserLibrary.css';
-import LibraryBlock from './LibraryBlock';
+import {
+    LibraryBlock,
+    REMOVE_FROM_LIBRARY
+ } from './LibraryBlock';
 
 export default class UserLibrary extends Component {
     render() {
@@ -13,6 +16,8 @@ export default class UserLibrary extends Component {
                     key={userDoc._id}
                     documentMetadata={userDoc.document}
                     onSwitchTo={onSwitchTo}
+                    leftGlyph={null}
+                    rightGlyph={REMOVE_FROM_LIBRARY}
                 />
             );
         });
