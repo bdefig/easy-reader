@@ -16,12 +16,10 @@ export default class AddToLibrary extends Component {
     render() {
         console.log('AddToLibrary is rendering!');
         const onSwitchTo = this.props.onSwitchTo;
-        const userDocuments = this.props.userDocuments;
         let nonUserDocuments = this.props.nonUserDocuments.map(doc => {
-            // Set left and right glyphs
             let isUserDoc = false;
             for (let userDoc of this.props.userDocuments) {
-                if (doc._id == userDoc.document._id) {
+                if (doc._id === userDoc.document._id) {
                     isUserDoc = true;
                 }
             }

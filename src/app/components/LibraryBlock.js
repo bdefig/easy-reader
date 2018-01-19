@@ -14,7 +14,7 @@ export const ADD_TO_LIBRARY = 'ADD_TO_LIBRARY' ;
 export const ADDED_TO_LIBRARY = 'ADDED_TO_LIBRARY';
 
 export const LibraryBlock = ({ documentMetadata, onSwitchTo, leftGlyph, rightGlyph }) => {
-    const { _id, title, author } = documentMetadata;
+    const { title, author } = documentMetadata;
     let leftGlyphToRender;
     let rightGlyphToRender;
     switch (leftGlyph) {
@@ -35,9 +35,6 @@ export const LibraryBlock = ({ documentMetadata, onSwitchTo, leftGlyph, rightGly
         default:
             rightGlyphToRender = null;
             break;
-    }
-    if (leftGlyph == REMOVE_FROM_LIBRARY) {
-        leftGlyphToRender = <FontAwesomeIcon icon={faTimes} />;
     }
     return (
         <div

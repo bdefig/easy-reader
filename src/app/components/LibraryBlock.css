@@ -4,6 +4,8 @@
 
     display: grid;
     grid-template-columns: [start] 60px [left] auto [right] 60px [end];
+
+    cursor: pointer;
 }
 
 .LibraryBlock-text {

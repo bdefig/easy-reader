@@ -8,7 +8,6 @@ import {
     faChevronCircleLeft,
     faChevronCircleRight,
     faChevronLeft,
-    faChevronRight,
     faSearch
 } from '@fortawesome/fontawesome-free-solid';
 

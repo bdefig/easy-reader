@@ -10,7 +10,7 @@ user: {
 },
 currentDocument: {
 	isFetching: bool,
-	documentID: string,
+	_id: string,
 	title: string,
 	author: string,
 	wordCountPerBlock: [int],
@@ -30,14 +30,18 @@ textBlocks: {
 library: {
 	isFetching: bool,
 	userDocuments: [{
-		documentID: string,
-		title: string,
-		author: string,
-		wordCountPerBlock: [int],
-		currentIndex: int
+		user: string,
+		document: {
+			_id: string,
+			title: string,
+			author: string,
+			wordCountPerBlock: [int]
+		},
+		currentBlock: int,
+		lastAccessed: date
 	}],
 	nonUserDocuments: [{
-		documentID: string,
+		_id: string,
 		title: string,
 		author: string,
 		wordCountPerBlock: [int]

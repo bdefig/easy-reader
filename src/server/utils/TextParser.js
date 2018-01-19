@@ -2,10 +2,12 @@ const fs = require('fs');
 const fetch = require('node-fetch');
 let urlPath = 'http://localhost:8080';
 
-// Test data--delete later
-const docFileName = '../../assets/texts/TheBrothersKaramazov.txt';
-const docTitle = 'The Brothers Karamazov';
-const docAuthor = 'Fyodor Dostoyevsky';
+// TODO: Make a way to delete documents (and all references to them)
+
+// TODO: Prompt for these things in the terminal
+const docFileName = '../../assets/texts/ATaleOfTwoCities.txt';
+const docTitle = 'A Tale of Two Cities';
+const docAuthor = 'Charles Dickens';
 
 function parseAndInsertDocument (fileName, title, author) {
     const documentMetadata = {};
