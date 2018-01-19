@@ -4,6 +4,8 @@ let urlPath = 'http://localhost:8080';
 
 // TODO: Make a way to delete documents (and all references to them)
 
+// Regex for finding single line breaks: \n(?!\n)
+
 // TODO: Prompt for these things in the terminal
 const docFileName = '../../assets/texts/ATaleOfTwoCities.txt';
 const docTitle = 'A Tale of Two Cities';
