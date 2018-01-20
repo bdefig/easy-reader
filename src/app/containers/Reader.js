@@ -21,7 +21,9 @@ class Reader extends Component {
     componentDidMount() {
         console.log('Reader mounted!');
         const { loadInitialReaderState } = this.props;
-        loadInitialReaderState();
+        if (this.props.currentDocument.isRemoving === false) {
+            loadInitialReaderState();
+        }
     }
 
     render() {

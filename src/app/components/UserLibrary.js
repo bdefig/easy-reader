@@ -9,15 +9,18 @@ import {
 
 export default class UserLibrary extends Component {
     render() {
-        const onSwitchTo = this.props.onSwitchTo;
+        const onSwitchToDocument = this.props.onSwitchToDocument;
+        const onRemoveDocument = this.props.onRemoveDocument;
         let userDocuments = this.props.userDocuments.map(userDoc => {
             return (
                 <LibraryBlock
                     key={userDoc._id}
                     documentMetadata={userDoc.document}
-                    onSwitchTo={onSwitchTo}
                     leftGlyph={null}
                     rightGlyph={REMOVE_FROM_LIBRARY}
+                    onClickLeftGlyph={null}
+                    onClickRightGlyph={onRemoveDocument}
+                    onClickText={onSwitchToDocument}
                 />
             );
         });
@@ -49,5 +52,6 @@ UserLibrary.propTypes = {
             currentBlock: PropTypes.number.isRequired
         })
     ),
-    onSwitchTo: PropTypes.func.isRequired
+    onSwitchToDocument: PropTypes.func.isRequired,
+    onRemoveDocument: PropTypes.func.isRequired
 }

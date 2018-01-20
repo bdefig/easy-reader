@@ -20,6 +20,7 @@ import {
     loadInitialLibraryState,
     fetchNonUserDocuments,
     onSwitchToLibraryUserDocument,
+    onRemoveLibraryUserDocument,
     onAddDocumentToLibrary
 } from '../redux/thunks/LibraryThunks';
 
@@ -38,8 +39,9 @@ class Library extends Component {
         const {
             showMenu,
             fetchNonUserDocuments,
-            switchToUserDoc,
-            switchToNonUserDoc
+            switchToUserDocument,
+            removeUserDocument,
+            switchToNonUserDocument
         } = this.props;
         return (
             <Switch>
@@ -55,7 +57,7 @@ class Library extends Component {
                                 nonUserDocuments={library.nonUserDocuments}
                                 userDocuments={library.userDocuments}
                                 fetchNonUserDocuments={fetchNonUserDocuments}
-                                onSwitchTo={switchToNonUserDoc}
+                                onSwitchToDocument={switchToNonUserDocument}
                             />
                             <ModalRoot
                                 modalType={modal.modalType}
@@ -74,7 +76,8 @@ class Library extends Component {
                             <UserLibrary
                                 isFetching={library.isFetching}
                                 userDocuments={library.userDocuments}
-                                onSwitchTo={switchToUserDoc}
+                                onSwitchToDocument={switchToUserDocument}
+                                onRemoveDocument={removeUserDocument}
                             />
                             <ModalRoot
                                 modalType={modal.modalType}
@@ -90,7 +93,7 @@ class Library extends Component {
 
 const mapStateToProps = state => {
     return {
-        currentDocument: state.currentDocument,
+        // currentDocument: state.currentDocument,
         library: state.library,
         modal: state.modal
     }
@@ -101,8 +104,9 @@ const mapDispatchToProps = dispatch => {
         showMenu: () => dispatch(openReaderMenu()),
         loadInitialLibraryState: () => dispatch(loadInitialLibraryState()),
         fetchNonUserDocuments: () => dispatch(fetchNonUserDocuments()),
-        switchToUserDoc: (libraryUserDocument) => dispatch(onSwitchToLibraryUserDocument(libraryUserDocument)),
-        switchToNonUserDoc: (nonLibraryUserDocument) => dispatch(onAddDocumentToLibrary(nonLibraryUserDocument))
+        switchToUserDocument: (libraryUserDocument) => dispatch(onSwitchToLibraryUserDocument(libraryUserDocument)),
+        removeUserDocument: (libraryUserDocument) => dispatch(onRemoveLibraryUserDocument(libraryUserDocument)),
+        switchToNonUserDocument: (nonLibraryUserDocument) => dispatch(onAddDocumentToLibrary(nonLibraryUserDocument))
     }
 }
 

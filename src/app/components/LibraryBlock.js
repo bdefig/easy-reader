@@ -13,7 +13,7 @@ export const REMOVE_FROM_LIBRARY = 'REMOVE_FROM_LIBRARY';
 export const ADD_TO_LIBRARY = 'ADD_TO_LIBRARY' ;
 export const ADDED_TO_LIBRARY = 'ADDED_TO_LIBRARY';
 
-export const LibraryBlock = ({ documentMetadata, onSwitchTo, leftGlyph, rightGlyph }) => {
+export const LibraryBlock = ({ documentMetadata, leftGlyph, rightGlyph, onClickLeftGlyph, onClickRightGlyph, onClickText }) => {
     const { title, author } = documentMetadata;
     let leftGlyphToRender;
     let rightGlyphToRender;
@@ -37,14 +37,11 @@ export const LibraryBlock = ({ documentMetadata, onSwitchTo, leftGlyph, rightGly
             break;
     }
     return (
-        <div
-            className="LibraryBlock-block"
-            onClick={() => onSwitchTo(documentMetadata)}
-        >
-            <div className="LibraryBlock-leftGlyph">
+        <div className="LibraryBlock-block">
+            <div className="LibraryBlock-leftGlyph" onClick={() => onClickLeftGlyph(documentMetadata)}>
                 {leftGlyphToRender}
             </div>
-            <div className="LibraryBlock-text">
+            <div className="LibraryBlock-text" onClick={() => onClickText(documentMetadata)}>
                 <div className="LibraryBlock-title">
                     {title}
                 </div>
@@ -52,7 +49,7 @@ export const LibraryBlock = ({ documentMetadata, onSwitchTo, leftGlyph, rightGly
                     {author}
                 </div>
             </div>
-            <div className="LibraryBlock-rightGlyph">
+            <div className="LibraryBlock-rightGlyph" onClick={() => onClickRightGlyph(documentMetadata)}>
                 {rightGlyphToRender}
             </div>
         </div>
@@ -67,5 +64,7 @@ LibraryBlock.PropTypes = {
         wordCountPerBlock: PropTypes.arrayOf(PropTypes.number),
         currentIndex: PropTypes.number.isRequired
     }),
-    onSwitchTo: PropTypes.func.isRequired
+    onClickLeftGlyph: PropTypes.func,
+    onClickRightGlyph: PropTypes.func,
+    onClickText: PropTypes.func
 }

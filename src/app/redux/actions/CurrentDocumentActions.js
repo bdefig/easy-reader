@@ -2,6 +2,8 @@ import {
     REQUEST_CURRENT_DOCUMENT,
     RECEIVE_CURRENT_DOCUMENT,
     UPDATE_CURRENT_DOCUMENT,
+    REMOVE_CURRENT_DOCUMENT,
+    DID_REMOVE_CURRENT_DOCUMENT,
     UPDATE_INDEX_CHECKPOINTS,
     SWITCH_TO_LIBRARY_USER_DOCUMENT
 } from '../ActionTypes';
@@ -25,6 +27,18 @@ export function updateCurrentDocument(state, index) {
     return {
         type: UPDATE_CURRENT_DOCUMENT,
         currentIndex: index
+    }
+}
+
+export function removeCurrentDocument(state) {
+    return {
+        type: REMOVE_CURRENT_DOCUMENT
+    }
+}
+
+export function didRemoveCurrentDocument(state) {
+    return {
+        type: DID_REMOVE_CURRENT_DOCUMENT
     }
 }
 

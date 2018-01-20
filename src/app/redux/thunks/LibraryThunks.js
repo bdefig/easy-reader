@@ -4,10 +4,13 @@ import {
     requestUserDocuments,
     receiveUserDocuments,
     requestNonUserDocuments,
-    receiveNonUserDocuments
+    receiveNonUserDocuments,
+    removeLibraryUserDocument
 } from '../actions/LibraryActions';
 import {
-    switchToLibraryUserDocument
+    switchToLibraryUserDocument,    // Could maybe just use receiveCurrentDocument for this
+    removeCurrentDocument,
+    didRemoveCurrentDocument
 } from '../actions/CurrentDocumentActions';
 import {
     updateDocumentProgress      // TODO: Maybe replace this
@@ -95,6 +98,44 @@ export function onSwitchToLibraryUserDocument(libraryUserDocument) {
         dispatch(updateDocumentProgress(getState(), documentMetadata._id, libraryUserDocument.currentIndex));
 
         // TODO: Go to Reader component (route: '/')
+    }
+}
+
+export function onRemoveLibraryUserDocument(libraryUserDocument) {
+    return (dispatch, getState) => {
+        const state = getState();
+        const userID = state.user.userID;
+        const documentID = libraryUserDocument._id;
+        const url = AppConfig.baseURL + 'user/' + userID + '/removeOneDocumentProgress/' + documentID;
+
+        if (state.currentDocument.id === documentID) {
+            dispatch(removeCurrentDocument(getState()));
+        }
+        
+        dispatch(removeLibraryUserDocument(getState(), documentID));
+
+        // TODO: Add isRemoving to currentDocument state (and check this when loading initial reader state)
+        // May also need to remove text blocks from state
+        return fetch(url, {
+            method: 'get',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+            }
+        })
+        .then(res => res.json())
+        .then(jsonRes => {
+            if (state.currentDocument.id === documentID) {
+                dispatch(didRemoveCurrentDocument(getState()));
+            }
+            return;
+        })
+        .catch(err => {
+            console.log(err);
+            if (state.currentDocument.id === documentID) {
+                dispatch(didRemoveCurrentDocument(getState()));
+            }
+        });
     }
 }
 

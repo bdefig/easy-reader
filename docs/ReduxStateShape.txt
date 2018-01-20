@@ -10,6 +10,7 @@ user: {
 },
 currentDocument: {
 	isFetching: bool,
+	isRemoving,
 	_id: string,
 	title: string,
 	author: string,

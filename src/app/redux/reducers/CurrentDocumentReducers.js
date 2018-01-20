@@ -2,6 +2,8 @@ import {
     REQUEST_CURRENT_DOCUMENT,
     RECEIVE_CURRENT_DOCUMENT,
     UPDATE_CURRENT_DOCUMENT,
+    REMOVE_CURRENT_DOCUMENT,
+    DID_REMOVE_CURRENT_DOCUMENT,
     UPDATE_INDEX_CHECKPOINTS,
     SWITCH_TO_LIBRARY_USER_DOCUMENT
 } from '../ActionTypes';
@@ -26,6 +28,21 @@ export function currentDocument(state = {}, action) {
             return Object.assign({}, state, {
                 currentIndex: action.currentIndex
             });
+        case REMOVE_CURRENT_DOCUMENT:
+            return Object.assign({}, state, {
+                isFetching: false,
+                isRemoving: true,
+                _id: null,
+                title: null,
+                author: null,
+                wordCountPerBlock: [],
+                currentIndex: null,
+                indexCheckpoints: []
+            });
+        case DID_REMOVE_CURRENT_DOCUMENT:
+            return Object.assign({}, state, {
+                isRemoving: false
+            })
         case UPDATE_INDEX_CHECKPOINTS:
             return Object.assign({}, state, {
                 indexCheckpoints: action.indexCheckpoints

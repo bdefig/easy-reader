@@ -40,6 +40,7 @@ const preloadedState = {
     // },
     currentDocument: {
         isFetching: false,
+        isRemoving: false,
         _id: '',
         title: '',
         author: '',

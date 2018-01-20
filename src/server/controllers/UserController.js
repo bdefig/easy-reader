@@ -128,3 +128,22 @@ exports.updateUserDocumentProgress = function (req, res, next) {
     })
     .catch(err => console.log(err));
 }
+
+exports.removeOneDocumentProgress = function (req, res, next) {
+    UserDocumentProgress.remove({
+        user: req.params.userID,
+        document: req.params.documentID
+    })
+    .then(onRemoved => {
+        res.json({
+            success: true
+        });
+    })
+    .catch(err => {
+        console.log('Login error: ' + err);
+        res.json({
+            success: false,
+            message: 'Document not removed from user document progress'
+        });
+    })
+}

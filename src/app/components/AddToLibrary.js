@@ -15,7 +15,7 @@ export default class AddToLibrary extends Component {
 
     render() {
         console.log('AddToLibrary is rendering!');
-        const onSwitchTo = this.props.onSwitchTo;
+        const onSwitchToDocument = this.props.onSwitchToDocument;
         let nonUserDocuments = this.props.nonUserDocuments.map(doc => {
             let isUserDoc = false;
             for (let userDoc of this.props.userDocuments) {
@@ -27,9 +27,11 @@ export default class AddToLibrary extends Component {
                 <LibraryBlock
                     key={doc._id}
                     documentMetadata={doc}
-                    onSwitchTo={onSwitchTo}
                     leftGlyph={isUserDoc ? ADDED_TO_LIBRARY : ADD_TO_LIBRARY}
                     rightGlyph={null}
+                    onClickLeftGlyph={isUserDoc ? null : onSwitchToDocument}
+                    onClickRightGlyph={null}
+                    onClickText={onSwitchToDocument}
                 />
             );
         });
@@ -65,5 +67,5 @@ AddToLibrary.propTypes = {
         })
     ),
     fetchNonUserDocuments: PropTypes.func.isRequired,
-    onSwitchTo: PropTypes.func.isRequired
+    onSwitchToDocument: PropTypes.func.isRequired
 }
