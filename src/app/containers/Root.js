@@ -63,7 +63,7 @@ const preloadedState = {
     }
 };
 
-const store = configureStore(preloadedState);
+const store = configureStore(preloadedState, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
 export default class Root extends Component {
     render() {
