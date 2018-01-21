@@ -39,11 +39,13 @@ class Reader extends Component {
             // For debugging only--delete later
             // debugState
         } = this.props;
+
+        // TODO: Add empty state
         return (
             <div className="Reader-app">
                 <UniversalHeader
                     headerType={READER_HEADER}
-                    title={currentDocument.title}
+                    title={currentDocument.title ? currentDocument.title : 'Easy Reader'}
                     onLeftButtonClick={onPrevClick}
                     onRightButtonClick={onNextClick}
                     onTitleClick={showMenu}
@@ -51,9 +53,7 @@ class Reader extends Component {
                 <ReaderText
                     textBlocks={textBlocks}
                 />
-                <ReaderFooter
-                    onNextButtonClick={onNextClick}
-                />
+                { textBlocks.blocks.length ? <ReaderFooter onNextButtonClick={onNextClick} /> : null }
                 <ModalRoot
                     modalType={modal.modalType}
                     modalProps={modal.modalProps}

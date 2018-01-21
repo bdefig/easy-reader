@@ -13,6 +13,9 @@ import {
     didRemoveCurrentDocument
 } from '../actions/CurrentDocumentActions';
 import {
+    clearBlocks
+} from '../actions/TextBlocksActions';
+import {
     updateDocumentProgress      // TODO: Maybe replace this
 } from './ReaderThunks';
 import {
@@ -110,6 +113,7 @@ export function onRemoveLibraryUserDocument(libraryUserDocument) {
 
         if (state.currentDocument.id === documentID) {
             dispatch(removeCurrentDocument(getState()));
+            dispatch(clearBlocks(getState()));
         }
         
         dispatch(removeLibraryUserDocument(getState(), documentID));
@@ -127,6 +131,7 @@ export function onRemoveLibraryUserDocument(libraryUserDocument) {
         .then(jsonRes => {
             if (state.currentDocument.id === documentID) {
                 dispatch(didRemoveCurrentDocument(getState()));
+                dispatch(clearBlocks(getState()));
             }
             return;
         })
@@ -134,6 +139,7 @@ export function onRemoveLibraryUserDocument(libraryUserDocument) {
             console.log(err);
             if (state.currentDocument.id === documentID) {
                 dispatch(didRemoveCurrentDocument(getState()));
+                dispatch(clearBlocks(getState()));
             }
         });
     }

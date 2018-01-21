@@ -18,11 +18,19 @@ export default class ReaderText extends Component {
                 />
             );
         });
-        return (
-            <div className="Reader-textArea">
-                {textBlocks}
-            </div>
-        );
+        if (textBlocks.length) {
+            return (
+                <div className="Reader-textArea">
+                    {textBlocks}
+                </div>
+            );
+        } else {
+            return (
+                <div className="Reader-textArea">
+                    {'No text to show'}
+                </div>
+            );
+        }
     }
 }
 
