@@ -12,7 +12,7 @@ export function library(state = {}, action) {
         case RECEIVE_LIBRARY_DOCUMENTS:
             return Object.assign({}, state, {
                 isFetching: false,
-                libraryDocuments: state.documents.concat(action.libraryDocuments)
+                documents: state.documents.concat(action.libraryDocuments)
             });
         default:
             return state;

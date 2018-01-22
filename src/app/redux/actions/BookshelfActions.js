@@ -10,10 +10,10 @@ export function requestBookshelfDocuments(state) {
     }
 }
 
-export function receiveBookshelfDocuments(state, bookshelfDocuments) {
+export function receiveBookshelfDocuments(state, documentProgresses) {
     return {
         type: RECEIVE_BOOKSHELF_DOCUMENTS,
-        bookshelfDocuments: bookshelfDocuments
+        documentProgresses: documentProgresses
     }
 }
 

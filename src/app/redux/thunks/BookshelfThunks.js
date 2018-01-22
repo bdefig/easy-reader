@@ -40,9 +40,9 @@ function fetchBookshelfDocuments() {
                 'Accept': 'application/json',
             }
         })
-        .then(bookshelfDocuments => bookshelfDocuments.json())
-        .then(jsonBookshelfDocuments => {
-            dispatch(receiveBookshelfDocuments(getState(), jsonBookshelfDocuments));
+        .then(documentProgresses => documentProgresses.json())
+        .then(jsonDocumentProgresses => {
+            dispatch(receiveBookshelfDocuments(getState(), jsonDocumentProgresses));
             return;
         });
     }

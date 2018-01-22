@@ -58,7 +58,7 @@ const preloadedState = {
     },
     library: {
         isFetching: false,
-        documents: [],
+        documents: []
     },
     modal: {
         modalType: null,
