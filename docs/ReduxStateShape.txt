@@ -28,9 +28,30 @@ textBlocks: {
 		wordCount: int
 	}]
 },
-library: {
+		// To remove
+		library: {
+			isFetching: bool,
+			userDocuments: [{
+				user: string,
+				document: {
+					_id: string,
+					title: string,
+					author: string,
+					wordCountPerBlock: [int]
+				},
+				currentBlock: int,
+				lastAccessed: date
+			}],
+			nonUserDocuments: [{
+				_id: string,
+				title: string,
+				author: string,
+				wordCountPerBlock: [int]
+			}]
+		}
+bookshelf: {
 	isFetching: bool,
-	userDocuments: [{
+	documentProgresses: [{
 		user: string,
 		document: {
 			_id: string,
@@ -40,14 +61,16 @@ library: {
 		},
 		currentBlock: int,
 		lastAccessed: date
-	}],
-	nonUserDocuments: [{
+	}]
+}
+library:
+	isFetching: bool,
+	documents: [{
 		_id: string,
 		title: string,
 		author: string,
 		wordCountPerBlock: [int]
 	}]
-}
 modal: {
 	modalType: string,
 	modalProps: {}

@@ -1,0 +1,43 @@
+.Bookshelf-mainArea {
+    position: fixed;
+    top: 80px;
+    width: 100%;
+    
+    display: grid;
+    grid-template-columns: [leftEdge] auto [leftMain] minmax(max-content, 600px) [rightMain] auto [rightEdge];
+}
+
+.Bookshelf-documentListArea {
+    grid-column-start: leftMain;
+    grid-column-end: rightMain;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.Bookshelf-moreButton {
+    position: fixed;
+    bottom: 30px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-color: #0ED2F7;
+    border-style: solid;
+    border-width: 2px;
+    border-radius: 25px;
+    outline: none;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 1.125em;
+    background-color: #0ED2F7;
+    transition: background-color 0.25s ease;
+    color: white;
+    cursor: pointer;
+} 
+.Bookshelf-moreButton a {
+    color: white;
+    text-decoration: none;
+}

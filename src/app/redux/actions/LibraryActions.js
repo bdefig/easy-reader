@@ -1,40 +1,17 @@
 import {
-    REQUEST_USER_DOCUMENTS,
-    RECEIVE_USER_DOCUMENTS,
-    REQUEST_NON_USER_DOCUMENTS,
-    RECEIVE_NON_USER_DOCUMENTS,
-    REMOVE_LIBRARY_USER_DOCUMENT
+    REQUEST_LIBRARY_DOCUMENTS,
+    RECEIVE_LIBRARY_DOCUMENTS
 } from '../ActionTypes';
 
-export function requestUserDocuments(state) {
+export function requestLibraryDocuments(state) {
     return {
-        type: REQUEST_USER_DOCUMENTS
+        type: REQUEST_LIBRARY_DOCUMENTS
     }
 }
 
-export function receiveUserDocuments(state, userDocuments) {
+export function receiveLibraryDocuments(state, libraryDocuments) {
     return {
-        type: RECEIVE_USER_DOCUMENTS,
-        userDocuments: userDocuments
-    }
-}
-
-export function requestNonUserDocuments(state) {
-    return {
-        type: REQUEST_NON_USER_DOCUMENTS
-    }
-}
-
-export function receiveNonUserDocuments(state, nonUserDocuments) {
-    return {
-        type: RECEIVE_NON_USER_DOCUMENTS,
-        nonUserDocuments: nonUserDocuments
-    }
-}
-
-export function removeLibraryUserDocument(state, documentID) {
-    return {
-        type: REMOVE_LIBRARY_USER_DOCUMENT,
-        documentID: documentID
+        type: RECEIVE_LIBRARY_DOCUMENTS,
+        libraryDocuments: libraryDocuments
     }
 }

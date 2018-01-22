@@ -5,7 +5,7 @@ import {
     REMOVE_CURRENT_DOCUMENT,
     DID_REMOVE_CURRENT_DOCUMENT,
     UPDATE_INDEX_CHECKPOINTS,
-    SWITCH_TO_LIBRARY_USER_DOCUMENT
+    SWITCH_CURRENT_DOCUMENT
 } from '../ActionTypes';
 
 export function currentDocument(state = {}, action) {
@@ -47,7 +47,7 @@ export function currentDocument(state = {}, action) {
             return Object.assign({}, state, {
                 indexCheckpoints: action.indexCheckpoints
             });
-        case SWITCH_TO_LIBRARY_USER_DOCUMENT:
+        case SWITCH_CURRENT_DOCUMENT:
             return Object.assign({}, state, {
                 _id: action.documentMetadata._id,
                 title: action.documentMetadata.title,

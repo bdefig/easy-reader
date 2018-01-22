@@ -5,7 +5,7 @@ import {
     REMOVE_CURRENT_DOCUMENT,
     DID_REMOVE_CURRENT_DOCUMENT,
     UPDATE_INDEX_CHECKPOINTS,
-    SWITCH_TO_LIBRARY_USER_DOCUMENT
+    SWITCH_CURRENT_DOCUMENT
 } from '../ActionTypes';
 
 export function requestCurrentDocument(state) { 
@@ -49,9 +49,9 @@ export function updateIndexCheckpoints(state, indexCheckpoints) {
     }
 }
 
-export function switchToLibraryUserDocument(state, documentMetadata, currentIndex, indexCheckpoints) {
+export function switchCurrentDocument(state, documentMetadata, currentIndex, indexCheckpoints) {
     return {
-        type: SWITCH_TO_LIBRARY_USER_DOCUMENT,
+        type: SWITCH_CURRENT_DOCUMENT,
         documentMetadata: documentMetadata,
         currentIndex: currentIndex,
         indexCheckpoints: indexCheckpoints

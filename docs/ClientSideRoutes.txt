@@ -1,4 +1,4 @@
 / - Reader
 /login - Login and signup page
-/library - User's book library
-/library/add - Add books to the user's library
+/bookshelf - User's bookshelf
+/library - Library (add books to user's bookshelf)

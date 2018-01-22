@@ -9,19 +9,19 @@ import {
 } from '@fortawesome/fontawesome-free-solid';
 
 // Glyph types
-export const REMOVE_FROM_LIBRARY = 'REMOVE_FROM_LIBRARY';
-export const ADD_TO_LIBRARY = 'ADD_TO_LIBRARY' ;
-export const ADDED_TO_LIBRARY = 'ADDED_TO_LIBRARY';
+export const REMOVE_FROM_BOOKSHELF = 'REMOVE_FROM_BOOKSHELF';
+export const ADD_TO_BOOKSHELF = 'ADD_TO_BOOKSHELF' ;
+export const ADDED_TO_BOOKSHELF = 'ADDED_TO_BOOKSHELF';
 
 export const LibraryBlock = ({ documentMetadata, leftGlyph, rightGlyph, onClickLeftGlyph, onClickRightGlyph, onClickText }) => {
     const { title, author } = documentMetadata;
     let leftGlyphToRender;
     let rightGlyphToRender;
     switch (leftGlyph) {
-        case ADD_TO_LIBRARY:
+        case ADD_TO_BOOKSHELF:
             leftGlyphToRender = <FontAwesomeIcon icon={faPlus} className="LibraryBlock-glyphGreen" />;
             break;
-        case ADDED_TO_LIBRARY:
+        case ADDED_TO_BOOKSHELF:
             leftGlyphToRender = <FontAwesomeIcon icon={faCheck} className="LibraryBlock-glyphBlue" />;
             break;
         default:
@@ -29,7 +29,7 @@ export const LibraryBlock = ({ documentMetadata, leftGlyph, rightGlyph, onClickL
             break;
     }
     switch (rightGlyph) {
-        case REMOVE_FROM_LIBRARY:
+        case REMOVE_FROM_BOOKSHELF:
             rightGlyphToRender = <FontAwesomeIcon icon={faTimes} className="LibraryBlock-glyphGray" />;
             break;
         default:

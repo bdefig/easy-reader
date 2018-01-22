@@ -39,7 +39,7 @@ export default class UserLibrary extends Component {
     }
 }
 
-UserLibrary.propTypes = {
+UserLibrary.PropTypes = {
     isFetching: PropTypes.bool.isRequired,
     userDocuments: PropTypes.arrayOf(
         PropTypes.shape({

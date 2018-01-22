@@ -52,10 +52,13 @@ const preloadedState = {
         isFetching: false,
         blocks: []
     },
+    bookshelf: {
+        isFetching: false,
+        documentProgresses: []
+    },
     library: {
         isFetching: false,
-        userDocuments: [],
-        nonUserDocuments: []
+        documents: [],
     },
     modal: {
         modalType: null,

@@ -13,8 +13,8 @@ import {
 
 // Header types
 export const READER_HEADER = 'READER_HEADER';
-export const USER_LIBRARY_HEADER = 'USER_LIBRARY_HEADER';
-export const LIBRARY_ADD_HEADER = 'LIBRARY_ADD_HEADER';
+export const BOOKSHELF_HEADER = 'BOOKSHELF_HEADER';
+export const LIBRARY_HEADER = 'LIBRARY_HEADER';
 
 export const UniversalHeader = ({ headerType, title, onLeftButtonClick, onRightButtonClick, onTitleClick }) => {
     switch (headerType) {
@@ -34,7 +34,7 @@ export const UniversalHeader = ({ headerType, title, onLeftButtonClick, onRightB
                     </div>
                 </div>
             );
-        case USER_LIBRARY_HEADER:
+        case BOOKSHELF_HEADER:
             return (
                 <div className="Header-banner">
                     <div className="Header-contentContainer">
@@ -49,12 +49,12 @@ export const UniversalHeader = ({ headerType, title, onLeftButtonClick, onRightB
                     </div>
                 </div>
             );
-        case LIBRARY_ADD_HEADER:
+        case LIBRARY_HEADER:
             return (
                 <div className="Header-banner">
                     <div className="Header-contentContainer">
                         <div className="Header-leftButton" onClick={onLeftButtonClick}>
-                            <Link to='/library'>
+                            <Link to='/bookshelf'>
                                 <FontAwesomeIcon icon={faChevronLeft} />
                             </Link>
                         </div>
