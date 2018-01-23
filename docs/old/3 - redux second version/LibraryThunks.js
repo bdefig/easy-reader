@@ -153,6 +153,7 @@ export function onAddDocumentToLibrary(libraryNonUserDocument) {
         
         dispatch(switchToLibraryUserDocument(getState(), documentMetadata, 0, indexCheckpoints));
         dispatch(updateDocumentProgress(getState(), documentMetadata._id, 0));
+        dispatch(clearBlocks(getState()));
         
         // TODO: Go to Reader component (route: '/')
     }

@@ -20,11 +20,15 @@ import {
 
 export function loadInitialReaderState() {
     return (dispatch, getState) => {
-        dispatch(fetchCurrentDocument());
+        if (!getState().currentDocument._id || getState().currentDocument.isRemoving) {
+            dispatch(fetchCurrentDocument());
+        } else {
+            dispatch(fetchBlocks(0));
+        }
     }
 }
 
-function fetchCurrentDocument() {
+export function fetchCurrentDocument() {
     return (dispatch, getState) => {
         const state = getState();
         const userID = state.user.userID;

@@ -56,6 +56,7 @@ export function onSwitchToBookshelfDocument(bookshelfDocument) {
 
         dispatch(switchCurrentDocument(getState(), documentMetadata, bookshelfDocument.currentIndex, indexCheckpoints));
         dispatch(updateDocumentProgress(getState(), documentMetadata._id, bookshelfDocument.currentIndex));
+        dispatch(clearBlocks(getState()));
 
         // TODO: Go to Reader component (route: '/')
     }

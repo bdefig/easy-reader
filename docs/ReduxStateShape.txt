@@ -28,27 +28,6 @@ textBlocks: {
 		wordCount: int
 	}]
 },
-		// To remove
-		library: {
-			isFetching: bool,
-			userDocuments: [{
-				user: string,
-				document: {
-					_id: string,
-					title: string,
-					author: string,
-					wordCountPerBlock: [int]
-				},
-				currentBlock: int,
-				lastAccessed: date
-			}],
-			nonUserDocuments: [{
-				_id: string,
-				title: string,
-				author: string,
-				wordCountPerBlock: [int]
-			}]
-		}
 bookshelf: {
 	isFetching: bool,
 	documentProgresses: [{
