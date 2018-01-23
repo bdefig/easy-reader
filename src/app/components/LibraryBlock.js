@@ -38,10 +38,28 @@ export const LibraryBlock = ({ documentMetadata, leftGlyph, rightGlyph, onClickL
     }
     return (
         <div className="LibraryBlock-block">
-            <div className="LibraryBlock-leftGlyph" onClick={() => onClickLeftGlyph(documentMetadata)}>
+            <div
+                className="LibraryBlock-leftGlyph"
+                onClick={() => {
+                    if (onClickLeftGlyph) {
+                        return onClickLeftGlyph(documentMetadata);
+                    } else {
+                        return null;
+                    }
+                }}
+            >
                 {leftGlyphToRender}
             </div>
-            <div className="LibraryBlock-text" onClick={() => onClickText(documentMetadata)}>
+            <div
+                className="LibraryBlock-text"
+                onClick={() => {
+                    if (onClickText) {
+                        return onClickText(documentMetadata);
+                    } else {
+                        return null;
+                    }
+                }}
+            >
                 <div className="LibraryBlock-title">
                     {title}
                 </div>
@@ -49,7 +67,16 @@ export const LibraryBlock = ({ documentMetadata, leftGlyph, rightGlyph, onClickL
                     {author}
                 </div>
             </div>
-            <div className="LibraryBlock-rightGlyph" onClick={() => onClickRightGlyph(documentMetadata)}>
+            <div
+                className="LibraryBlock-rightGlyph"
+                onClick={() => {
+                    if (onClickRightGlyph) {
+                        return onClickRightGlyph(documentMetadata);
+                    } else {
+                        return null;
+                    }
+                }}
+            >
                 {rightGlyphToRender}
             </div>
         </div>

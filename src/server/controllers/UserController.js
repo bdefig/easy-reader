@@ -122,9 +122,10 @@ exports.updateUserDocumentProgress = function (req, res, next) {
     }, {
         currentBlock: req.body.currentBlock,
         lastAccessed: Date.now()
-    }, {upsert: true})
+    }, {upsert: true, new: true})
+    .populate('document')
     .then(onUpdatedProgress => {
-        res.json({Success: 'Document progress updated'});
+        res.json(onUpdatedProgress);
     })
     .catch(err => console.log(err));
 }

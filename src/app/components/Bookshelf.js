@@ -9,31 +9,43 @@ import {
 
 export default class Bookshelf extends Component {
     render() {
-        let bookshelfDocuments = this.props.documentProgresses.map(doc => {
+        if (this.props.documentProgresses && this.props.documentProgresses.length) {
+            let bookshelfDocuments = this.props.documentProgresses.map(doc => {
+                return (
+                    <LibraryBlock
+                        key={doc._id}
+                        documentMetadata={doc.document}
+                        leftGlyph={null}
+                        rightGlyph={REMOVE_FROM_BOOKSHELF}
+                        onClickLeftGlyph={null}
+                        onClickRightGlyph={this.props.onRemoveBookshelfDocument}
+                        onClickText={this.props.onSwitchToBookshelfDocument}
+                    />
+                );
+            });
             return (
-                <LibraryBlock
-                    key={doc._id}
-                    documentMetadata={doc.document}
-                    leftGlyph={null}
-                    rightGlyph={REMOVE_FROM_BOOKSHELF}
-                    onClickLeftGlyph={null}
-                    onClickRightGlyph={this.props.onRemoveBookshelfDocument}
-                    onClickText={this.props.onSwitchToBookshelfDocument}
-                />
-            );
-        });
-        return (
-            <div className="Bookshelf-mainArea">
-                <div className="Bookshelf-documentListArea">
-                    {bookshelfDocuments}
+                <div className="Bookshelf-mainArea">
+                    <div className="Bookshelf-documentListArea">
+                        {bookshelfDocuments}
+                    </div>
+                    <button className="Bookshelf-moreButton">
+                        <Link to='/library'>
+                            + More
+                        </Link>
+                    </button>
                 </div>
-                <button className="Bookshelf-moreButton">
-                    <Link to='/library'>
-                        + More
-                    </Link>
-                </button>
-            </div>
-        );
+            );
+        } else {
+            return (
+                <div className="Bookshelf-mainArea">
+                    <button className="Bookshelf-moreButton">
+                        <Link to='/library'>
+                            + More
+                        </Link>
+                    </button>
+                </div>
+            );
+        }
     }
 }
 

@@ -13,11 +13,17 @@ import {
     fetchLibraryDocuments,
     onAddDocumentToBookshelf
 } from '../redux/thunks/LibraryThunks';
+import {
+    loadInitialBookshelfState
+} from '../redux/thunks/BookshelfThunks';
 
 class LibraryContainer extends Component {
     componentDidMount() {
         if (this.props.library.documents.length === 0) {
             this.props.fetchLibraryDocuments();
+        }
+        if (this.props.bookshelf.documentProgresses.length === 0) {
+            this.props.loadInitialBookshelfState();
         }
     }
 
@@ -56,6 +62,7 @@ const mapDispatchToProps = dispatch => {
     return {
         showMenu: () => dispatch(openReaderMenu()),
         fetchLibraryDocuments: () => dispatch(fetchLibraryDocuments()),
+        loadInitialBookshelfState: () => dispatch(loadInitialBookshelfState()),
         onAddDocumentToBookshelf: (libraryDocument) => dispatch(onAddDocumentToBookshelf(libraryDocument))
     }
 }

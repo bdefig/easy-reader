@@ -25,9 +25,9 @@ export default class ReaderText extends Component {
                 </div>
             );
         } else {
+            // TODO: Add zero state
             return (
                 <div className="Reader-textArea">
-                    {'No text to show'}
                 </div>
             );
         }

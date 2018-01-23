@@ -60,6 +60,6 @@ export function onAddDocumentToBookshelf(libraryDocument) {
         dispatch(switchCurrentDocument(getState(), documentMetadata, 0, indexCheckpoints));
         dispatch(updateDocumentProgress(getState(), documentMetadata._id, 0));
 
-        // TODO: Go to Reader component (route: ';')
+        // TODO: Go to Reader component (route: '/')
     }
 }

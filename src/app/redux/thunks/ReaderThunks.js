@@ -14,6 +14,9 @@ import {
     calculateIndexCheckpoints,
     calculateIndicesFromCheckpoints
 } from '../../helpers/ReaderHelpers';
+import {
+    updateProgressOnBookshelf
+} from '../actions/BookshelfActions';
 
 export function loadInitialReaderState() {
     return (dispatch, getState) => {
@@ -160,8 +163,12 @@ export function updateDocumentProgress(state, documentID, index) {
             },
             body: JSON.stringify(msgBody)
         })
-        .then(reply => dispatch(updateCurrentDocument(getState(), index)))
-        .catch(err => console.log(Error('Error updating document progress')));
+        .then(newDocProgress => newDocProgress.json())
+        .then(jsonNewDocProgress => {
+            dispatch(updateCurrentDocument(getState(), index));
+            dispatch(updateProgressOnBookshelf(getState(), jsonNewDocProgress));
+        })
+        .catch(err => console.log(Error('Error updating document progress: ' + err)));
     }
 }
 
