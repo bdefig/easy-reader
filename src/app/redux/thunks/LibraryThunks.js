@@ -8,6 +8,9 @@ import {
     switchCurrentDocument
 } from '../actions/CurrentDocumentActions';
 import {
+    clearBlocks
+} from '../actions/TextBlocksActions';
+import {
     updateDocumentProgress      // TODO: Maybe replace this
 } from './ReaderThunks';
 import {
@@ -54,11 +57,12 @@ export function fetchLibraryDocuments() {
 export function onAddDocumentToBookshelf(libraryDocument) {
     return (dispatch, getState) => {
         const documentMetadata = libraryDocument;
-        const minWordCount = getState().user.settings.getMinWordCount;
+        const minWordCount = getState().user.settings.minWordCount;
         const indexCheckpoints = calculateIndexCheckpoints(documentMetadata.wordCountPerBlock, minWordCount);
 
         dispatch(switchCurrentDocument(getState(), documentMetadata, 0, indexCheckpoints));
         dispatch(updateDocumentProgress(getState(), documentMetadata._id, 0));
+        dispatch(clearBlocks(getState()));
 
         // TODO: Go to Reader component (route: '/')
     }
