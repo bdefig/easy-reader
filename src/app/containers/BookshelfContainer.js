@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from "react-router-dom";
 import {
     UniversalHeader,
     BOOKSHELF_HEADER
@@ -49,11 +50,11 @@ const mapStateToProps = state => {
     }
 }
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch, ownProps) => {
     return {
         showMenu: () => dispatch(openReaderMenu()),
         loadInitialBookshelfState: () => dispatch(loadInitialBookshelfState()),
-        onSwitchToBookshelfDocument: (bookshelfDocument) => dispatch(onSwitchToBookshelfDocument(bookshelfDocument)),
+        onSwitchToBookshelfDocument: (bookshelfDocument) => dispatch(onSwitchToBookshelfDocument(bookshelfDocument, ownProps.history)),
         onRemoveBookshelfDocument: (bookshelfDocument) => dispatch(onRemoveBookshelfDocument(bookshelfDocument))
     }
 }

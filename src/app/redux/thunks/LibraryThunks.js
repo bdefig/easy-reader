@@ -54,7 +54,7 @@ export function fetchLibraryDocuments() {
     }
 }
 
-export function onAddDocumentToBookshelf(libraryDocument) {
+export function onAddDocumentToBookshelf(libraryDocument, history) {
     return (dispatch, getState) => {
         const documentMetadata = libraryDocument;
         const minWordCount = getState().user.settings.minWordCount;
@@ -65,5 +65,6 @@ export function onAddDocumentToBookshelf(libraryDocument) {
         dispatch(clearBlocks(getState()));
 
         // TODO: Go to Reader component (route: '/')
+        history.push('/');
     }
 }

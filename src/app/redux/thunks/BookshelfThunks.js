@@ -48,7 +48,7 @@ function fetchBookshelfDocuments() {
     }
 }
 
-export function onSwitchToBookshelfDocument(bookshelfDocument) {
+export function onSwitchToBookshelfDocument(bookshelfDocument, history) {
     return (dispatch, getState) => {
         const documentMetadata = bookshelfDocument;
         const minWordCount = getState().user.settings.minWordCount;
@@ -66,6 +66,7 @@ export function onSwitchToBookshelfDocument(bookshelfDocument) {
         dispatch(clearBlocks(getState()));
 
         // TODO: Go to Reader component (route: '/')
+        history.push('/');
     }
 }
 
