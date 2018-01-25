@@ -54,8 +54,15 @@ export function onSwitchToBookshelfDocument(bookshelfDocument) {
         const minWordCount = getState().user.settings.minWordCount;
         const indexCheckpoints = calculateIndexCheckpoints(documentMetadata.wordCountPerBlock, minWordCount);
 
-        dispatch(switchCurrentDocument(getState(), documentMetadata, bookshelfDocument.currentIndex, indexCheckpoints));
-        dispatch(updateDocumentProgress(getState(), documentMetadata._id, bookshelfDocument.currentIndex));
+        let currentIndex = 0;
+        for (let docProgress of getState().bookshelf.documentProgresses) {
+            if (docProgress.document._id === documentMetadata._id) {
+                currentIndex = docProgress.currentBlock;
+            }
+        }
+
+        dispatch(switchCurrentDocument(getState(), documentMetadata, currentIndex, indexCheckpoints));
+        dispatch(updateDocumentProgress(getState(), documentMetadata._id, currentIndex));
         dispatch(clearBlocks(getState()));
 
         // TODO: Go to Reader component (route: '/')
