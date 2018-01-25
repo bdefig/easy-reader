@@ -8,6 +8,12 @@ export function openReaderMenu() {
     }
 }
 
+export function openLibraryMenu() {
+    return (dispatch, getState) => {
+        dispatch(showModal(getState, 'LIBRARY_MENU', {}));
+    }
+}
+
 export function debugState() {
     return (dispatch, getState) => {
         console.log(getState());

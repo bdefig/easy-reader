@@ -3,7 +3,7 @@
 	/* https://github.com/reactjs/react-modal/issues/125 */
 	/* https://github.com/reactjs/react-modal/issues/334 */
 
-.ReaderMenu-arrowBox {
+.ArrowModal-arrowBox {
 	/* position: relative; */
 	position: relative;
 	top: 70px;
@@ -20,7 +20,7 @@
 	border-radius: 5px;
 	outline: none;
 }
-.ReaderMenu-arrowBox:after, .ReaderMenu-arrowBox:before {
+.ArrowModal-arrowBox:after, .ArrowModal-arrowBox:before {
 	bottom: 100%;
 	left: 50%;
 	border: solid transparent;
@@ -31,20 +31,20 @@
 	pointer-events: none;
 }
 
-.ReaderMenu-arrowBox:after {
+.ArrowModal-arrowBox:after {
 	border-color: rgba(255, 255, 255, 0);
 	border-bottom-color: #FFFFFF;
 	border-width: 10px;
 	margin-left: -10px;
 }
-.ReaderMenu-arrowBox:before {
+.ArrowModal-arrowBox:before {
 	border-color: rgba(64, 64, 64, 0);
 	border-bottom-color: #404040;
 	border-width: 11px;
 	margin-left: -11px;
 }
 
-.ReaderMenu-overlay {
+.ArrowModal-overlay {
 	position: fixed;
     top: 0;
     left: 0;
@@ -53,16 +53,16 @@
 	background-color: rgba(128, 128, 128 ,0.25);
 }
 
-.ReaderMenu-item {
+.ArrowModal-item {
 	font-size: 1.5em;
 	color: #404040;
 }
-.ReaderMenu-item a {
+.ArrowModal-item a {
 	color: #404040;
 	text-decoration: none;
 }
 
-.ReaderMenu-dividingLine {
+.ArrowModal-dividingLine {
 	width: 250px;
 	height: 1px;
 	background-color: #C0C0C0;

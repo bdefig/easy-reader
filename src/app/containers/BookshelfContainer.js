@@ -8,7 +8,7 @@ import {
 import Bookshelf from '../components/Bookshelf';
 import ModalRoot from './ModalRoot';
 import {
-    openReaderMenu
+    openLibraryMenu
 } from '../redux/thunks/ModalThunks';
 import {
     loadInitialBookshelfState,
@@ -52,7 +52,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
     return {
-        showMenu: () => dispatch(openReaderMenu()),
+        showMenu: () => dispatch(openLibraryMenu()),
         loadInitialBookshelfState: () => dispatch(loadInitialBookshelfState()),
         onSwitchToBookshelfDocument: (bookshelfDocument) => dispatch(onSwitchToBookshelfDocument(bookshelfDocument, ownProps.history)),
         onRemoveBookshelfDocument: (bookshelfDocument) => dispatch(onRemoveBookshelfDocument(bookshelfDocument))

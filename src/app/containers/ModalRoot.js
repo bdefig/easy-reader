@@ -2,9 +2,11 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { hideModal } from '../redux/actions/ModalActions';
 import ReaderMenu from '../components/ReaderMenu';
+import LibraryMenu from '../components/LibraryMenu';
 
 const MODAL_COMPONENTS = {
-    'READER_MENU': ReaderMenu
+    'READER_MENU': ReaderMenu,
+    'LIBRARY_MENU': LibraryMenu
 }
 
 const ModalRoot = ({ dispatch, modalType, modalProps, hideModal }) => {

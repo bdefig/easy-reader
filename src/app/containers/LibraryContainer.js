@@ -8,7 +8,7 @@ import {
 import Library from '../components/Library';
 import ModalRoot from './ModalRoot';
 import {
-    openReaderMenu
+    openLibraryMenu
 } from '../redux/thunks/ModalThunks';
 import {
     fetchLibraryDocuments,
@@ -61,7 +61,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
     return {
-        showMenu: () => dispatch(openReaderMenu()),
+        showMenu: () => dispatch(openLibraryMenu()),
         fetchLibraryDocuments: () => dispatch(fetchLibraryDocuments()),
         loadInitialBookshelfState: () => dispatch(loadInitialBookshelfState()),
         onAddDocumentToBookshelf: (libraryDocument) => dispatch(onAddDocumentToBookshelf(libraryDocument, ownProps.history))

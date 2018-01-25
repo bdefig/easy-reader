@@ -8,7 +8,7 @@ import './ArrowModal.css';
 
 ReactModal.setAppElement('#root');
 
-const ReaderMenu = ({ dispatch, isOpen, hideModal }) => {
+const LibraryMenu = ({ dispatch, isOpen, hideModal }) => {
     const onLogout = () => {
         dispatch(hideModal);
         dispatch(logout);
@@ -25,8 +25,8 @@ const ReaderMenu = ({ dispatch, isOpen, hideModal }) => {
             </div>
             <div className="ArrowModal-dividingLine"></div> */}
             <div className="ArrowModal-item">
-                <Link to='/bookshelf' onClick={hideModal}>
-                    Bookshelf
+                <Link to='/' onClick={hideModal}>
+                    Back to Reader
                 </Link>
             </div>
             <div className="ArrowModal-dividingLine"></div>
@@ -43,4 +43,4 @@ const ReaderMenu = ({ dispatch, isOpen, hideModal }) => {
     )
 }
 
-export default ReaderMenu;
+export default LibraryMenu;

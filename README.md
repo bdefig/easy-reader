@@ -14,7 +14,11 @@ A light reader built in React that makes reading books as easy as reading articl
     - [x] Cookie (local storage instead)
     - [ ] Authentication
         - [ ] Protect routes
+- [ ] Add settings
 
 ### Documents
-- [ ] Switch documents
-- [ ] Select new document from library
+- [x] Switch documents
+- [x] Select new document from library
+
+### Reader
+- [ ] Jump to location
