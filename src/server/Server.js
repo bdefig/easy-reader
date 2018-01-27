@@ -11,14 +11,13 @@ const cors = require('cors');
 const userRouter = require('./routes/UserRouter');
 const textRouter = require('./routes/TextRouter');
 
+// Set up server
 const app = express();
 
-// Configure app
+// Configure server
 const config = require('./Config');
 const port = process.env.PORT || 8080;
 app.set('authenticationSecret', config.secret);
-
-app.use(helmet());
 
 // Set up the database and connect to it
 const mongoose = require('mongoose');
@@ -31,6 +30,7 @@ const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 // Set up middleware
+app.use(helmet());
 app.use(bodyParser.json({limit: '50mb'}));
 app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 app.use(expressValidator());
