@@ -1,10 +1,10 @@
-const AuthenticationHelper = require('../helpers/AuthenticationHelper');
+const ServerAuthenticationHelpers = require('../helpers/ServerAuthenticationHelpers');
 const User = require('../models/User');
 const DocumentMetadata = require('../models/DocumentMetadata');
 const UserDocumentProgress = require('../models/UserDocumentProgress');
 
 exports.createUser = function (req, res, next) {
-    AuthenticationHelper.hashPassword(req.body.password)
+    ServerAuthenticationHelpers.hashPassword(req.body.password)
     .then(hash => {
         return newUserInfo = {
             name: req.body.name,
@@ -19,7 +19,7 @@ exports.createUser = function (req, res, next) {
         .catch(err => {return Promise.reject(err)});
     })
     .then(newUserSaved => {
-        const token = AuthenticationHelper.generateToken(newUserSaved._id);
+        const token = ServerAuthenticationHelpers.generateToken(newUserSaved._id);
         console.log('New user saved');
         res.send({
             success: true,
@@ -59,7 +59,7 @@ exports.login = function (req, res, next) {
             userID = userFound._id;     // This might not work
             name = userFound.name;
             console.log('Checking password: ' + req.body.password);
-            return AuthenticationHelper.checkPassword(passwordSubmitted, userFound.passwordHash);
+            return ServerAuthenticationHelpers.checkPassword(passwordSubmitted, userFound.passwordHash);
         } else {
             console.log('User not found by email');
             throw 'Caught: User not found by email';
@@ -68,7 +68,7 @@ exports.login = function (req, res, next) {
     .then(wasSuccess => {
         if (wasSuccess) {
             console.log('Creating token with userID: ' + userID);
-            return AuthenticationHelper.generateToken(userID)
+            return ServerAuthenticationHelpers.generateToken(userID)
         } else {
             throw 'Caught: It wasn\'t a success';
         }
