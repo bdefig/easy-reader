@@ -5,7 +5,8 @@ import {
     REMOVE_CURRENT_DOCUMENT,
     DID_REMOVE_CURRENT_DOCUMENT,
     UPDATE_INDEX_CHECKPOINTS,
-    SWITCH_CURRENT_DOCUMENT
+    SWITCH_CURRENT_DOCUMENT,
+    RESET_CURRENT_DOCUMENT_STATE
 } from '../ActionTypes';
 
 export function requestCurrentDocument(state) { 
@@ -55,5 +56,11 @@ export function switchCurrentDocument(state, documentMetadata, currentIndex, ind
         documentMetadata: documentMetadata,
         currentIndex: currentIndex,
         indexCheckpoints: indexCheckpoints
+    }
+}
+
+export function resetCurrentDocumentState() {
+    return {
+        type: RESET_CURRENT_DOCUMENT_STATE
     }
 }

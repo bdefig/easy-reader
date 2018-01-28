@@ -5,7 +5,8 @@ import {
     REQUEST_LOGIN,
     LOGIN_SUCCESS,
     LOGIN_FAILURE,
-    LOGOUT
+    LOGOUT,
+    RESET_USER_STATE
 } from '../ActionTypes';
 
 export function requestCreateUser(state, userToCreate) {
@@ -60,5 +61,11 @@ export function logout(state) {
     localStorage.setItem('hasLoggedIn', true);
     return {
         type: LOGOUT
+    }
+}
+
+export function resetUserState() {
+    return {
+        type: RESET_USER_STATE
     }
 }

@@ -1,17 +1,13 @@
 import React from 'react';
 import ReactModal from 'react-modal';
 import { Link } from 'react-router-dom';
-import {
-    logout
-} from '../redux/actions/UserActions';
 import './ArrowModal.css';
 
 ReactModal.setAppElement('#root');
 
-const ReaderMenu = ({ dispatch, isOpen, hideModal }) => {
+const ReaderMenu = ({ dispatch, isOpen, hideModal, resetStateAndLogout }) => {
     const onLogout = () => {
-        dispatch(hideModal);
-        dispatch(logout);
+        dispatch(resetStateAndLogout());
     };
     return (
         <ReactModal
@@ -35,9 +31,9 @@ const ReaderMenu = ({ dispatch, isOpen, hideModal }) => {
             </div>
             <div className="ArrowModal-dividingLine"></div> */}
             <div className="ArrowModal-item" onClick={onLogout}>
-                <Link to="/login">
+                {/* <Link to="/login"> */}
                     Log Out
-                </Link>
+                {/* </Link> */}
             </div>
         </ReactModal>
     )

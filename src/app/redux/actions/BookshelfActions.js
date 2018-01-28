@@ -2,7 +2,8 @@ import {
     REQUEST_BOOKSHELF_DOCUMENTS,
     RECEIVE_BOOKSHELF_DOCUMENTS,
     REMOVE_BOOKSHELF_DOCUMENT,
-    UPDATE_PROGRESS_ON_BOOKSHELF
+    UPDATE_PROGRESS_ON_BOOKSHELF,
+    RESET_BOOKSHELF_STATE
 } from '../ActionTypes';
 
 export function requestBookshelfDocuments(state) {
@@ -29,5 +30,11 @@ export function updateProgressOnBookshelf(state, newDocumentProgress) {
     return {
         type: UPDATE_PROGRESS_ON_BOOKSHELF,
         newDocumentProgress: newDocumentProgress
+    }
+}
+
+export function resetBookshelfState() {
+    return {
+        type: RESET_BOOKSHELF_STATE
     }
 }

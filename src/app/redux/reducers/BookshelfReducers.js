@@ -2,7 +2,8 @@ import {
     REQUEST_BOOKSHELF_DOCUMENTS,
     RECEIVE_BOOKSHELF_DOCUMENTS,
     REMOVE_BOOKSHELF_DOCUMENT,
-    UPDATE_PROGRESS_ON_BOOKSHELF
+    UPDATE_PROGRESS_ON_BOOKSHELF,
+    RESET_BOOKSHELF_STATE
 } from '../ActionTypes';
 
 export function bookshelf(state = {}, action) {
@@ -48,6 +49,11 @@ export function bookshelf(state = {}, action) {
 
             return Object.assign({}, state, {
                 documentProgresses: newBookshelfDocumentProgresses
+            });
+        case RESET_BOOKSHELF_STATE:
+            return Object.assign({}, state, {
+                isFetching: false,
+                documentProgresses: []
             });
         default:
             return state;

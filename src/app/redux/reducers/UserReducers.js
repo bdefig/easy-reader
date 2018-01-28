@@ -5,7 +5,8 @@ import {
     REQUEST_LOGIN,
     LOGIN_SUCCESS,
     LOGIN_FAILURE,
-    LOGOUT
+    LOGOUT,
+    RESET_USER_STATE
 } from '../ActionTypes';
 
 export function user(state = {}, action) {
@@ -49,6 +50,17 @@ export function user(state = {}, action) {
                 userID: null,
                 name: null,
                 token: null
+            });
+        case RESET_USER_STATE:
+            return Object.assign({}, state, {
+                isFetching: false,
+                userID: null,
+                name: null,
+                token: null,
+                authenticationErrorMessage: null,
+                settings: {
+                    minWordCount: 500
+                }
             });
         default:
             return state;

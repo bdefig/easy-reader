@@ -6,8 +6,15 @@ import {
     createUserFailure,
     requestLogin,
     loginSuccess,
-    loginFailure
+    loginFailure,
+    logout,
+    resetUserState
 } from '../actions/UserActions';
+import { resetBookshelfState } from '../actions/BookshelfActions';
+import { resetCurrentDocumentState } from '../actions/CurrentDocumentActions';
+import { resetLibraryState } from '../actions/LibraryActions';
+import { resetTextBlocksState } from '../actions/TextBlocksActions';
+import { hideModal } from '../actions/ModalActions';
 
 export function createUser(name, email, password) {
     return (dispatch, getState) => {
@@ -81,5 +88,17 @@ export function login(email, password) {
             }
         })
         .catch(err => console.log(Error(err)));
+    }
+}
+
+export function resetStateAndLogout() {
+    return (dispatch) => {
+        dispatch(resetBookshelfState());
+        dispatch(resetCurrentDocumentState());
+        dispatch(resetLibraryState());
+        dispatch(resetTextBlocksState());
+        dispatch(resetUserState());
+        dispatch(logout());
+        dispatch(hideModal());
     }
 }

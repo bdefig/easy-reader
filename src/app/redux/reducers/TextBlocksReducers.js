@@ -1,7 +1,8 @@
 import {
     REQUEST_BLOCKS,
     RECEIVE_BLOCKS,
-    CLEAR_BLOCKS
+    CLEAR_BLOCKS,
+    RESET_TEXT_BLOCKS_STATE
 } from '../ActionTypes';
 
 export function textBlocks(state = {}, action) {
@@ -17,6 +18,11 @@ export function textBlocks(state = {}, action) {
             });
         case CLEAR_BLOCKS:
             return Object.assign({}, state, {
+                blocks: []
+            });
+        case RESET_TEXT_BLOCKS_STATE:
+            return Object.assign({}, state, {
+                isFetching: false,
                 blocks: []
             });
         default:

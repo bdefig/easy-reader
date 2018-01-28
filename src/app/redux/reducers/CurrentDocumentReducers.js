@@ -5,7 +5,8 @@ import {
     REMOVE_CURRENT_DOCUMENT,
     DID_REMOVE_CURRENT_DOCUMENT,
     UPDATE_INDEX_CHECKPOINTS,
-    SWITCH_CURRENT_DOCUMENT
+    SWITCH_CURRENT_DOCUMENT,
+    RESET_CURRENT_DOCUMENT_STATE
 } from '../ActionTypes';
 
 export function currentDocument(state = {}, action) {
@@ -55,6 +56,17 @@ export function currentDocument(state = {}, action) {
                 wordCountPerBlock: action.documentMetadata.wordCountPerBlock,
                 currentIndex: action.currentIndex,
                 indexCheckpoints: action.indexCheckpoints
+            });
+        case RESET_CURRENT_DOCUMENT_STATE:
+            return Object.assign({}, state, {
+                isFetching: false,
+                isRemoving: false,
+                _id: '',
+                title: '',
+                author: '',
+                wordCountPerBlock: [],
+                currentIndex: 0,
+                indexCheckpoints: []
             });
         default:
             return state;
