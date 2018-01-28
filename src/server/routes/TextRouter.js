@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-
 const textController = require('../controllers/TextController');
 
 // GET all document metadata
