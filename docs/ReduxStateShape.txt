@@ -1,8 +1,11 @@
+authentication: {
+	accessToken: string,
+	refreshToken: string
+},
 user: {
 	isFetching: bool,
 	userID: string,
 	name: string,
-	token: string,
 	authenticationErrorMessage: string,
 	settings: {
 		minWordCount: int

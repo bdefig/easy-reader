@@ -10,11 +10,14 @@ import Login from './Login';
 import App from './App';
 
 const preloadedState = {
+    authentication: {
+        accessToken: localStorage.accessToken ? localStorage.accessToken : null,
+        refreshToken: localStorage.refreshToken ? localStorage.refreshToken : null,
+    },
     user: {
         isFetching: false,
         userID: localStorage.userID ? localStorage.userID : null,
         name: localStorage.name ? localStorage.name : null,
-        token: localStorage.token ? localStorage.token : null,
         authenticationErrorMessage: null,
         settings: {
             minWordCount: 500
