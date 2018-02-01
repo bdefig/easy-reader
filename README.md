@@ -28,3 +28,8 @@ A light reader built in React that makes reading books as easy as reading articl
 
 ### Reader
 - [ ] Jump to location
+
+### Admin
+- [ ] Admin portal
+    - [ ] Add books
+    - [ ] Edit books
