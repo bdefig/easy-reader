@@ -1,6 +1,9 @@
 import 'whatwg-fetch';
 import AppConfig from '../../AppConfig';
 import {
+    httpFetch
+} from './HTTPThunks';
+import {
     requestCurrentDocument,
     receiveCurrentDocument,
     updateCurrentDocument,
@@ -35,14 +38,15 @@ export function fetchCurrentDocument() {
         const url = AppConfig.baseURL + 'user/' + userID + '/getDocumentProgress';
 
         dispatch(requestCurrentDocument(getState()));
-        return fetch(url, {
-            method: 'get',
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json',
-            }
-        })
-        .then(currentDocumentProgresses => currentDocumentProgresses.json())
+        // return fetch(url, {
+        //     method: 'get',
+        //     headers: {
+        //         'Content-Type': 'application/json',
+        //         'Accept': 'application/json',
+        //     }
+        // })
+        return httpFetch(dispatch, getState, 'get', url)
+        // .then(currentDocumentProgresses => currentDocumentProgresses.json())
         .then(jsonCurrentDocumentProgresses => {
             // Only get the most recent current document
             if (jsonCurrentDocumentProgresses.length > 0) {
@@ -68,7 +72,8 @@ export function fetchCurrentDocument() {
         })
         .then(() => {
             dispatch(fetchBlocks(0));
-        });
+        })
+        .catch(err => console.log(err));
     }
 }
 
@@ -132,17 +137,18 @@ export function fetchBlocks(direction) {
             const url = AppConfig.baseURL + 'document/' + state.currentDocument._id + '/first/' + indicesToGet[0] + '/last/' + indicesToGet[1];
 
             dispatch(requestBlocks(getState()));
-            return fetch(url, {
-                method: 'get',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json',
-                }
-            })
-            .then(receivedBlocks => receivedBlocks.json())
+            // return fetch(url, {
+            //     method: 'get',
+            //     headers: {
+            //         'Content-Type': 'application/json',
+            //         'Accept': 'application/json',
+            //     }
+            // })
+            return httpFetch(dispatch, getState, 'get', url)
+            // .then(receivedBlocks => receivedBlocks.json())
             .then(jsonBlocks => {
-                dispatch(receiveBlocks(getState(), jsonBlocks));
                 if (jsonBlocks) {
+                    dispatch(receiveBlocks(getState(), jsonBlocks));
                     dispatch(updateDocumentProgress(getState(), jsonBlocks[0].documentID, jsonBlocks[0].index));
                 }
             });
@@ -159,15 +165,16 @@ export function updateDocumentProgress(state, documentID, index) {
             currentBlock: index
         };
 
-        fetch(url, {
-            method: 'put',
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json',
-            },
-            body: JSON.stringify(msgBody)
-        })
-        .then(newDocProgress => newDocProgress.json())
+        // fetch(url, {
+        //     method: 'put',
+        //     headers: {
+        //         'Content-Type': 'application/json',
+        //         'Accept': 'application/json',
+        //     },
+        //     body: JSON.stringify(msgBody)
+        // })
+        return httpFetch(dispatch, getState, 'put', url, msgBody)
+        // .then(newDocProgress => newDocProgress.json())
         .then(jsonNewDocProgress => {
             dispatch(updateCurrentDocument(getState(), index));
             dispatch(updateProgressOnBookshelf(getState(), jsonNewDocProgress));

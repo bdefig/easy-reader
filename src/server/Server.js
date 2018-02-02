@@ -8,7 +8,8 @@ const cookieParser = require('cookie-parser');
 const cors = require('cors');
 
 // Routes
-const authenticationRouter = require('./routes/AuthenticationRouter');
+const loginRouter = require('./routes/LoginRouter');
+const authenticationService = require('./middleware/AuthenticationService');
 const userRouter = require('./routes/UserRouter');
 const textRouter = require('./routes/TextRouter');
 
@@ -40,7 +41,8 @@ app.use(cors());
 app.use(morgan('dev'));
 
 // Set up routers
-app.use('/', authenticationRouter);
+app.use('/', loginRouter);
+app.use('/', authenticationService);
 app.use('/', userRouter);
 app.use('/', textRouter);
 

@@ -1,5 +1,6 @@
 import 'whatwg-fetch';
 import AppConfig from '../../AppConfig';
+import { httpFetch } from './HTTPThunks';
 import {
     requestLibraryDocuments,
     receiveLibraryDocuments
@@ -31,16 +32,18 @@ export function fetchLibraryDocuments() {
         const url = AppConfig.baseURL + 'user/' + userID + '/getMoreDocuments?titleGreaterThan=' + titleGreaterThan;
 
         dispatch(requestLibraryDocuments(getState()));
-        return fetch(url, {
-            method: 'get',
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json',
-            }
-        })
+        // return fetch(url, {
+        //     method: 'get',
+        //     headers: {
+        //         'Content-Type': 'application/json',
+        //         'Accept': 'application/json',
+        //     }
+        // })
+        return httpFetch(dispatch, getState, 'get', url)
         .then(docs => {
             if (docs) {
-                return docs.json();
+                // return docs.json();
+                return docs;
             } else {
                 // No docs were received
                 dispatch(receiveLibraryDocuments(getState(), []));
@@ -64,7 +67,6 @@ export function onAddDocumentToBookshelf(libraryDocument, history) {
         dispatch(updateDocumentProgress(getState(), documentMetadata._id, 0));
         dispatch(clearBlocks(getState()));
 
-        // TODO: Go to Reader component (route: '/')
         history.push('/');
     }
 }

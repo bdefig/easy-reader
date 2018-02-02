@@ -20,8 +20,7 @@ export function user(state = {}, action) {
             return Object.assign({}, state, {
                 isFetching: false,
                 userID: action.userID,
-                name: action.name,
-                token: action.token
+                name: action.name
             });
         case CREATE_USER_FAILURE:
             return Object.assign({}, state, {
@@ -37,8 +36,7 @@ export function user(state = {}, action) {
             return Object.assign({}, state, {
                 isFetching: false,
                 userID: action.userID,
-                name: action.name,
-                token: action.token
+                name: action.name
             });
         case LOGIN_FAILURE:
             return Object.assign({}, state, {
@@ -48,15 +46,13 @@ export function user(state = {}, action) {
         case LOGOUT:
             return Object.assign({}, state, {
                 userID: null,
-                name: null,
-                token: null
+                name: null
             });
         case RESET_USER_STATE:
             return Object.assign({}, state, {
                 isFetching: false,
                 userID: null,
                 name: null,
-                token: null,
                 authenticationErrorMessage: null,
                 settings: {
                     minWordCount: 500

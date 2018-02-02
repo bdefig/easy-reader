@@ -1,5 +1,6 @@
 import 'whatwg-fetch';
 import AppConfig from '../../AppConfig';
+import { httpFetch } from './HTTPThunks';
 import {
     requestBookshelfDocuments,
     receiveBookshelfDocuments,
@@ -33,18 +34,19 @@ function fetchBookshelfDocuments() {
         const url = AppConfig.baseURL + 'user/' + userID + '/getDocumentProgress';
 
         dispatch(requestBookshelfDocuments(getState()));
-        return fetch(url, {
-            method: 'get',
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json',
-            }
-        })
-        .then(documentProgresses => documentProgresses.json())
+        // return fetch(url, {
+        //     method: 'get',
+        //     headers: {
+        //         'Content-Type': 'application/json',
+        //         'Accept': 'application/json',
+        //     }
+        // })
+        return httpFetch(dispatch, getState, 'get', url)
+        // .then(documentProgresses => documentProgresses.json())
         .then(jsonDocumentProgresses => {
             dispatch(receiveBookshelfDocuments(getState(), jsonDocumentProgresses));
-            return;
-        });
+        })
+        .catch(err => console.log(err));
     }
 }
 
@@ -65,7 +67,6 @@ export function onSwitchToBookshelfDocument(bookshelfDocument, history) {
         dispatch(updateDocumentProgress(getState(), documentMetadata._id, currentIndex));
         dispatch(clearBlocks(getState()));
 
-        // TODO: Go to Reader component (route: '/')
         history.push('/');
     }
 }
@@ -86,15 +87,18 @@ export function onRemoveBookshelfDocument(bookshelfDocument) {
 
         // TODO: Add isRemoving to currentDocument state (and check this when loading initial reader state)
         // May also need to remove text blocks from state
-        return fetch(url, {
-            method: 'get',
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json',
-            }
-        })
-        .then(res => res.json())
-        .then(jsonRes => {
+
+        // return fetch(url, {
+        //     method: 'get',
+        //     headers: {
+        //         'Content-Type': 'application/json',
+        //         'Accept': 'application/json',
+        //     }
+        // })
+        
+        return httpFetch(dispatch, getState, 'get', url)
+        // .then(res => res.json())
+        .then(jsonResponse => {
             if (state.currentDocument._id === documentID) {
                 dispatch(didRemoveCurrentDocument(getState()));
                 dispatch(clearBlocks(getState()));

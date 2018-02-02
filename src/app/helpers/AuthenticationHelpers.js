@@ -1,4 +1,4 @@
 export function loggedIn() {
-    // TODO: Verify token
-    return !!localStorage.getItem('token');
+    // TODO: Verify token (maybe)
+    return !!localStorage.getItem('refreshToken');
 }

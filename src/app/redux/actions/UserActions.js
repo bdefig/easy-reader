@@ -16,12 +16,11 @@ export function requestCreateUser(state, userToCreate) {
     }
 }
 
-export function createUserSuccess(state, userID, name, token) {
+export function createUserSuccess(state, userID, name) {
     return {
         type: CREATE_USER_SUCCESS,
         userID: userID,
-        name: name,
-        token: token
+        name: name
     }
 }
 
@@ -39,13 +38,12 @@ export function requestLogin(state, loginInfo) {
     }
 }
 
-export function loginSuccess(state, userID, name, token) {
+export function loginSuccess(state, userID, name) {
     localStorage.setItem('hasLoggedIn', true);
     return {
         type: LOGIN_SUCCESS,
         userID: userID,
-        name: name,
-        token: token
+        name: name
     }
 }
 
