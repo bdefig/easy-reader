@@ -109,6 +109,8 @@ exports.login = function (req, res, next) {
 }
 
 exports.requestNewAccessToken = function(req, res, next) {
+    console.log('New access token requested');
+    console.log(req);
     const appSecret = req.app.get('authenticationSecret');
     let refreshToken = '';
     let userID = '';
@@ -116,25 +118,28 @@ exports.requestNewAccessToken = function(req, res, next) {
         refreshToken = req.body.refreshToken;
         userID = req.body.userID;
     } else {
+        console.log('No refresh token or userID sent');
         res.status(401).send();
         return;
     }
     ServerAuthenticationHelpers.verifyRefreshToken(refreshToken, appSecret)
     .then(verifiedToken => {
+        console.log('Refresh token verified');
         if (verifiedToken.verified === true) {
             // Generate and send new access token
             ServerAuthenticationHelpers.generateAccessToken(req.body.userID, appSecret)
             .then(newAccesToken => {
-                req.json({
+                res.json({
                     success: true,
                     accessToken: newAccesToken
                 });
             })
             .catch(err => {
-                console.log('Here');
+                console.log('Error generating or sending new access token: ' + err);
                 return err;
             });
         } else {
+            console.log('Refresh token not verified');
             res.status(401).send();
         }
     })

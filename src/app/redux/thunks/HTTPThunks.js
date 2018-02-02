@@ -264,10 +264,10 @@ export function requestNewAccessToken(dispatch, getState, refreshToken, userID) 
             'Content-Type': 'application/json',
             'Accept': 'application/json',
         },
-        body: {
+        body: JSON.stringify({
             refreshToken: refreshToken,
             userID: userID
-        }
+        })
     })
     .then(response => {
         if (response) {
