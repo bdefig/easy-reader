@@ -11,7 +11,8 @@ import {
 } from '../actions/CurrentDocumentActions';
 import {
     requestBlocks,
-    receiveBlocks
+    receiveBlocks,
+    didNotReceiveBlocks
 } from '../actions/TextBlocksActions';
 import {
     calculateIndexCheckpoints,
@@ -148,10 +149,15 @@ export function fetchBlocks(direction) {
             // .then(receivedBlocks => receivedBlocks.json())
             .then(jsonBlocks => {
                 if (jsonBlocks) {
+                    console.log('Blocks received: ');
+                    console.log(jsonBlocks);
                     dispatch(receiveBlocks(getState(), jsonBlocks));
                     dispatch(updateDocumentProgress(getState(), jsonBlocks[0].documentID, jsonBlocks[0].index));
+                } else {
+                    dispatch(didNotReceiveBlocks(getState()));
                 }
-            });
+            })
+            .catch(err => console.log('Error fetching text blocks: ' + err));
         }
     }
 }

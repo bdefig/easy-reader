@@ -61,15 +61,15 @@ export function httpFetch(dispatch, getState, method, url, msgBody) {
             return Error('No response');
         }
     })
-    .then(jsonResponse => {
-        if (jsonResponse.accessToken) {     // May be unnecessary becaue we changed the way we're getting responses
-            dispatch(updateAccessToken(jsonResponse.accessToken));
-            delete jsonResponse.accessToken;
-            return jsonResponse;
-        } else {
-            return jsonResponse;
-        }
-    })
+    // .then(jsonResponse => {
+    //     if (jsonResponse.accessToken) {     // May be unnecessary becaue we changed the way we're getting responses
+    //         dispatch(updateAccessToken(jsonResponse.accessToken));
+    //         delete jsonResponse.accessToken;
+    //         return jsonResponse;
+    //     } else {
+    //         return jsonResponse;
+    //     }
+    // })
     .then(responseBody => {
         return responseBody;
     })
