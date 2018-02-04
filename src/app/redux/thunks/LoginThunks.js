@@ -30,7 +30,7 @@ export function createUser(name, email, password) {
         };
 
         dispatch(requestCreateUser(getState(), msgBody));
-        fetchCreateUser(dispatch, getState, url, msgBody)
+        return fetchCreateUser(dispatch, getState, url, msgBody)
         .then(jsonResponse => {
             if (jsonResponse && jsonResponse.success) {
                 localStorage.setItem('userID', jsonResponse.userID);
@@ -58,7 +58,7 @@ export function login(email, password) {
         };
 
         dispatch(requestLogin(getState(), msgBody));
-        fetchLogin(dispatch, getState, url, msgBody)
+        return fetchLogin(dispatch, getState, url, msgBody)
         .then(jsonResponse => {
             if (jsonResponse && jsonResponse.success) {
                 localStorage.setItem('userID', jsonResponse.userID);

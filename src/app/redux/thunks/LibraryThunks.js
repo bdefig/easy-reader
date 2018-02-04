@@ -34,15 +34,6 @@ export function fetchLibraryDocuments() {
         dispatch(requestLibraryDocuments(getState()));
 
         return httpFetch(dispatch, getState, 'get', url)
-        // .then(docs => {
-        //     if (docs) {
-        //         return docs;
-        //     } else {
-        //         // No docs were received
-        //         dispatch(receiveLibraryDocuments(getState(), []));
-        //         return Error('No library documents received');
-        //     }
-        // })
         .then(jsonDocs => {
             if (jsonDocs) {
                 dispatch(receiveLibraryDocuments(getState(), jsonDocs));
