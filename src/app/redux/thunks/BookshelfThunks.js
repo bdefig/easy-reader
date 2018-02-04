@@ -27,7 +27,7 @@ export function loadInitialBookshelfState() {
     }
 }
 
-function fetchBookshelfDocuments() {
+export function fetchBookshelfDocuments() {
     return (dispatch, getState) => {
         const state = getState();
         const userID = state.user.userID;

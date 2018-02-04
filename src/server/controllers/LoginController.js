@@ -110,7 +110,7 @@ exports.login = function (req, res, next) {
 
 exports.requestNewAccessToken = function(req, res, next) {
     console.log('New access token requested');
-    console.log(req);
+    // console.log(req);
     const appSecret = req.app.get('authenticationSecret');
     let refreshToken = '';
     let userID = '';

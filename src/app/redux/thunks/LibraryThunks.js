@@ -53,7 +53,8 @@ export function fetchLibraryDocuments() {
         .then(jsonDocs => {
             dispatch(receiveLibraryDocuments(getState(), jsonDocs));
             return;
-        });
+        })
+        .catch(err => console.log(err));
     }
 }
 

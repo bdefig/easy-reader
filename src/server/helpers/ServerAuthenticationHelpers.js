@@ -74,7 +74,7 @@ exports.generateAccessToken = function (userID, appSecret) {
     const payload = {};
     const options = {
         subject: userID.toString(),
-        expiresIn: '1m'
+        expiresIn: '15s'
     };
     return new Promise ((resolve, reject) => {jwt.sign(payload, appSecret, options, (err, token) => {
             if (err) {

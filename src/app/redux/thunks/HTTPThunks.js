@@ -34,10 +34,10 @@ export function httpFetch(dispatch, getState, method, url, msgBody) {
             const refreshToken = getState().authentication.refreshToken;
             if (refreshToken) {
                 // Use refresh token to get new access token
-                requestNewAccessToken(dispatch, getState, refreshToken, getState().user.userID)
+                return requestNewAccessToken(dispatch, getState, refreshToken, getState().user.userID)
                 // Use new access token to retry request
                 .then(newAccessToken => {
-                    fetch(url, {
+                    return fetch(url, {
                         method: 'get',
                         headers: {
                             'Content-Type': 'application/json',
@@ -45,15 +45,17 @@ export function httpFetch(dispatch, getState, method, url, msgBody) {
                             'Authorization': 'Bearer ' + newAccessToken
                         }
                     })
+                    .then(response => {
+                        return response.json();
+                    })
+                    .catch(err => {
+                        return Error('Error retrying request with new access token: ' + err);
+                    })
                 })
-                .then(response => {
-                    return response.json();
-                })
-                .catch(err => {
-                    return Error('Error retrying request with new access token: ' + err);
-                })
+                .catch(err => console.log(err));
             } else {
                 dispatch(resetStateAndLogout());
+                return Error('No refresh token. Logging out.');
             }
         } else if (response) {
             return response.json();
@@ -61,15 +63,6 @@ export function httpFetch(dispatch, getState, method, url, msgBody) {
             return Error('No response');
         }
     })
-    // .then(jsonResponse => {
-    //     if (jsonResponse.accessToken) {     // May be unnecessary becaue we changed the way we're getting responses
-    //         dispatch(updateAccessToken(jsonResponse.accessToken));
-    //         delete jsonResponse.accessToken;
-    //         return jsonResponse;
-    //     } else {
-    //         return jsonResponse;
-    //     }
-    // })
     .then(responseBody => {
         return responseBody;
     })

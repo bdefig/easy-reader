@@ -19,11 +19,15 @@ import {
     calculateIndicesFromCheckpoints
 } from '../../helpers/ReaderHelpers';
 import {
+    fetchBookshelfDocuments
+} from './BookshelfThunks';
+import {
     updateProgressOnBookshelf
 } from '../actions/BookshelfActions';
 
 export function loadInitialReaderState() {
     return (dispatch, getState) => {
+        dispatch(fetchBookshelfDocuments());
         if (!getState().currentDocument._id || getState().currentDocument.isRemoving) {
             dispatch(fetchCurrentDocument());
         } else {
@@ -50,7 +54,7 @@ export function fetchCurrentDocument() {
         // .then(currentDocumentProgresses => currentDocumentProgresses.json())
         .then(jsonCurrentDocumentProgresses => {
             // Only get the most recent current document
-            if (jsonCurrentDocumentProgresses.length > 0) {
+            if (jsonCurrentDocumentProgresses && jsonCurrentDocumentProgresses.length > 0) {
                 const currentDocument = jsonCurrentDocumentProgresses[0].document;
                 const currentIndex = jsonCurrentDocumentProgresses[0].currentBlock;
                 let wordCountPerBlock = currentDocument.wordCountPerBlock;
