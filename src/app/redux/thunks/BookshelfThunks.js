@@ -34,15 +34,8 @@ export function fetchBookshelfDocuments() {
         const url = AppConfig.baseURL + 'user/' + userID + '/getDocumentProgress';
 
         dispatch(requestBookshelfDocuments(getState()));
-        // return fetch(url, {
-        //     method: 'get',
-        //     headers: {
-        //         'Content-Type': 'application/json',
-        //         'Accept': 'application/json',
-        //     }
-        // })
+
         return httpFetch(dispatch, getState, 'get', url)
-        // .then(documentProgresses => documentProgresses.json())
         .then(jsonDocumentProgresses => {
             dispatch(receiveBookshelfDocuments(getState(), jsonDocumentProgresses));
         })
@@ -75,7 +68,7 @@ export function onRemoveBookshelfDocument(bookshelfDocument) {
     return (dispatch, getState) => {
         const state = getState();
         const userID = state.user.userID;
-        const documentID = bookshelfDocument._id;   // TODO: Is this the right thing to grab?
+        const documentID = bookshelfDocument._id;
         const url = AppConfig.baseURL + 'user/' + userID + '/removeOneDocumentProgress/' + documentID;
 
         if (state.currentDocument._id === documentID) {
@@ -85,19 +78,7 @@ export function onRemoveBookshelfDocument(bookshelfDocument) {
 
         dispatch(removeBookshelfDocument(getState(), documentID));
 
-        // TODO: Add isRemoving to currentDocument state (and check this when loading initial reader state)
-        // May also need to remove text blocks from state
-
-        // return fetch(url, {
-        //     method: 'get',
-        //     headers: {
-        //         'Content-Type': 'application/json',
-        //         'Accept': 'application/json',
-        //     }
-        // })
-        
         return httpFetch(dispatch, getState, 'get', url)
-        // .then(res => res.json())
         .then(jsonResponse => {
             if (state.currentDocument._id === documentID) {
                 dispatch(didRemoveCurrentDocument(getState()));

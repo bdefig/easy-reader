@@ -32,27 +32,25 @@ export function fetchLibraryDocuments() {
         const url = AppConfig.baseURL + 'user/' + userID + '/getMoreDocuments?titleGreaterThan=' + titleGreaterThan;
 
         dispatch(requestLibraryDocuments(getState()));
-        // return fetch(url, {
-        //     method: 'get',
-        //     headers: {
-        //         'Content-Type': 'application/json',
-        //         'Accept': 'application/json',
+
+        return httpFetch(dispatch, getState, 'get', url)
+        // .then(docs => {
+        //     if (docs) {
+        //         return docs;
+        //     } else {
+        //         // No docs were received
+        //         dispatch(receiveLibraryDocuments(getState(), []));
+        //         return Error('No library documents received');
         //     }
         // })
-        return httpFetch(dispatch, getState, 'get', url)
-        .then(docs => {
-            if (docs) {
-                // return docs.json();
-                return docs;
+        .then(jsonDocs => {
+            if (jsonDocs) {
+                dispatch(receiveLibraryDocuments(getState(), jsonDocs));
             } else {
                 // No docs were received
                 dispatch(receiveLibraryDocuments(getState(), []));
                 return Error('No library documents received');
             }
-        })
-        .then(jsonDocs => {
-            dispatch(receiveLibraryDocuments(getState(), jsonDocs));
-            return;
         })
         .catch(err => console.log(err));
     }
