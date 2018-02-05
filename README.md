@@ -26,9 +26,13 @@ A light reader built in React that makes reading books as easy as reading articl
 ### Documents
 
 ### Reader
+- [ ] Fit heading text to available size (use React-FitText)
 - [ ] Jump to location
 
 ### Admin
 - [ ] Admin portal
     - [ ] Add books
     - [ ] Edit books
+
+### General Code Stuff
+- [ ] When requesting resources (in thunks), make sure to turn isFetching to false if there's an error

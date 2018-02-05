@@ -28,7 +28,7 @@ exports.generateRefreshToken = function (userID, appSecret) {
     const payload = {};
     const options = {
         subject: userID.toString(),
-        expiresIn: '20m'
+        expiresIn: '1y'
     };
     return new Promise((resolve, reject) => {jwt.sign(payload, appSecret, options, (err, token) => {
             if (err) {
@@ -74,7 +74,7 @@ exports.generateAccessToken = function (userID, appSecret) {
     const payload = {};
     const options = {
         subject: userID.toString(),
-        expiresIn: '15s'
+        expiresIn: '1h'
     };
     return new Promise ((resolve, reject) => {jwt.sign(payload, appSecret, options, (err, token) => {
             if (err) {

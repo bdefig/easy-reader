@@ -98,34 +98,34 @@ function insertDocument(docMetadata, docBlocks) {
     });
 }
 
-function insertDocumentMetadata (documentTitle, documentAuthor) {
-    return new Promise ( (resolve, reject) => {
+// function insertDocumentMetadata (documentTitle, documentAuthor) {
+//     return new Promise ( (resolve, reject) => {
         
-        const thisDocumentMetadata = {};
-        thisDocumentMetadata['title'] = documentTitle;
-        thisDocumentMetadata['author'] = documentAuthor;
-        thisDocumentMetadata['wordCountPerBlock'] = [];
+//         const thisDocumentMetadata = {};
+//         thisDocumentMetadata['title'] = documentTitle;
+//         thisDocumentMetadata['author'] = documentAuthor;
+//         thisDocumentMetadata['wordCountPerBlock'] = [];
 
-        const url = urlPath + '/v0/documentMetadata/insert';
+//         const url = urlPath + '/v0/documentMetadata/insert';
 
-        fetch(url, {
-            method: 'post',
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-                },
-            body: JSON.stringify(thisDocumentMetadata)
-            })
-            .then(docMetaSaved => {return docMetaSaved.json()})
-            .then(docMeta => {
-                console.log('Document metadata saved to DB:');
-                console.log(docMeta);
-                resolve(docMeta);
-                // TODO: Reject if metadata not saved
-            })
-            .catch(err => console.log(err));
-    });
-}
+//         fetch(url, {
+//             method: 'post',
+//             headers: {
+//                 'Content-Type': 'application/json',
+//                 'Accept': 'application/json'
+//                 },
+//             body: JSON.stringify(thisDocumentMetadata)
+//             })
+//             .then(docMetaSaved => {return docMetaSaved.json()})
+//             .then(docMeta => {
+//                 console.log('Document metadata saved to DB:');
+//                 console.log(docMeta);
+//                 resolve(docMeta);
+//                 // TODO: Reject if metadata not saved
+//             })
+//             .catch(err => console.log(err));
+//     });
+// }
 
 function parseBlock (text, index) {
     // Note that these blocks won't have a documentID
