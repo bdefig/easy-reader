@@ -13,17 +13,6 @@ exports.checkPassword = function (passwordToCheck, actualHash) {
     return bcrypt.compare(passwordToCheck, actualHash);
 }
 
-// // TODO: Remove this
-// exports.generateToken = function (userID) {
-//     // TODO: Should probably do this asynchronously
-//     const payload = {};
-//     const token = jwt.sign(payload, config.secret, {
-//         subject: userID.toString(),
-//         expiresIn: '1y'
-//     });
-//     return token;
-// }
-
 exports.generateRefreshToken = function (userID, appSecret) {
     const payload = {};
     const options = {
