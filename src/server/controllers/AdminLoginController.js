@@ -76,7 +76,7 @@ exports.login = function (req, res, next) {
         }
     })
     .then(accessToken => {
-        console.log('Login success: ' + userID);
+        console.log('Login success: ' + adminID);
         res.json({
             success: true,
             adminID: adminID,

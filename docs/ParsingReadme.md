@@ -1,7 +1,10 @@
 # Parsing README
 
 - Get text file and put it in `../src/assets/texts`
+- Open the file in VS Code and change the end of line sequence from CRLF to LF (there's a button on the bottom ribbon)
 - Remove header and footer information
-- Do a regex find and replace and replace the string `\n(?!\n)` with empty space (this gets rid of the newlines in the middle of paragraphs)
-- Open `../src/server/utils/TextParser.js` and change the path, title, and author near the top of the file
-- Run `node TextParser.js`
+- Find and replace `-\n` with `-`
+- Do a regex find and replace and replace the string `\n(?!\n)` with a space (' ') (this gets rid of the newlines in the middle of paragraphs)
+- Find and replace the extra spaces (replace ` ` with ``)
+- Find and replace the extra new lines (`\n\n` with `\n`)
+- Run node AdminCLI.js and follow the prompts

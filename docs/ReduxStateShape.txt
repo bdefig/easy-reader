@@ -24,7 +24,7 @@ currentDocument: {
 textBlocks: {
 	isFetching: bool,
 	blocks: [{
-		documentID: string,
+		document: string,
 		index: int,
 		text: string,
 		textType: string,

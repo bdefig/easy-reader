@@ -33,7 +33,7 @@ exports.insertDocumentMetadata = function (req, res, next) {
 
 exports.getOneDocumentBlock = function (req, res, next) {
     DocumentBlock.findOne({
-            documentID: req.params.documentID,
+            document: req.params.documentID,
             index: req.params.blockIndex
         })
         .then(block => {
@@ -48,7 +48,7 @@ exports.getDocumentBlocks = function (req, res, next) {
     console.log('\tFist block: ' + req.params.firstBlockIndex);
     console.log('\tLast block: ' + req.params.lastBlockIndex);
     DocumentBlock.find({
-        documentID: req.params.documentID,
+        document: req.params.documentID,
         index: { $gte : req.params.firstBlockIndex, $lte : req.params.lastBlockIndex }
     }, null, {sort: {index: 1}}).exec()
         .then(blocks => {
@@ -71,7 +71,7 @@ exports.insertDocumentBlocks = function (req, res, next) {
         // Add validation
 
         const newDocBlock = new DocumentBlock ({
-            documentID: block.documentID,
+            document: block.documentID,
             index: block.index,
             text: block.text,
             textType: block.textType,
@@ -102,7 +102,7 @@ exports.insertDocument = function (req, res, next) {
 
     let bulk = DocumentBlock.collection.initializeUnorderedBulkOp();
     for (let block of blocks) {
-        block['documentID'] = documentID;
+        block.document = documentID;
         bulk.insert(block);
     }
 
@@ -116,7 +116,7 @@ exports.deleteDocumentByID = function (req, res, next) {
     DocumentMetadata.findByIdAndRemove(req.params.documentID)
         .then(deletedMetadata => {
             DocumentBlock.deleteMany({
-                documentID: req.params.documentID
+                document: req.params.documentID
             })
         })
         .then(deletedBlocks => res.json({Success: 'Document metadata and blocks removed'}))
