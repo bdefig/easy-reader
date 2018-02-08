@@ -30,9 +30,10 @@ A light reader built in React that makes reading books as easy as reading articl
 - [ ] Jump to location
 
 ### Admin
-- [ ] Admin portal
-    - [ ] Add books
+- [x] Admin CLI
+    - [x] Add books
     - [ ] Edit books
+        - Probably won't do this right now
 
 ### General Code Stuff
 - [ ] When requesting resources (in thunks), make sure to turn isFetching to false if there's an error
